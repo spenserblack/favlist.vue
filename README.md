@@ -1,5 +1,7 @@
 # favlist.vue
 
+[![Build Status](https://travis-ci.com/spenserblack/favlist.vue.svg?branch=master)](https://travis-ci.com/spenserblack/favlist.vue)
+
 ## Project setup
 ```
 npm install
