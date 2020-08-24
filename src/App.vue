@@ -1,17 +1,34 @@
 <template lang='pug'>
   #app
+    div(v-for='alert in alerts') {{ alert.message }}
     h1 FAVLIST
     p(v-if='noLists') You don't have any lists :(
     button(v-on:click='addList') + Add List
 </template>
 
 <script>
+import {readFileSync} from 'fs';
+
 export default {
   name: 'App',
   components: {},
   data() {
+    const alerts = [];
+    let favlists = [];
+
+    try {
+      const favlistFileText = readFileSync('favlist.json', 'utf8');
+      favlists = JSON.parse(favlistFileText).favlists || [];
+    } catch {
+      alerts.push({
+        type: 'info',
+        message: 'No valid "favlist.json" file was found. One will be created.',
+      });
+    }
+
     return {
-      favlists: [],
+      favlists,
+      alerts,
     };
   },
   computed: {
