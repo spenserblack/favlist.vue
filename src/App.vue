@@ -1,6 +1,12 @@
 <template lang='pug'>
   #app
-    div(v-for='alert in alerts') {{ alert.message }}
+    Alert(
+      class='alerts-item'
+      v-for='(alert, index) in alerts'
+      v-bind='alert'
+      v-on:close='alerts.splice(index, 1)'
+      :key='index'
+    )
     h1 FAVLIST
     p(v-if='noLists') You don't have any lists :(
     button(v-on:click='addList') + Add List
@@ -8,10 +14,13 @@
 
 <script>
 import {readFileSync} from 'fs';
+import Alert from './components/Alert.vue';
 
 export default {
   name: 'App',
-  components: {},
+  components: {
+    Alert,
+  },
   data() {
     const alerts = [];
     let favlists = [];
