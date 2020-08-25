@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import {readFileSync} from 'fs';
 import Alert from './components/Alert.vue';
 
 export default {
@@ -22,22 +21,11 @@ export default {
     Alert,
   },
   data() {
-    const alerts = [];
-    let favlists = [];
-
-    try {
-      const favlistFileText = readFileSync('favlist.json', 'utf8');
-      favlists = JSON.parse(favlistFileText).favlists || [];
-    } catch {
-      alerts.push({
-        type: 'info',
-        message: 'No valid "favlist.json" file was found. One will be created.',
-      });
-    }
+    let favlists = localStorage.getItem('favlists') || [];
 
     return {
       favlists,
-      alerts,
+      alerts: [],
     };
   },
   computed: {
