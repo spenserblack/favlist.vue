@@ -61,5 +61,4 @@ export default {
   text-align: center
   background-color: #222
   color: YellowGreen
-  height: 100vh
 </style>
