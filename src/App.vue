@@ -9,6 +9,8 @@
     )
     h1 FAVLIST
     p(v-if='noLists') You don't have any lists :(
+    .favlist(v-for='favlist in favlists')
+      h2.title {{ favlist.title }}
     button(v-on:click='addList') + Add List
 </template>
 
@@ -35,7 +37,11 @@ export default {
   },
   methods: {
     addList() {
-      alert('Not implemented');
+      this.favlists.push({
+        title: 'New Favlist',
+        items: [],
+      });
+      console.warn('%c TODO%c save results', 'font-size: 2.5em', 'color: white');
     }
   },
 }
