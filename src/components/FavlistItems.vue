@@ -37,6 +37,9 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+.items
+  margin: auto
+
 td.empty::before
   content: "Add an item"
   opacity: 66%
