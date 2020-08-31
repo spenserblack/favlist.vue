@@ -49,7 +49,6 @@ export default {
         title: 'New Favlist',
         items: [],
       });
-      console.warn('%c TODO%c save results', 'font-size: 2.5em', 'color: white');
     },
     saveOn(fn) {
       fn();
