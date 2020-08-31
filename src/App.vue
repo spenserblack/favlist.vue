@@ -13,7 +13,8 @@
       v-for='(favlist, index) in favlists'
       v-bind='favlist'
       @update-title='saveOn(() => favlists[index].title = $event)'
-      :key='index'
+      @delete='saveOn(() => favlists.splice(index, 1))'
+      :key='listKey()'
     )
     button(v-on:click='saveOn(addList)') + Add List
 </template>
@@ -23,6 +24,7 @@ import Alert from './components/Alert.vue';
 import Favlist from './components/Favlist.vue';
 
 const favlistLocalStorage = 'favlists';
+let listKey = 0;
 
 export default {
   name: 'App',
@@ -49,6 +51,10 @@ export default {
         title: 'New Favlist',
         items: [],
       });
+    },
+    listKey() {
+      listKey++;
+      return listKey;
     },
     saveOn(fn) {
       fn();
