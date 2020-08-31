@@ -14,7 +14,6 @@
       v-bind='favlist'
       @update-title='saveOn(() => favlists[index].title = $event)'
       @delete='saveOn(() => favlists.splice(index, 1))'
-      :key='listKey()'
     )
     button(v-on:click='saveOn(addList)') + Add List
 </template>
@@ -50,11 +49,8 @@ export default {
       this.favlists.push({
         title: 'New Favlist',
         items: [],
+        key: listKey++,
       });
-    },
-    listKey() {
-      listKey++;
-      return listKey;
     },
     saveOn(fn) {
       fn();
