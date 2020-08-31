@@ -1,6 +1,9 @@
 <template lang='pug'>
   .favlist
-    Title(v-bind:title='title' @update='onTitleUpdate')
+    .left-spacer
+    Title.title(v-bind:title='title' @update='onTitleUpdate')
+    .right-spacer
+      button.remove-button(@click='$emit("delete")') - Remove List
 </template>
 
 <script>
@@ -19,3 +22,14 @@ export default {
   },
 };
 </script>
+
+<style lang='stylus' scoped>
+.favlist
+  display: flex
+  flex-direction: row
+  justify-content: center
+  align-items: center
+
+  .left-spacer, .right-spacer
+    width: 10%
+</style>
