@@ -4,9 +4,9 @@
       tr
         th(
           v-for='header in columns'
-          :class='empty(header)'
-          contenteditable
-        ) {{ header }}
+          is='HeaderCell'
+          v-bind='{header}'
+        )
     tbody
       tr(v-for='(row, index) in data')
         td(v-for='datum in row' :class='empty(datum)' contenteditable)
@@ -14,8 +14,13 @@
 </template>
 
 <script>
+import HeaderCell from './Items/HeaderCell.vue';
+
 export default {
   name: 'FavlistItems',
+  components: {
+    HeaderCell,
+  },
   props: {
     items: {
       type: Array,
@@ -46,10 +51,6 @@ export default {
 
 td.empty::before
   content: "Add an item"
-  opacity: 66%
-
-th.empty::before
-  content: "Add a header"
   opacity: 66%
 
 .empty::before

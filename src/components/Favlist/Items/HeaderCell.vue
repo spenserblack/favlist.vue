@@ -1,0 +1,26 @@
+<template lang='pug'>
+  th(:class='{empty}' contenteditable) {{ header }}
+</template>
+
+<script>
+export default {
+  name: 'HeaderCell',
+  props: {
+    header: {
+      type: String,
+      required: true,
+    },
+  },
+  computed: {
+    empty() {
+      return !this.header;
+    },
+  },
+};
+</script>
+
+<style lang='stylus' scoped>
+.empty::before
+  content: "Add a header"
+  opacity: 66%
+</style>
