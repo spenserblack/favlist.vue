@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import Title from './Favlist/FavlistTitle.vue';
-import Items from './Favlist/FavlistItems.vue';
+import Title from './Favlist/Title.vue';
+import Items from './Favlist/Items.vue';
 
 export default {
   name: 'Favlist',
