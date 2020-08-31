@@ -11,6 +11,9 @@ export default {
       required: true,
     },
   },
+  mounted() {
+    this.$el.innerText = this.title;
+  },
   methods: {
     onInput(e) {
       this.$emit('update', e.target.innerText);
