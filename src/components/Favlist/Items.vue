@@ -9,17 +9,18 @@
         )
     tbody
       tr(v-for='(row, index) in data')
-        td(v-for='datum in row' :class='empty(datum)' contenteditable)
-          | {{ datum }}
+        td(v-for='datum in row' is='DataCell' v-bind='{datum}')
 </template>
 
 <script>
 import HeaderCell from './Items/HeaderCell.vue';
+import DataCell from './Items/DataCell.vue';
 
 export default {
   name: 'FavlistItems',
   components: {
     HeaderCell,
+    DataCell,
   },
   props: {
     items: {
