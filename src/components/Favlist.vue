@@ -1,16 +1,16 @@
 <template lang='pug'>
   .favlist
-    h2.title {{ title }}
+    Title(v-bind:title='title')
 </template>
 
 <script>
+import Title from './FavlistTitle.vue';
+
 export default {
   name: 'Favlist',
-  props: {
-    title: {
-      type: String,
-      required: true,
-    }
+  props: ['title'],
+  components: {
+    Title,
   },
 };
 </script>
