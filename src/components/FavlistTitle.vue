@@ -21,3 +21,8 @@ export default {
   },
 };
 </script>
+
+<style lang='stylus' scoped>
+.title
+  min-width: 1em
+</style>
