@@ -49,11 +49,4 @@ export default {
 <style lang='stylus' scoped>
 .items
   margin: auto
-
-td.empty::before
-  content: "Add an item"
-  opacity: 66%
-
-.empty::before
-  opacity: 66%
 </style>
