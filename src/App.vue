@@ -9,18 +9,19 @@
     )
     h1 FAVLIST
     p(v-if='noLists') You don't have any lists :(
-    .favlist(v-for='favlist in favlists')
-      h2.title {{ favlist.title }}
+    Favlist(v-for='favlist in favlists' v-bind='favlist')
     button(v-on:click='addList') + Add List
 </template>
 
 <script>
 import Alert from './components/Alert.vue';
+import Favlist from './components/Favlist.vue';
 
 export default {
   name: 'App',
   components: {
     Alert,
+    Favlist,
   },
   data() {
     let favlists = localStorage.getItem('favlists') || [];
