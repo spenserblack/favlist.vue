@@ -28,10 +28,12 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+@require '../../styles/variables.styl'
+
 .title
   min-width: 1em
 
 .empty::before
   content: "Add a title"
-  opacity: 66%
+  opacity: empty-opacity
 </style>
