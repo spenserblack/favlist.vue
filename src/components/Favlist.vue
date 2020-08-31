@@ -14,7 +14,6 @@ export default {
   },
   methods: {
     onTitleUpdate(newTitle) {
-      console.log('Title updated: ', newTitle);
       this.$emit('update-title', newTitle);
     },
   },
