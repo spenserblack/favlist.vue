@@ -2,10 +2,14 @@
   table.items
     thead
       tr
-        th(v-for='header in columns' :class='empty(header)') {{ header }}
+        th(
+          v-for='header in columns'
+          :class='empty(header)'
+          contenteditable
+        ) {{ header }}
     tbody
-      tr(v-for='row in data')
-        td(v-for='datum in row' :class='empty(datum)')
+      tr(v-for='(row, index) in data')
+        td(v-for='datum in row' :class='empty(datum)' contenteditable)
           | {{ datum }}
 </template>
 
