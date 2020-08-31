@@ -9,7 +9,11 @@
     )
     h1 FAVLIST
     p(v-if='noLists') You don't have any lists :(
-    Favlist(v-for='favlist in favlists' v-bind='favlist')
+    Favlist(
+      v-for='(favlist, index) in favlists'
+      v-bind='favlist'
+      @update-title='favlists[index].title = $event'
+    )
     button(v-on:click='addList') + Add List
 </template>
 

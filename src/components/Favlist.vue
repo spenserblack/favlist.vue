@@ -1,6 +1,6 @@
 <template lang='pug'>
   .favlist
-    Title(v-bind:title='title')
+    Title(v-bind:title='title' @update='onTitleUpdate')
 </template>
 
 <script>
@@ -11,6 +11,12 @@ export default {
   props: ['title'],
   components: {
     Title,
+  },
+  methods: {
+    onTitleUpdate(newTitle) {
+      console.log('Title updated: ', newTitle);
+      this.$emit('update-title', newTitle);
+    },
   },
 };
 </script>

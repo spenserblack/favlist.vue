@@ -1,5 +1,5 @@
 <template lang='pug'>
-  h2.title(contenteditable) {{ title }}
+  h2.title(contenteditable @input='onInput') {{ title }}
 </template>
 
 <script>
@@ -9,6 +9,11 @@ export default {
     title: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    onInput(e) {
+      this.$emit('update', e.target.innerText);
     },
   },
 };
