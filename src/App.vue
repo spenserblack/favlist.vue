@@ -12,15 +12,17 @@
     Favlist(
       v-for='(favlist, index) in favlists'
       v-bind='favlist'
-      @update-title='favlists[index].title = $event'
+      @update-title='saveOn(() => favlists[index].title = $event)'
       :key='index'
     )
-    button(v-on:click='addList') + Add List
+    button(v-on:click='saveOn(addList)') + Add List
 </template>
 
 <script>
 import Alert from './components/Alert.vue';
 import Favlist from './components/Favlist.vue';
+
+const favlistLocalStorage = 'favlists';
 
 export default {
   name: 'App',
@@ -29,7 +31,7 @@ export default {
     Favlist,
   },
   data() {
-    let favlists = localStorage.getItem('favlists') || [];
+    let favlists = JSON.parse(localStorage.getItem(favlistLocalStorage)) || [];
 
     return {
       favlists,
@@ -48,7 +50,11 @@ export default {
         items: [],
       });
       console.warn('%c TODO%c save results', 'font-size: 2.5em', 'color: white');
-    }
+    },
+    saveOn(fn) {
+      fn();
+      localStorage.setItem(favlistLocalStorage, JSON.stringify(this.favlists));
+    },
   },
 }
 </script>
