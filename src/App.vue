@@ -47,7 +47,7 @@ export default {
   methods: {
     addList() {
       this.favlists.push({
-        title: 'New Favlist',
+        title: '',
         items: [],
         key: listKey++,
       });
