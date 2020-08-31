@@ -23,7 +23,6 @@ import Alert from './components/Alert.vue';
 import Favlist from './components/Favlist.vue';
 
 const favlistLocalStorage = 'favlists';
-let listKey = 0;
 
 export default {
   name: 'App',
@@ -49,7 +48,7 @@ export default {
       this.favlists.push({
         title: '',
         items: [],
-        key: listKey++,
+        key: new Date().getTime(),
       });
     },
     saveOn(fn) {
