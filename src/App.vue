@@ -13,6 +13,7 @@
       v-for='(favlist, index) in favlists'
       v-bind='favlist'
       @update-title='favlists[index].title = $event'
+      :key='index'
     )
     button(v-on:click='addList') + Add List
 </template>
