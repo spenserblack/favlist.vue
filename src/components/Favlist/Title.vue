@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require '../../styles/variables.styl'
+@require '../../styles/variables'
 
 .title
   min-width: 1em
