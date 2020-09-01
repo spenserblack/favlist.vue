@@ -54,7 +54,7 @@ export default {
       });
     },
     updateColumn(favlistIndex, newColumn, index) {
-      this.favlists[favlistIndex].columns.splice(index, 1, newColumn);
+      this.$set(this.favlists[favlistIndex].columns, index, newColumn);
     },
     saveOn(fn) {
       fn();
