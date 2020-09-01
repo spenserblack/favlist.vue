@@ -47,7 +47,8 @@ export default {
     addList() {
       this.favlists.push({
         title: '',
-        items: [['']], // array of arrays -- items[0] is header
+        columns: [''],
+        data: [['']],
         key: new Date().getTime(),
       });
     },

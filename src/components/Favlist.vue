@@ -5,7 +5,7 @@
       Title.title(v-bind:title='title' @update='onTitleUpdate')
       .right-spacer
         button.remove-button(@click='$emit("delete")') - Remove List
-    Items(:items='items')
+    Items(:columns='columns' :data='data')
 </template>
 
 <script>
@@ -14,7 +14,7 @@ import Items from './Favlist/Items.vue';
 
 export default {
   name: 'Favlist',
-  props: ['title', 'items'],
+  props: ['title', 'columns', 'data'],
   components: {
     Title,
     Items,

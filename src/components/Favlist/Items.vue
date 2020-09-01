@@ -2,14 +2,10 @@
   table.items
     thead
       tr
-        th(
-          v-for='header in columns'
-          is='HeaderCell'
-          v-bind='{header}'
-        )
+        HeaderCell(v-for='header in columns' :header='header')
     tbody
-      tr(v-for='(row, index) in data')
-        td(v-for='datum in row' is='DataCell' v-bind='{datum}')
+      tr(v-for='(row, index) in transposedData')
+        DataCell(v-for='datum in row' :datum='datum')
 </template>
 
 <script>
@@ -23,18 +19,29 @@ export default {
     DataCell,
   },
   props: {
-    items: {
+    columns: {
+      type: Array,
+      required: true,
+    },
+    data: {
       type: Array,
       required: true,
     },
   },
   computed: {
-    columns() {
-      return this.items[0] || [];
+    transposedData() {
+      const transposed = [];
+      for (let i = 0; i < this.data.length; ++i) {
+        const column = this.data[i];
+        for (let j = 0; j < column.length; ++j) {
+          if (transposed[j] == null) {
+            transposed[j] = [];
+          }
+          transposed[j][i] = this.data[i][j];
+        }
+      }
+      return transposed;
     },
-    data() {
-      return this.items.slice(1);
-    }
   },
   methods: {
     empty(value) {
