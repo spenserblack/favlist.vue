@@ -9,7 +9,7 @@
         )
     tbody
       tr(v-for='(row, index) in transposedData')
-        DataCell(v-for='datum in row' :datum='datum')
+        DataCell(v-for='datum in row' :datum='datum || ""')
 </template>
 
 <script>
