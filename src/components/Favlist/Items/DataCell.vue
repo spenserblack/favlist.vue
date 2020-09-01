@@ -7,7 +7,7 @@ export default {
   name: 'DataCell',
   props: {
     datum: {
-      type: String,
+      type: [String, Number, Boolean, Date],
       required: true,
     },
   },
