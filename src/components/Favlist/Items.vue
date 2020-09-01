@@ -40,6 +40,7 @@ export default {
         for (let j = 0; j < column.length; ++j) {
           if (transposed[j] == null) {
             transposed[j] = [];
+            transposed[j].length = this.data.length;
           }
           transposed[j][i] = this.data[i][j];
         }
