@@ -1,5 +1,5 @@
 <template lang='pug'>
-  th(:class='{empty}' contenteditable) {{ header }}
+  th(:class='{empty}' contenteditable @input='onInput') {{ header }}
 </template>
 
 <script>
@@ -11,9 +11,17 @@ export default {
       required: true,
     },
   },
+  mounted() {
+    this.$el.innerText = this.header;
+  },
   computed: {
     empty() {
       return !this.header;
+    },
+  },
+  methods: {
+    onInput(e) {
+      this.$emit('update', e.target.innerText);
     },
   },
 };

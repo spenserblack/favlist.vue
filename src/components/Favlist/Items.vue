@@ -2,7 +2,11 @@
   table.items
     thead
       tr
-        HeaderCell(v-for='header in columns' :header='header')
+        HeaderCell(
+          v-for='(header, index) in columns'
+          :header='header'
+          @update='onHeaderUpdate($event, index)'
+        )
     tbody
       tr(v-for='(row, index) in transposedData')
         DataCell(v-for='datum in row' :datum='datum')
@@ -44,10 +48,8 @@ export default {
     },
   },
   methods: {
-    empty(value) {
-      return {
-        empty: !value,
-      };
+    onHeaderUpdate(newHeader, index) {
+      this.$emit('update-header', newHeader, index);
     },
   },
 };

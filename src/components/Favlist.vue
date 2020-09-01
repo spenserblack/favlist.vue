@@ -5,7 +5,7 @@
       Title.title(v-bind:title='title' @update='onTitleUpdate')
       .right-spacer
         button.remove-button(@click='$emit("delete")') - Remove List
-    Items(:columns='columns' :data='data')
+    Items(:columns='columns' :data='data' @update-header='onHeaderUpdate')
 </template>
 
 <script>
@@ -22,6 +22,9 @@ export default {
   methods: {
     onTitleUpdate(newTitle) {
       this.$emit('update-title', newTitle);
+    },
+    onHeaderUpdate(newHeader, index) {
+      this.$emit('update-column', newHeader, index);
     },
   },
 };

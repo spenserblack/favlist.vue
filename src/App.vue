@@ -13,6 +13,7 @@
       v-for='(favlist, index) in favlists'
       v-bind='favlist'
       @update-title='saveOn(() => favlists[index].title = $event)'
+      @update-column='(...args) => saveOn(() => updateColumn(index, ...args))'
       @delete='saveOn(() => favlists.splice(index, 1))'
     )
     button(v-on:click='saveOn(addList)') + Add List
@@ -47,10 +48,13 @@ export default {
     addList() {
       this.favlists.push({
         title: '',
-        columns: [''],
-        data: [['']],
+        columns: ['', ''],
+        data: [[1,2,3],[4,5,6]],
         key: new Date().getTime(),
       });
+    },
+    updateColumn(favlistIndex, newColumn, index) {
+      this.favlists[favlistIndex].columns.splice(index, 1, newColumn);
     },
     saveOn(fn) {
       fn();
