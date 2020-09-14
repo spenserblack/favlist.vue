@@ -2,10 +2,11 @@
   .favlist
     .header
       .left-spacer
-      Title.title(v-bind:title='title' @update='onTitleUpdate')
+      Title.title(:index='index')
       .right-spacer
-        button.remove-button(@click='$emit("delete")') - Remove List
-    Items(:columns='columns' :data='data' @update-header='onHeaderUpdate')
+        button.remove-button(@click='$store.commit("removeFavlist", index)')
+          | - Remove List
+    Items(:index='index')
 </template>
 
 <script>
@@ -14,15 +15,17 @@ import Items from './Favlist/Items.vue';
 
 export default {
   name: 'Favlist',
-  props: ['title', 'columns', 'data'],
+  props: {
+    index: {
+      required: true,
+      type: Number,
+    },
+  },
   components: {
     Title,
     Items,
   },
   methods: {
-    onTitleUpdate(newTitle) {
-      this.$emit('update-title', newTitle);
-    },
     onHeaderUpdate(newHeader, index) {
       this.$emit('update-column', newHeader, index);
     },

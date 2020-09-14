@@ -6,22 +6,28 @@
 export default {
   name: 'FavlistTitle',
   props: {
-    title: {
-      type: String,
+    index: {
+      type: Number,
       required: true,
     },
   },
   mounted() {
-    this.$el.innerText = this.title;
+    this.$el.innerText = this.$store.state.favlists[this.index].title;
   },
   computed: {
+    title() {
+      return this.$store.state.favlists[this.index].title;
+    },
     empty() {
       return !this.title;
     },
   },
   methods: {
     onInput(e) {
-      this.$emit('update', e.target.innerText);
+      this.$store.commit('updateTitle', {
+        favlistIndex: this.index,
+        title: e.target.innerText,
+      });
     },
   },
 };

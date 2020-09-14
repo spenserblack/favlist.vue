@@ -3,13 +3,20 @@
     thead
       tr
         HeaderCell(
-          v-for='(header, index) in columns'
-          :header='header'
-          @update='onHeaderUpdate($event, index)'
+          v-for='(header, columnIndex) in columns'
+          :favlist='index'
+          :column='columnIndex'
+          :key='columnIndex'
         )
     tbody
-      tr(v-for='(row, index) in transposedData')
-        DataCell(v-for='datum in row' :datum='datum || ""')
+      tr(v-for='rowIndex in dataHeight')
+        DataCell(
+          v-for='cellIndex in dataWidth'
+          :favlist='index'
+          :column='cellIndex - 1'
+          :cell='rowIndex - 1'
+          :key='`${rowIndex}.${cellIndex}`'
+        )
 </template>
 
 <script>
@@ -23,34 +30,26 @@ export default {
     DataCell,
   },
   props: {
-    columns: {
-      type: Array,
-      required: true,
-    },
-    data: {
-      type: Array,
+    index: {
+      type: Number,
       required: true,
     },
   },
   computed: {
-    transposedData() {
-      const transposed = [];
-      for (let i = 0; i < this.data.length; ++i) {
-        const column = this.data[i];
-        for (let j = 0; j < column.length; ++j) {
-          if (transposed[j] == null) {
-            transposed[j] = [];
-            transposed[j].length = this.data.length;
-          }
-          transposed[j][i] = this.data[i][j];
-        }
-      }
-      return transposed;
+    columns() {
+      return this.$store.state.favlists[this.index].columns;
     },
-  },
-  methods: {
-    onHeaderUpdate(newHeader, index) {
-      this.$emit('update-header', newHeader, index);
+    data() {
+      return this.$store.state.favlists[this.index].data;
+    },
+    dataHeight() {
+      return this.data.reduce((max, row) => {
+        const height = row.length;
+        return height > max ? height : max;
+      }, 0);
+    },
+    dataWidth() {
+      return this.data.length;
     },
   },
 };

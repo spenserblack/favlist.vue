@@ -11,54 +11,71 @@
     p(v-if='noLists') You don't have any lists :(
     Favlist(
       v-for='(favlist, index) in favlists'
-      v-bind='favlist'
-      @update-title='saveOn(() => favlists[index].title = $event)'
-      @update-column='(...args) => saveOn(() => updateColumn(index, ...args))'
-      @delete='saveOn(() => favlists.splice(index, 1))'
+      :key='favlist.key'
+      :index='index'
     )
-    button(v-on:click='saveOn(addList)') + Add List
+    button(v-on:click='$store.commit("newFavlist")') + Add List
 </template>
 
 <script>
 import Alert from './components/Alert.vue';
 import Favlist from './components/Favlist.vue';
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+Vue.use(Vuex);
 
 const favlistLocalStorage = 'favlists';
 
-export default {
-  name: 'App',
-  components: {
-    Alert,
-    Favlist,
+const store = new Vuex.Store({
+  state: {
+    favlists: JSON.parse(localStorage.getItem(favlistLocalStorage)) || [],
   },
-  data() {
-    let favlists = JSON.parse(localStorage.getItem(favlistLocalStorage)) || [];
-
-    return {
-      favlists,
-      alerts: [],
-    };
-  },
-  computed: {
-    noLists() {
-      return !(this.favlists || []).length;
-    },
-  },
-  methods: {
-    addList() {
-      this.favlists.push({
+  mutations: {
+    newFavlist(state) {
+      state.favlists.push({
         title: '',
         columns: ['', ''],
         data: [[1,2,3],[4,5,6]],
         key: new Date().getTime(),
       });
+      localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
-    updateColumn(favlistIndex, newColumn, index) {
-      this.$set(this.favlists[favlistIndex].columns, index, newColumn);
+    removeFavlist(state, index) {
+      state.favlists.splice(index, 1);
+      localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
-    saveOn(fn) {
-      fn();
-      localStorage.setItem(favlistLocalStorage, JSON.stringify(this.favlists));
+    updateTitle(state, payload) {
+      const {favlistIndex, title} = payload;
+      state.favlists[favlistIndex].title = title;
+      localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
+    },
+    updateHeader(state, payload) {
+      const {favlistIndex, columnIndex, header} = payload;
+      state.favlists[favlistIndex].columns.splice(columnIndex, 1, header);
+      localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
+    },
+  },
+});
+
+export default {
+  name: 'App',
+  store,
+  components: {
+    Alert,
+    Favlist,
+  },
+  data() {
+    return {
+      alerts: [],
+    };
+  },
+  computed: {
+    favlists() {
+      return store.state.favlists;
+    },
+    noLists() {
+      return !(this.favlists || []).length;
     },
   },
 }
