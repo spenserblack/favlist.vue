@@ -11,7 +11,7 @@
     p(v-if='noLists') You don't have any lists :(
     Favlist(
       v-for='(favlist, index) in favlists'
-      v-bind='favlist'
+      :key='favlist.key'
       :index='index'
     )
     button(v-on:click='$store.commit("newFavlist")') + Add List
@@ -45,7 +45,8 @@ const store = new Vuex.Store({
       state.favlists.splice(index, 1);
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
-    updateTitle(state, favlistIndex, title) {
+    updateTitle(state, payload) {
+      const {favlistIndex, title} = payload;
       state.favlists[favlistIndex].title = title;
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
