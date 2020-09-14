@@ -4,7 +4,8 @@
       .left-spacer
       Title.title(v-bind:title='title' @update='onTitleUpdate')
       .right-spacer
-        button.remove-button(@click='$emit("delete")') - Remove List
+        button.remove-button(@click='$store.commit("removeFavlist", index)')
+          | - Remove List
     Items(:columns='columns' :data='data' @update-header='onHeaderUpdate')
 </template>
 
@@ -14,7 +15,7 @@ import Items from './Favlist/Items.vue';
 
 export default {
   name: 'Favlist',
-  props: ['title', 'columns', 'data'],
+  props: ['title', 'columns', 'data', 'index'],
   components: {
     Title,
     Items,

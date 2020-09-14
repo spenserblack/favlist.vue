@@ -12,6 +12,7 @@
     Favlist(
       v-for='(favlist, index) in favlists'
       v-bind='favlist'
+      :index='index'
     )
     button(v-on:click='$store.commit("newFavlist")') + Add List
 </template>
@@ -38,6 +39,10 @@ const store = new Vuex.Store({
         data: [[1,2,3],[4,5,6]],
         key: new Date().getTime(),
       });
+      localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
+    },
+    removeFavlist(state, index) {
+      state.favlists.splice(index, 1);
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
     updateTitle(state, favlistIndex, title) {
