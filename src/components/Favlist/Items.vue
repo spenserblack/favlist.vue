@@ -8,13 +8,13 @@
           :column='columnIndex'
         )
     tbody
-      tr(v-for='(row, rowIndex) in transposedData')
-        // NOTE cell and row index reversed for transposition
+      tr(v-for='rowIndex in dataHeight')
         DataCell(
-          v-for='(datum, cellIndex) in row'
+          v-for='cellIndex in dataWidth'
           :favlist='index'
-          :row='cellIndex'
-          :cell='rowIndex'
+          :column='cellIndex - 1'
+          :cell='rowIndex - 1'
+          :key='`${rowIndex}.${cellIndex}`'
         )
 </template>
 
@@ -41,19 +41,14 @@ export default {
     data() {
       return this.$store.state.favlists[this.index].data;
     },
-    transposedData() {
-      const transposed = [];
-      for (let i = 0; i < this.data.length; ++i) {
-        const column = this.data[i];
-        for (let j = 0; j < column.length; ++j) {
-          if (transposed[j] == null) {
-            transposed[j] = [];
-            transposed[j].length = this.data.length;
-          }
-          transposed[j][i] = this.data[i][j];
-        }
-      }
-      return transposed;
+    dataHeight() {
+      return this.data.reduce((max, row) => {
+        const height = row.length;
+        return height > max ? height : max;
+      }, 0);
+    },
+    dataWidth() {
+      return this.data.length;
     },
   },
 };

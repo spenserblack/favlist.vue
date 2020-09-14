@@ -10,7 +10,7 @@ export default {
       type: Number,
       required: true,
     },
-    row: {
+    column: {
       type: Number,
       required: true,
     },
@@ -21,8 +21,8 @@ export default {
   },
   computed: {
     datum() {
-      const row = this.$store.state.favlists[this.favlist].data[this.row] || [];
-      return row[this.cell] || null;
+      const column = this.$store.state.favlists[this.favlist].data[this.column] || [];
+      return column[this.cell] || null;
     },
     empty() {
       return !this.datum;
