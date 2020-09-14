@@ -7,9 +7,15 @@
           :favlist='index'
           :column='columnIndex'
         )
-    // tbody
-    //   tr(v-for='(row, index) in transposedData')
-    //     DataCell(v-for='datum in row' :datum='datum || ""')
+    tbody
+      tr(v-for='(row, rowIndex) in transposedData')
+        // NOTE cell and row index reversed for transposition
+        DataCell(
+          v-for='(datum, cellIndex) in row'
+          :favlist='index'
+          :row='cellIndex'
+          :cell='rowIndex'
+        )
 </template>
 
 <script>
@@ -32,20 +38,23 @@ export default {
     columns() {
       return this.$store.state.favlists[this.index].columns;
     },
-    // transposedData() {
-    //   const transposed = [];
-    //   for (let i = 0; i < this.data.length; ++i) {
-    //     const column = this.data[i];
-    //     for (let j = 0; j < column.length; ++j) {
-    //       if (transposed[j] == null) {
-    //         transposed[j] = [];
-    //         transposed[j].length = this.data.length;
-    //       }
-    //       transposed[j][i] = this.data[i][j];
-    //     }
-    //   }
-    //   return transposed;
-    // },
+    data() {
+      return this.$store.state.favlists[this.index].data;
+    },
+    transposedData() {
+      const transposed = [];
+      for (let i = 0; i < this.data.length; ++i) {
+        const column = this.data[i];
+        for (let j = 0; j < column.length; ++j) {
+          if (transposed[j] == null) {
+            transposed[j] = [];
+            transposed[j].length = this.data.length;
+          }
+          transposed[j][i] = this.data[i][j];
+        }
+      }
+      return transposed;
+    },
   },
 };
 </script>
