@@ -6,22 +6,33 @@
 export default {
   name: 'HeaderCell',
   props: {
-    header: {
-      type: String,
+    favlist: {
+      type: Number,
+      required: true,
+    },
+    column: {
+      type: Number,
       required: true,
     },
   },
   mounted() {
-    this.$el.innerText = this.header;
+    this.$el.innerText = this.$store.state.favlists[this.favlist].columns[this.column];
   },
   computed: {
+    header() {
+      return this.$store.state.favlists[this.favlist].columns[this.column];
+    },
     empty() {
       return !this.header;
     },
   },
   methods: {
     onInput(e) {
-      this.$emit('update', e.target.innerText);
+      this.$store.commit('updateHeader', {
+        favlistIndex: this.favlist,
+        columnIndex: this.column,
+        header: e.target.innerText,
+      });
     },
   },
 };

@@ -6,7 +6,7 @@
       .right-spacer
         button.remove-button(@click='$store.commit("removeFavlist", index)')
           | - Remove List
-    Items(:columns='columns' :data='data' @update-header='onHeaderUpdate')
+    Items(:index='index')
 </template>
 
 <script>
@@ -26,9 +26,6 @@ export default {
     Items,
   },
   methods: {
-    onTitleUpdate(newTitle) {
-      this.$emit('update-title', newTitle);
-    },
     onHeaderUpdate(newHeader, index) {
       this.$emit('update-column', newHeader, index);
     },
