@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.com/spenserblack/favlist.vue.svg?branch=master)](https://travis-ci.com/spenserblack/favlist.vue)
 
+This is basically a static site version of my [other favlist project][rust favlist].
+
 ## Project setup
 ```
 npm install
@@ -24,3 +26,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+[rust favlist]: https://github.com/spenserblack/favlist
