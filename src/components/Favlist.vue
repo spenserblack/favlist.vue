@@ -4,7 +4,7 @@
       .left-spacer
       Title.title(:index='index')
       .right-spacer
-        button.remove-button(@click='$store.commit("removeFavlist", index)')
+        button.remove-button(@click='removeSelf')
           | - Remove List
     Items(:index='index')
 </template>
@@ -25,9 +25,19 @@ export default {
     Title,
     Items,
   },
+  computed: {
+    title() {
+      return this.$store.state.favlists[this.index].title;
+    },
+  },
   methods: {
     onHeaderUpdate(newHeader, index) {
       this.$emit('update-column', newHeader, index);
+    },
+    removeSelf() {
+      if (confirm(`Delete ${this.title} and all of its data?`)) {
+        this.$store.commit('removeFavlist', this.index);
+      }
     },
   },
 };
