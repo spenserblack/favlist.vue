@@ -55,6 +55,11 @@ const store = new Vuex.Store({
       state.favlists[favlistIndex].columns.splice(columnIndex, 1, header);
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
+    updateCell(state, payload) {
+      const {favlistIndex, columnIndex, cellIndex, datum} = payload;
+      state.favlists[favlistIndex].data[columnIndex].splice(cellIndex, 1, datum);
+      localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
+    },
   },
 });
 
