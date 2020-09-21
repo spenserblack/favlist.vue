@@ -9,6 +9,7 @@
     )
     h1 FAVLIST
     ExportFavlist
+    SaveFavlist
     p(v-if='noLists') You don't have any lists :(
     Favlist(
       v-for='(favlist, index) in favlists'
@@ -21,6 +22,7 @@
 <script>
 import Alert from './components/Alert.vue';
 import ExportFavlist from './components/Export.vue';
+import SaveFavlist from './components/Save.vue';
 import Favlist from './components/Favlist.vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -71,6 +73,7 @@ export default {
   components: {
     Alert,
     ExportFavlist,
+    SaveFavlist,
     Favlist,
   },
   data() {

@@ -10,6 +10,7 @@
   "dependencies": {
     "clipboardy": "^2.3.0",
     "core-js": "^3.6.5",
+    "file-saver": "^2.0.2",
     "vue": "^2.6.11",
     "vuex": "^3.5.1"
   },
