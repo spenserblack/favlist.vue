@@ -26,6 +26,7 @@ import Favlist from './components/Favlist.vue';
 import SaveFavlist from './components/Save.vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
+import {v4 as uuidv4} from 'uuid';
 
 Vue.use(Vuex);
 
@@ -73,7 +74,7 @@ const store = new Vuex.Store({
         title: '',
         columns: ['', ''],
         data: [[1, 2, 3], [4, 5, 6]],
-        key: new Date().getTime(),
+        key: uuidv4(),
       });
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
