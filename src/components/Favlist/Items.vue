@@ -17,6 +17,8 @@
           :cell='rowIndex - 1'
           :key='`${rowIndex}.${cellIndex}`'
         )
+        td
+          button.remove-row(@click='removeRow(rowIndex - 1)') - Remove Row
     tfoot
       tr
         td(:colspan='dataWidth')
@@ -56,6 +58,13 @@ export default {
   methods: {
     addRow() {
       this.$store.commit('addRow', this.index);
+    },
+    removeRow(index) {
+      this.$store.commit({
+        type: 'removeRow',
+        favlistIndex: this.index,
+        row: index,
+      });
     },
   },
 };

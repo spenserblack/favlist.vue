@@ -103,6 +103,13 @@ const store = new Vuex.Store({
       state.favlists[favlistIndex].data.forEach(column => column.push(''));
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
+    removeRow(state, payload) {
+      const {favlistIndex, row} = payload;
+      state.favlists[favlistIndex]
+        .data
+        .forEach(column => column.splice(row, 1));
+      localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
+    },
   },
 });
 
