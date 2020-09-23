@@ -21,6 +21,7 @@
 
 <script>
 import Alert from './components/Alert.vue';
+import Cell from './Cell.js';
 import ExportFavlist from './components/Export.vue';
 import Favlist from './components/Favlist.vue';
 import SaveFavlist from './components/Save.vue';
@@ -81,14 +82,14 @@ const store = new Vuex.Store({
         columns: ['', ''],
         data: [
           [
-            {datum: 1, key: uuidv4()},
-            {datum: 2, key: uuidv4()},
-            {datum: 3, key: uuidv4()},
+            new Cell(1),
+            new Cell(2),
+            new Cell(3),
           ],
           [
-            {datum: 4, key: uuidv4()},
-            {datum: 5, key: uuidv4()},
-            {datum: 6, key: uuidv4()},
+            new Cell(4),
+            new Cell(5),
+            new Cell(6),
           ],
         ],
         key: uuidv4(),
@@ -117,7 +118,7 @@ const store = new Vuex.Store({
     addRow(state, favlistIndex) {
       state.favlists[favlistIndex]
         .data
-        .forEach(column => column.push({datum: '', key: uuidv4()}));
+        .forEach(column => column.push(new Cell('')));
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
     removeRow(state, payload) {
