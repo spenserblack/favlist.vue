@@ -24,7 +24,7 @@ import Alert from './components/Alert.vue';
 import ExportFavlist from './components/Export.vue';
 import Favlist from './components/Favlist.vue';
 import SaveFavlist from './components/Save.vue';
-import store from './store.js';
+import store from './store';
 
 
 export default {
