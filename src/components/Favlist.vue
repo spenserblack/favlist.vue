@@ -35,7 +35,7 @@ export default {
       this.$emit('update-column', newHeader, index);
     },
     removeSelf() {
-      if (confirm(`Delete ${this.title} and all of its data?`)) {
+      if (confirm(`Delete ${this.title || 'this list'} and all of its data?`)) {
         this.$store.commit('removeFavlist', this.index);
       }
     },
