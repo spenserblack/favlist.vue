@@ -63,7 +63,7 @@ const store = new Vuex.Store({
       state.favlists.push({
         title: '',
         columns: ['', ''],
-        data: [[1,2,3],[4,5,6]],
+        data: [[1, 2, 3], [4, 5, 6]],
         key: new Date().getTime(),
       });
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
@@ -112,7 +112,7 @@ export default {
       return !(this.favlists || []).length;
     },
   },
-}
+};
 </script>
 
 <style lang='stylus'>
