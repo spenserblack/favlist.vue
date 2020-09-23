@@ -35,7 +35,8 @@ export default {
   },
   methods: {
     onInput(e) {
-      this.$store.commit('updateCell', {
+      this.$store.commit({
+        type: 'updateCell',
         favlistIndex: this.favlist,
         columnIndex: this.column,
         cellIndex: this.cell,

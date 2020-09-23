@@ -28,7 +28,8 @@ export default {
   },
   methods: {
     onInput(e) {
-      this.$store.commit('updateHeader', {
+      this.$store.commit({
+        type: 'updateHeader',
         favlistIndex: this.favlist,
         columnIndex: this.column,
         header: e.target.innerText,

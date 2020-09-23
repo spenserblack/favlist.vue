@@ -24,7 +24,8 @@ export default {
   },
   methods: {
     onInput(e) {
-      this.$store.commit('updateTitle', {
+      this.$store.commit({
+        type: 'updateTitle',
         favlistIndex: this.index,
         title: e.target.innerText,
       });
