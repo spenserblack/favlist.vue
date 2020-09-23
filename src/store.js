@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export const favlistLocalStorage = 'favlists';
 
 export default new Vuex.Store({
+  strict: process.env.NODE_ENV !== 'production',
   state: {
     favlists: JSON.parse(localStorage.getItem(favlistLocalStorage)) || [],
   },
