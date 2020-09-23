@@ -57,6 +57,15 @@ const store = new Vuex.Store({
     datum: (state, getters) => (favlistIndex, column, cell) => {
       return getters.column(favlistIndex, column)[cell];
     },
+    height: (state, getters) => (favlistIndex) => {
+      return getters.data(favlistIndex).reduce((max, column) => {
+        const height = column.length;
+        return height > max ? height : max;
+      }, 0);
+    },
+    width: (state, getters) => (favlistIndex) => {
+      return getters.data(favlistIndex).length;
+    },
   },
   mutations: {
     newFavlist(state) {

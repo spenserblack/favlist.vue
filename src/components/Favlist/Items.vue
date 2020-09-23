@@ -43,13 +43,10 @@ export default {
       return this.$store.getters.data(this.index);
     },
     dataHeight() {
-      return this.data.reduce((max, row) => {
-        const height = row.length;
-        return height > max ? height : max;
-      }, 0);
+      return this.$store.getters.height(this.index);
     },
     dataWidth() {
-      return this.data.length;
+      return this.$store.getters.width(this.index);
     },
   },
 };
