@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import HeaderCell from './Items/HeaderCell.vue';
 import DataCell from './Items/DataCell.vue';
+import HeaderCell from './Items/HeaderCell.vue';
 
 export default {
   name: 'FavlistItems',

@@ -22,8 +22,8 @@
 <script>
 import Alert from './components/Alert.vue';
 import ExportFavlist from './components/Export.vue';
-import SaveFavlist from './components/Save.vue';
 import Favlist from './components/Favlist.vue';
+import SaveFavlist from './components/Save.vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -84,7 +84,10 @@ const store = new Vuex.Store({
     },
     updateCell(state, payload) {
       const {favlistIndex, columnIndex, cellIndex, datum} = payload;
-      state.favlists[favlistIndex].data[columnIndex].splice(cellIndex, 1, datum);
+      state
+        .favlists[favlistIndex]
+        .data[columnIndex]
+        .splice(cellIndex, 1, datum);
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
   },

@@ -20,7 +20,10 @@ export default {
     },
   },
   mounted() {
-    this.$el.innerText = this.$store.getters.datum(this.favlist, this.column, this.cell);
+    this.$el.innerText = this
+      .$store
+      .getters
+      .datum(this.favlist, this.column, this.cell);
   },
   computed: {
     datum() {
