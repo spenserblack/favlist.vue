@@ -15,7 +15,7 @@
           :favlist='index'
           :column='cellIndex - 1'
           :cell='rowIndex - 1'
-          :key='`${rowIndex}.${cellIndex}`'
+          :key='$store.getters.datumKey(index, cellIndex - 1, rowIndex - 1)'
         )
         td
           button.remove-row(@click='removeRow(rowIndex - 1)') - Remove Row

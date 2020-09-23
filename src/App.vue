@@ -55,8 +55,14 @@ const store = new Vuex.Store({
     column: (state, getters) => (favlistIndex, column) => {
       return getters.data(favlistIndex)[column];
     },
-    datum: (state, getters) => (favlistIndex, column, cell) => {
+    cell: (state, getters) => (favlistIndex, column, cell) => {
       return getters.column(favlistIndex, column)[cell];
+    },
+    datum: (state, getters) => (favlistIndex, column, cell) => {
+      return getters.cell(favlistIndex, column, cell).datum;
+    },
+    datumKey: (state, getters) => (favlistIndex, column, cell) => {
+      return getters.cell(favlistIndex, column, cell).key;
     },
     height: (state, getters) => (favlistIndex) => {
       return getters.data(favlistIndex).reduce((max, column) => {
@@ -73,7 +79,18 @@ const store = new Vuex.Store({
       state.favlists.push({
         title: '',
         columns: ['', ''],
-        data: [[1, 2, 3], [4, 5, 6]],
+        data: [
+          [
+            {datum: 1, key: uuidv4()},
+            {datum: 2, key: uuidv4()},
+            {datum: 3, key: uuidv4()},
+          ],
+          [
+            {datum: 4, key: uuidv4()},
+            {datum: 5, key: uuidv4()},
+            {datum: 6, key: uuidv4()},
+          ],
+        ],
         key: uuidv4(),
       });
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
@@ -94,14 +111,13 @@ const store = new Vuex.Store({
     },
     updateCell(state, payload) {
       const {favlistIndex, columnIndex, cellIndex, datum} = payload;
-      state
-        .favlists[favlistIndex]
-        .data[columnIndex]
-        .splice(cellIndex, 1, datum);
+      state.favlists[favlistIndex].data[columnIndex][cellIndex].datum = datum;
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
     addRow(state, favlistIndex) {
-      state.favlists[favlistIndex].data.forEach(column => column.push(''));
+      state.favlists[favlistIndex]
+        .data
+        .forEach(column => column.push({datum: '', key: uuidv4()}));
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
     removeRow(state, payload) {
