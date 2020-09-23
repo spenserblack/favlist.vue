@@ -99,6 +99,10 @@ const store = new Vuex.Store({
         .splice(cellIndex, 1, datum);
       localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
     },
+    addRow(state, favlistIndex) {
+      state.favlists[favlistIndex].data.forEach(column => column.push(''));
+      localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
+    },
   },
 });
 

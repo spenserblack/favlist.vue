@@ -17,6 +17,10 @@
           :cell='rowIndex - 1'
           :key='`${rowIndex}.${cellIndex}`'
         )
+    tfoot
+      tr
+        td(:colspan='dataWidth')
+          button.add-row(@click='addRow') + Add Row
 </template>
 
 <script>
@@ -47,6 +51,11 @@ export default {
     },
     dataWidth() {
       return this.$store.getters.width(this.index);
+    },
+  },
+  methods: {
+    addRow() {
+      this.$store.commit('addRow', this.index);
     },
   },
 };
