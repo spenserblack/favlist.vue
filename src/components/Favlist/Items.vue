@@ -40,7 +40,7 @@ export default {
       return this.$store.getters.headers(this.index);
     },
     data() {
-      return this.$store.getters.favlist(this.index).data;
+      return this.$store.getters.data(this.index);
     },
     dataHeight() {
       return this.data.reduce((max, row) => {
