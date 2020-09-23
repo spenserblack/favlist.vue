@@ -20,13 +20,11 @@ export default {
     },
   },
   mounted() {
-    const column = this.$store.state.favlists[this.favlist].data[this.column] || [];
-    this.$el.innerText = column[this.cell] || null;
+    this.$el.innerText = this.$store.getters.datum(this.favlist, this.column, this.cell);
   },
   computed: {
     datum() {
-      const column = this.$store.state.favlists[this.favlist].data[this.column] || [];
-      return column[this.cell] || null;
+      return this.$store.getters.datum(this.favlist, this.column, this.cell);
     },
     empty() {
       return !this.datum;

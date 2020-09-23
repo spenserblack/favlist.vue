@@ -37,10 +37,10 @@ export default {
   },
   computed: {
     columns() {
-      return this.$store.state.favlists[this.index].columns;
+      return this.$store.getters.headers(this.index);
     },
     data() {
-      return this.$store.state.favlists[this.index].data;
+      return this.$store.getters.favlist(this.index).data;
     },
     dataHeight() {
       return this.data.reduce((max, row) => {

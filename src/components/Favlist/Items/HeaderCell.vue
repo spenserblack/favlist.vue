@@ -16,11 +16,11 @@ export default {
     },
   },
   mounted() {
-    this.$el.innerText = this.$store.state.favlists[this.favlist].columns[this.column];
+    this.$el.innerText = this.$store.getters.header(this.favlist, this.column);
   },
   computed: {
     header() {
-      return this.$store.state.favlists[this.favlist].columns[this.column];
+      return this.$store.getters.header(this.favlist, this.column);
     },
     empty() {
       return !this.header;

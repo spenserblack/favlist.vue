@@ -12,11 +12,11 @@ export default {
     },
   },
   mounted() {
-    this.$el.innerText = this.$store.state.favlists[this.index].title;
+    this.$el.innerText = this.$store.getters.favlist(this.index).title;
   },
   computed: {
     title() {
-      return this.$store.state.favlists[this.index].title;
+      return this.$store.getters.title(this.index);
     },
     empty() {
       return !this.title;

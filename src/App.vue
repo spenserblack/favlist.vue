@@ -35,6 +35,29 @@ const store = new Vuex.Store({
   state: {
     favlists: JSON.parse(localStorage.getItem(favlistLocalStorage)) || [],
   },
+  getters: {
+    favlist: (state) => (index) => {
+      return state.favlists[index];
+    },
+    title: (state, getters) => (favlistIndex) => {
+      return getters.favlist(favlistIndex).title;
+    },
+    headers: (state, getters) => (favlistIndex) => {
+      return getters.favlist(favlistIndex).columns;
+    },
+    header: (state, getters) => (favlistIndex, column) => {
+      return getters.headers(favlistIndex)[column];
+    },
+    data: (state, getters) => (favlistIndex) => {
+      return getters.favlist(favlistIndex).data;
+    },
+    column: (state, getters) => (favlistIndex, column) => {
+      return getters.data(favlistIndex)[column];
+    },
+    datum: (state, getters) => (favlistIndex, column, cell) => {
+      return getters.column(favlistIndex, column)[cell];
+    },
+  },
   mutations: {
     newFavlist(state) {
       state.favlists.push({

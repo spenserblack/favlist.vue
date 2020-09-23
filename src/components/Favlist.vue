@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     title() {
-      return this.$store.state.favlists[this.index].title;
+      return this.$store.getters.title(this.index);
     },
   },
   methods: {
