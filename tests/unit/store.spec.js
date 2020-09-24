@@ -106,5 +106,27 @@ describe('Vuex store', () => {
         expect(state.favlists[0].columns).to.deep.equal(['a', 'c']);
       });
     });
+
+    describe('updateCell', () => {
+      const {updateCell} = mutations;
+      const state = {favlists: [{data: [
+        [{datum: 'a'}, {datum: 'i'}, {datum: 'u'}],
+        [{datum: 'あ'}, {datum: 'い'}, {datum: 'お'}],
+      ]}]};
+
+      it("should update the cell's value", () => {
+        updateCell(state, {
+          favlistIndex: 0,
+          columnIndex: 1,
+          cellIndex: 2,
+          datum: 'う',
+        });
+
+        expect(state.favlists[0].data).to.deep.equal([
+          [{datum: 'a'}, {datum: 'i'}, {datum: 'u'}],
+          [{datum: 'あ'}, {datum: 'い'}, {datum: 'う'}],
+        ]);
+      });
+    });
   });
 });
