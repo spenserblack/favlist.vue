@@ -7,7 +7,6 @@ extends:
 ignorePatterns:
   - babel.config.js
   - src/main.js
-  - tests/*
 parserOptions:
   parser: babel-eslint
 rules:

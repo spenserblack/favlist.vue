@@ -1,7 +1,6 @@
 import '../setup.js';
-import { expect } from 'chai'
-import { shallowMount } from '@vue/test-utils'
-import { mutations } from '@/store'
+import { expect } from 'chai';
+import { mutations } from '@/store';
 
 describe('Vuex store', () => {
   describe('mutations', () => {
@@ -14,7 +13,7 @@ describe('Vuex store', () => {
 
         expect(state.favlists).to.have.lengthOf(1);
 
-        const favlist = state.favlists[0];
+        const [favlist] = state.favlists;
 
         expect(favlist.title).to.be.a('string');
         expect(favlist.columns).to.be.an('array');
@@ -58,8 +57,7 @@ describe('Vuex store', () => {
       };
 
       it('removes a favlist', () => {
-        const removed = state.favlists[0];
-        const remaining = state.favlists[1];
+        const [removed, remaining] = state.favlists;
 
         removeFavlist(state, 0);
 
