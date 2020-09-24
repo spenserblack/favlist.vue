@@ -128,5 +128,55 @@ describe('Vuex store', () => {
         ]);
       });
     });
+
+    describe('addRow', () => {
+      const {addRow} = mutations;
+
+      it('should add a new "row" to a single-column empty favlist', () => {
+        const state = {favlists: [{data: [[]]}]};
+
+        addRow(state, 0);
+
+        expect(state.favlists[0].data[0]).to.not.be.empty;
+        expect(state.favlists[0].data[0][0]).to.include({datum: ''});
+      });
+
+      it('should add a new "row" to a multi-column empty favlist', () => {
+        const state = {favlists: [{data: [[], [], []]}]};
+
+        addRow(state, 0);
+
+        expect(state.favlists[0].data).to.have.lengthOf(3);
+        state.favlists[0].data.forEach(item => {
+          expect(item).to.not.be.empty;
+          expect(item[0]).to.include({datum: ''});
+        });
+
+      });
+      it('should add a new "row" to a single-column favlist with data', () => {
+        const state = {favlists: [{data: [[{datum: '1'}]]}]};
+
+        addRow(state, 0);
+
+        expect(state.favlists[0].data[0]).to.have.lengthOf(2);
+        expect(state.favlists[0].data[0][1]).to.include({datum: ''});
+      });
+
+      it('should add a new "row" to a multi-column favlist with data', () => {
+        const state = {favlists: [{data: [
+          [{datum: '1'}],
+          [{datum: '2'}],
+          [{datum: '3'}],
+        ]}]};
+
+        addRow(state, 0);
+
+        expect(state.favlists[0].data).to.have.lengthOf(3);
+        state.favlists[0].data.forEach(item => {
+          expect(item).to.have.lengthOf(2);
+          expect(item[1]).to.include({datum: ''});
+        });
+      });
+    });
   });
 });
