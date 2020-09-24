@@ -1,3 +1,4 @@
+import '../setup.js';
 import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
 import { mutations } from '@/store'
