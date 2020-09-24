@@ -67,3 +67,9 @@ rules:
     - 2
   linebreak-style: error
   no-trailing-spaces: error
+overrides:
+  - files:
+      - '**/__tests__/*.{j,t}s?(x)'
+      - '**/tests/unit/**/*.spec.{j,t}s?(x)'
+    env:
+      mocha: true

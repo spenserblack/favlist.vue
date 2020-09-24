@@ -1,7 +1,6 @@
-import chai from 'chai';
-import {mutations} from '../src/store'
-
-const {expect} = chai;
+import { expect } from 'chai'
+import { shallowMount } from '@vue/test-utils'
+import { mutations } from '@/store'
 
 describe('mutations', () => {
   const {newFavlist} = mutations;
