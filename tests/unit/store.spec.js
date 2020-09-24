@@ -95,5 +95,16 @@ describe('Vuex store', () => {
         expect(state.favlists[0].title).to.equal('Goodbye!');
       });
     });
+
+    describe('updateHeader', () => {
+      const {updateHeader} = mutations;
+      const state = {favlists: [{columns: ['a', 'b']}]};
+
+      it('should update the column header', () => {
+        updateHeader(state, {favlistIndex: 0, columnIndex: 1, header: 'c'});
+
+        expect(state.favlists[0].columns).to.deep.equal(['a', 'c']);
+      });
+    });
   });
 });
