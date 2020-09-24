@@ -83,4 +83,15 @@ describe('mutations', () => {
       expect(state.favlists).to.be.empty;
     });
   });
+
+  describe('updateTitle', () => {
+    const {updateTitle} = mutations;
+    const state = {favlists: [{title: 'Hello!'}]};
+
+    it('should update the title', () => {
+      updateTitle(state, {favlistIndex: 0, title: 'Goodbye!'});
+
+      expect(state.favlists[0].title).to.equal('Goodbye!');
+    });
+  });
 });
