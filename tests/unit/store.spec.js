@@ -151,6 +151,7 @@ describe('Vuex store', () => {
         });
 
       });
+
       it('should add a new "row" to a single-column favlist with data', () => {
         const state = {favlists: [{data: [[{datum: '1'}]]}]};
 
@@ -174,6 +175,62 @@ describe('Vuex store', () => {
           expect(item).to.have.lengthOf(2);
           expect(item[1]).to.include({datum: ''});
         });
+      });
+    });
+
+    describe('removeRow', () => {
+      const {removeRow} = mutations;
+
+      it('should make a single-column list with 1 row empty', () => {
+        const state = {favlists: [{data: [[{datum: '1'}]]}]};
+
+        removeRow(state, {favlistIndex: 0, row: 0});
+
+        expect(state.favlists[0].data[0]).to.be.empty;
+      });
+
+      it('should make a multi-column list with 1 row empty', () => {
+        const state = {favlists: [{data: [
+          [{datum: 'column 1'}],
+          [{datum: 'column 2'}],
+          [{datum: 'column 3'}],
+        ]}]};
+
+        removeRow(state, {favlistIndex: 0, row: 0});
+
+        state.favlists[0].data.forEach(item => expect(item).to.be.empty);
+      });
+
+      it('should remove a row from a single-column list', () => {
+        const state = {favlists: [{data: [[
+          {datum: 'row 1'},
+          {datum: 'row 2'},
+          {datum: 'row 3'},
+        ]]}]};
+
+        removeRow(state, {favlistIndex: 0, row: 1});
+
+        expect(state.favlists[0].data[0]).to.deep.equal([
+          {datum: 'row 1'},
+          {datum: 'row 3'},
+        ]);
+      });
+
+      it('should remove a row from a multi-column list', () => {
+        const state = {favlists: [{data: [
+          // row-column
+          [{datum: '1-1'}, {datum: '2-1'}, {datum: '3-1'}],
+          [{datum: '1-2'}, {datum: '2-2'}, {datum: '3-2'}],
+          [{datum: '1-3'}, {datum: '2-3'}, {datum: '3-3'}],
+        ]}]};
+
+        removeRow(state, {favlistIndex: 0, row: 1});
+
+        expect(state.favlists[0].data).to.deep.equal([
+          [{datum: '1-1'}, {datum: '3-1'}],
+          [{datum: '1-2'}, {datum: '3-2'}],
+          [{datum: '1-3'}, {datum: '3-3'}],
+        ]);
       });
     });
   });
