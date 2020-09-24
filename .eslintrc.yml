@@ -14,9 +14,9 @@ rules:
   no-console:
     - warn
     - allow:
-      - info
-      - warn
-      - error
+        - info
+        - warn
+        - error
   array-callback-return: warn
   default-param-last: error
   no-multi-spaces: warn
