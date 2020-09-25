@@ -259,8 +259,7 @@ describe('Vuex store', () => {
 
         addColumn(state, 0);
 
-        expect(state.favlists[0].data).to.not.be.empty
-          .and.to.deep.equal([[]]);
+        expect(state.favlists[0].data).to.deep.equal([[]]);
       });
 
       it('should add a new "column" to a favlist with no "rows"', () => {
