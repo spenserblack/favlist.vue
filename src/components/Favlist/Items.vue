@@ -8,6 +8,8 @@
           :column='columnIndex'
           :key='columnIndex'
         )
+        td
+          button.add-column(@click='addColumn') + Add Column
     tbody
       tr(v-for='rowIndex in dataHeight')
         DataCell(
@@ -56,6 +58,9 @@ export default {
     },
   },
   methods: {
+    addColumn() {
+      this.$store.commit('addColumn', this.index);
+    },
     addRow() {
       this.$store.commit('addRow', this.index);
     },
