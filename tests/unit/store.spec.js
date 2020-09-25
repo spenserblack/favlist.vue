@@ -1,8 +1,102 @@
 import '../setup.js';
 import { expect } from 'chai';
+import getters from '@/store/getters';
 import { mutations } from '@/store';
 
 describe('Vuex store', () => {
+  describe('getters', () => {
+    const state = {
+      favlists: [
+        {
+          title: 'numbers',
+          columns: ['odd', 'even'],
+          data: [
+            [
+              {datum: '1'},
+              {datum: '3'},
+              {datum: '5'},
+            ],
+            [
+              {datum: '2'},
+              {datum: '4'},
+              {datum: '6'},
+            ],
+          ],
+        },
+        {
+          title: 'types',
+          columns: ['name'],
+          data: [
+            [
+              {datum: 'number'},
+              {datum: 'string'},
+              {datum: 'array'},
+            ],
+          ],
+        },
+        {
+          title: 'empty',
+          columns: [],
+          data: [],
+        },
+      ],
+    };
+
+    it('should get a list from an index', () => {
+      const favlist = getters.favlist(state)(0);
+
+      expect(favlist).to.deep.equal(state.favlists[0]);
+    });
+
+    it('should get a list title from an index', () => {
+      const favlist = getters.favlist(state);
+      const title = getters.title(state, {favlist})(0);
+
+      expect(title).to.be.a('string').and.to.equal('numbers');
+    });
+
+    it('should get the column headers of a list', () => {
+      const favlist = getters.favlist(state);
+      const headers = getters.headers(state, {favlist})(0);
+
+      expect(headers).to.be.an('array').and.to.deep.equal(['odd', 'even']);
+    });
+
+    it('should get an individual column header of a list', () => {
+      const favlist = getters.favlist(state);
+      const headers = getters.headers(state, {favlist});
+      const header = getters.header(state, {headers})(0, 1);
+
+      expect(header).to.be.a('string').and.to.equal('even');
+    });
+
+    it('should get the data of a list', () => {
+      const favlist = getters.favlist(state);
+      const data = getters.data(state, {favlist})(0);
+
+      expect(data).to.be.an('array').and.to.deep.equal(state.favlists[0].data);
+    });
+
+    it('should get a column of data', () => {
+      const favlist = getters.favlist(state);
+      const data = getters.data(state, {favlist});
+      const column = getters.column(state, {data})(0, 1);
+
+      expect(column).to.be.an('array')
+        .and.to.deep.equal(state.favlists[0].data[1]);
+    });
+
+    it('should get a single point of data', () => {
+      const favlist = getters.favlist(state);
+      const data = getters.data(state, {favlist});
+      const column = getters.column(state, {data});
+
+      const cell = getters.cell(state, {column})(0, 1, 2);
+
+      expect(cell).to.include({datum: '6'});
+    });
+  });
+
   describe('mutations', () => {
     describe('newFavlist', () => {
       const {newFavlist} = mutations;
