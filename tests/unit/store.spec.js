@@ -12,14 +12,14 @@ describe('Vuex store', () => {
           columns: ['odd', 'even'],
           data: [
             [
-              {datum: '1'},
-              {datum: '3'},
-              {datum: '5'},
+              {datum: '1', key: 'x'},
+              {datum: '3', key: 'y'},
+              {datum: '5', key: 'z'},
             ],
             [
-              {datum: '2'},
-              {datum: '4'},
-              {datum: '6'},
+              {datum: '2', key: 'a'},
+              {datum: '4', key: 'b'},
+              {datum: '6', key: 'c'},
             ],
           ],
         },
@@ -28,9 +28,9 @@ describe('Vuex store', () => {
           columns: ['name'],
           data: [
             [
-              {datum: 'number'},
-              {datum: 'string'},
-              {datum: 'array'},
+              {datum: 'number', key: '1'},
+              {datum: 'string', key: '2'},
+              {datum: 'array', key: '3'},
             ],
           ],
         },
@@ -93,7 +93,47 @@ describe('Vuex store', () => {
 
       const cell = getters.cell(state, {column})(0, 1, 2);
 
-      expect(cell).to.include({datum: '6'});
+      expect(cell).to.be.an('object').and.to.include({datum: '6'});
+    });
+
+    it('should get the datum stored at the point of data', () => {
+      const favlist = getters.favlist(state);
+      const data = getters.data(state, {favlist});
+      const column = getters.column(state, {data});
+      const cell = getters.cell(state, {column});
+
+      const datum = getters.datum(state, {cell})(0, 1, 2);
+
+      expect(datum).to.be.a('string').and.to.equal('6');
+    });
+
+    it('should get the key of a point of data', () => {
+      const favlist = getters.favlist(state);
+      const data = getters.data(state, {favlist});
+      const column = getters.column(state, {data});
+      const cell = getters.cell(state, {column});
+
+      const datum = getters.datumKey(state, {cell})(0, 1, 2);
+
+      expect(datum).to.be.a('string').and.to.equal('c');
+    });
+
+    it('should get the "height" of a list', () => {
+      const favlist = getters.favlist(state);
+      const data = getters.data(state, {favlist});
+
+      const height = getters.height(state, {data})(0);
+
+      expect(height).to.be.a('number').and.to.equal(3);
+    });
+
+    it('should get the "width" of a list', () => {
+      const favlist = getters.favlist(state);
+      const data = getters.data(state, {favlist});
+
+      const width = getters.width(state, {data})(0);
+
+      expect(width).to.be.a('number').and.to.equal(2);
     });
   });
 
