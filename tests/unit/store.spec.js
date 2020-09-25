@@ -271,7 +271,7 @@ describe('Vuex store', () => {
       });
 
       it('should add a new "column" to an empty list', () => {
-        const state = {favlists: [{data: []}]};
+        const state = {favlists: [{columns: [], data: []}]};
 
         addColumn(state, 0);
 
@@ -279,7 +279,7 @@ describe('Vuex store', () => {
       });
 
       it('should add a new "column" to a favlist with no "rows"', () => {
-        const state = {favlists: [{data: [[]]}]};
+        const state = {favlists: [{columns: [''], data: [[]]}]};
 
         addColumn(state, 0);
 
@@ -288,7 +288,7 @@ describe('Vuex store', () => {
       });
 
       it('should add a new "column" with as many "rows" as the others', () => {
-        const state = {favlists: [{data: [
+        const state = {favlists: [{columns: ['left', 'right'], data: [
           [{datum: '1'}, {datum: '2'}, {datum: '3'}],
           [{datum: '4'}, {datum: '5'}, {datum: '6'}, {datum: '7'}],
         ]}]};
