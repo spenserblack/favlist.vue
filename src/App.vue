@@ -24,8 +24,12 @@ import Alert from './components/Alert.vue';
 import ExportFavlist from './components/Export.vue';
 import Favlist from './components/Favlist.vue';
 import SaveFavlist from './components/Save.vue';
+import favlistLocalStorage from './local-storage-name.js';
 import store from './store';
 
+store.subscribe((mutation, state) => {
+  localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
+});
 
 export default {
   name: 'App',
