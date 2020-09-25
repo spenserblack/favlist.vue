@@ -12,7 +12,7 @@
           v-for='(header, columnIndex) in columns'
           :favlist='index'
           :column='columnIndex'
-          :key='`${columnIndex}:${header}`'
+          :key='header.key'
         )
     tbody
       tr(v-for='rowIndex in dataHeight')

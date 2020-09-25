@@ -9,7 +9,7 @@ export default {
     return getters.favlist(favlistIndex).columns;
   },
   header: (state, getters) => (favlistIndex, column) => {
-    return getters.headers(favlistIndex)[column];
+    return getters.headers(favlistIndex)[column].datum;
   },
   data: (state, getters) => (favlistIndex) => {
     return getters.favlist(favlistIndex).data;

@@ -11,7 +11,7 @@ export const mutations = {
   newFavlist(state) {
     state.favlists.push({
       title: '',
-      columns: ['', ''],
+      columns: [new Cell(''), new Cell('')],
       data: [
         [
           new Cell(1),
@@ -36,14 +36,14 @@ export const mutations = {
   },
   updateHeader(state, payload) {
     const {favlistIndex, columnIndex, header} = payload;
-    state.favlists[favlistIndex].columns.splice(columnIndex, 1, header);
+    state.favlists[favlistIndex].columns[columnIndex].datum = header;
   },
   updateCell(state, payload) {
     const {favlistIndex, columnIndex, cellIndex, datum} = payload;
     state.favlists[favlistIndex].data[columnIndex][cellIndex].datum = datum;
   },
   addColumn(state, favlistIndex) {
-    state.favlists[favlistIndex].columns.push('');
+    state.favlists[favlistIndex].columns.push(new Cell(''));
 
     const favlist = getters.favlist(state);
     const data = getters.data(state, {favlist});
