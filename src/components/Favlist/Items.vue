@@ -5,6 +5,8 @@
         th(v-for='(header, columnIndex) in columns')
           button.remove-column(@click='removeColumn(columnIndex)')
             | - Remove Column
+        th
+          button.add-column(@click='addColumn') + Add Column
       tr
         HeaderCell(
           v-for='(header, columnIndex) in columns'
@@ -12,8 +14,6 @@
           :column='columnIndex'
           :key='`${columnIndex}:${header}`'
         )
-        td
-          button.add-column(@click='addColumn') + Add Column
     tbody
       tr(v-for='rowIndex in dataHeight')
         DataCell(
