@@ -254,6 +254,22 @@ describe('Vuex store', () => {
     describe('addColumn', () => {
       const {addColumn} = mutations;
 
+      it('should add a column header to an empty list', () => {
+        const state = {favlists: [{columns: [], data: []}]};
+
+        addColumn(state, 0);
+
+        expect(state.favlists[0].columns).to.deep.equal(['']);
+      });
+
+      it('should add a column header to a list', () => {
+        const state = {favlists: [{columns: ['items'], data: []}]};
+
+        addColumn(state, 0);
+
+        expect(state.favlists[0].columns).to.deep.equal(['items', '']);
+      });
+
       it('should add a new "column" to an empty list', () => {
         const state = {favlists: [{data: []}]};
 
