@@ -9,7 +9,7 @@ describe('Vuex store', () => {
       favlists: [
         {
           title: 'numbers',
-          columns: ['odd', 'even'],
+          columns: [{datum: 'odd', key: 'O'}, {datum: 'even', key: 'K'}],
           data: [
             [
               {datum: '1', key: 'x'},
@@ -25,7 +25,7 @@ describe('Vuex store', () => {
         },
         {
           title: 'types',
-          columns: ['name'],
+          columns: [{datum: 'name', key: '!'}],
           data: [
             [
               {datum: 'number', key: '1'},
@@ -59,7 +59,9 @@ describe('Vuex store', () => {
       const favlist = getters.favlist(state);
       const headers = getters.headers(state, {favlist})(0);
 
-      expect(headers).to.be.an('array').and.to.deep.equal(['odd', 'even']);
+      expect(headers).to.be.an('array').and.have.lengthOf(2);
+      expect(headers[0]).to.deep.include({datum: 'odd'});
+      expect(headers[1]).to.deep.include({datum: 'even'});
     });
 
     it('should get an individual column header of a list', () => {
@@ -220,12 +222,13 @@ describe('Vuex store', () => {
 
     describe('updateHeader', () => {
       const {updateHeader} = mutations;
-      const state = {favlists: [{columns: ['a', 'b']}]};
+      const state = {favlists: [{columns: [{datum: 'a'}, {datum: 'b'}]}]};
 
       it('should update the column header', () => {
         updateHeader(state, {favlistIndex: 0, columnIndex: 1, header: 'c'});
 
-        expect(state.favlists[0].columns).to.deep.equal(['a', 'c']);
+        expect(state.favlists[0].columns).to.have.lengthOf(2);
+        expect(state.favlists[0].columns[1]).to.deep.include({datum: 'c'});
       });
     });
 
@@ -259,15 +262,16 @@ describe('Vuex store', () => {
 
         addColumn(state, 0);
 
-        expect(state.favlists[0].columns).to.deep.equal(['']);
+        expect(state.favlists[0].columns).to.not.be.empty;
       });
 
       it('should add a column header to a list', () => {
-        const state = {favlists: [{columns: ['items'], data: []}]};
+        const state = {favlists: [{columns: [{datum: 'items'}], data: []}]};
 
         addColumn(state, 0);
 
-        expect(state.favlists[0].columns).to.deep.equal(['items', '']);
+        expect(state.favlists[0].columns).to.have.lengthOf(2);
+        expect(state.favlists[0].columns[1]).to.deep.include({datum: ''});
       });
 
       it('should add a new "column" to an empty list', () => {
