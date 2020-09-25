@@ -57,6 +57,12 @@ export const mutations = {
 
     state.favlists[favlistIndex].data.push(newColumn);
   },
+  removeColumn(state, payload) {
+    const {favlistIndex, column} = payload;
+
+    state.favlists[favlistIndex].columns.splice(column, 1);
+    state.favlists[favlistIndex].data.splice(column, 1);
+  },
   addRow(state, favlistIndex) {
     state.favlists[favlistIndex]
       .data
