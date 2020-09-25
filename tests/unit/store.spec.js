@@ -251,6 +251,41 @@ describe('Vuex store', () => {
       });
     });
 
+    describe('addColumn', () => {
+      const {addColumn} = mutations;
+
+      it('should add a new "column" to an empty list', () => {
+        const state = {favlists: [{data: []}]};
+
+        addColumn(state, 0);
+
+        expect(state.favlists[0].data).to.not.be.empty
+          .and.to.deep.equal([[]]);
+      });
+
+      it('should add a new "column" to a favlist with no "rows"', () => {
+        const state = {favlists: [{data: [[]]}]};
+
+        addColumn(state, 0);
+
+        expect(state.favlists[0].data).to.have.lengthOf(2)
+          .and.to.deep.equal([[], []]);
+      });
+
+      it('should add a new "column" with as many "rows" as the others', () => {
+        const state = {favlists: [{data: [
+          [{datum: '1'}, {datum: '2'}, {datum: '3'}],
+          [{datum: '4'}, {datum: '5'}, {datum: '6'}, {datum: '7'}],
+        ]}]};
+
+        addColumn(state, 0);
+
+        expect(state.favlists[0].data).to.have.lengthOf(3);
+        expect(state.favlists[0].data[2]).to.be.an('array')
+          .and.to.have.lengthOf(4);
+      });
+    });
+
     describe('addRow', () => {
       const {addRow} = mutations;
 
