@@ -11,19 +11,8 @@ export const mutations = {
   newFavlist(state) {
     state.favlists.push({
       title: '',
-      columns: [new Cell(''), new Cell('')],
-      data: [
-        [
-          new Cell(1),
-          new Cell(2),
-          new Cell(3),
-        ],
-        [
-          new Cell(4),
-          new Cell(5),
-          new Cell(6),
-        ],
-      ],
+      columns: [new Cell('')],
+      data: [[]],
       key: uuidv4(),
     });
   },
