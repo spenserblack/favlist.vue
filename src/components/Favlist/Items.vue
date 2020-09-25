@@ -10,7 +10,7 @@
           v-for='(header, columnIndex) in columns'
           :favlist='index'
           :column='columnIndex'
-          :key='columnIndex'
+          :key='`${columnIndex}:${header}`'
         )
         td
           button.add-column(@click='addColumn') + Add Column
