@@ -352,6 +352,69 @@ describe('Vuex store', () => {
       });
     });
 
+    describe('removeColumn', () => {
+      const {removeColumn} = mutations;
+
+      it('should remove a column from a list with no "rows"', () => {
+        const state = {favlists: [{columns: [''], data: [[]]}]};
+
+        removeColumn(state, {favlistIndex: 0, column: 0});
+
+        const [favlist] = state.favlists;
+
+        expect(favlist.columns).to.be.empty;
+        expect(favlist.data).to.be.empty;
+      });
+
+      it('should remove a column from a list with columns but no rows', () => {
+        const state = {favlists: [{columns: ['c1', 'c2'], data: [[], []]}]};
+
+        removeColumn(state, {favlistIndex: 0, column: 1});
+
+        const [favlist] = state.favlists;
+
+        expect(favlist.columns).to.deep.equal(['c1']);
+        expect(favlist.data).to.deep.equal([[]]);
+      });
+
+      it('should remove the only column from a list', () => {
+        const state = {favlists: [{columns: ['numbers'], data: [[
+          {datum: '1'},
+          {datum: '2'},
+          {datum: '3'},
+        ]]}]};
+
+        removeColumn(state, {favlistIndex: 0, column: 0});
+
+        const [favlist] = state.favlists;
+
+        expect(favlist.columns).to.be.empty;
+        expect(favlist.data).to.be.empty;
+      });
+
+      it('should remove a column from a list with columns and rows', () => {
+        const state = {favlists: [{columns: ['odd', 'even'], data: [
+          [
+            {datum: '1'},
+            {datum: '3'},
+            {datum: '5'},
+          ],
+          [
+            {datum: '2'},
+            {datum: '4'},
+            {datum: '6'},
+          ],
+        ]}]};
+
+        removeColumn(state, {favlistIndex: 0, column: 1});
+
+        const [favlist] = state.favlists;
+
+        expect(favlist.columns).to.deep.equal(['odd']);
+        expect(favlist.data).to.have.lengthOf(1);
+      });
+    });
+
     describe('removeRow', () => {
       const {removeRow} = mutations;
 
