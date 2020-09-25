@@ -2,6 +2,10 @@
   table.items
     thead
       tr
+        th(v-for='(header, columnIndex) in columns')
+          button.remove-column(@click='removeColumn(columnIndex)')
+            | - Remove Column
+      tr
         HeaderCell(
           v-for='(header, columnIndex) in columns'
           :favlist='index'
@@ -60,6 +64,13 @@ export default {
   methods: {
     addColumn() {
       this.$store.commit('addColumn', this.index);
+    },
+    removeColumn(index) {
+      this.$store.commit({
+        type: 'removeColumn',
+        favlistIndex: this.index,
+        column: index,
+      });
     },
     addRow() {
       this.$store.commit('addRow', this.index);
