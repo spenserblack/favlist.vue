@@ -42,6 +42,19 @@ export const mutations = {
     const {favlistIndex, columnIndex, cellIndex, datum} = payload;
     state.favlists[favlistIndex].data[columnIndex][cellIndex].datum = datum;
   },
+  addColumn(state, favlistIndex) {
+    const favlist = getters.favlist(state);
+    const data = getters.data(state, {favlist});
+    const height = getters.height(state, {data})(favlistIndex);
+
+    const newColumn = new Array(height);
+
+    for (let i = 0; i < height; ++i) {
+      newColumn[i] = new Cell('');
+    }
+
+    state.favlists[favlistIndex].data.push(newColumn);
+  },
   addRow(state, favlistIndex) {
     state.favlists[favlistIndex]
       .data
