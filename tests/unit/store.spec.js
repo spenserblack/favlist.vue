@@ -155,19 +155,9 @@ describe('Vuex store', () => {
 
         removeFavlist(state, 0);
 
-        expect(state.favlists)
-          .to
-          .have
-          .lengthOf(1)
-          .and
-          .to
-          .deep
-          .include(remaining)
-          .and
-          .to
-          .not
-          .deep
-          .include(removed);
+        expect(state.favlists).to.have.lengthOf(1)
+          .and.to.deep.include(remaining)
+          .and.to.not.deep.include(removed);
       });
 
       it('removes the last favlist', () => {
