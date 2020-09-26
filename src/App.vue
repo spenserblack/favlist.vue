@@ -9,6 +9,7 @@
     )
     h1 FAVLIST
     ExportFavlist
+    ImportFavlist
     SaveFavlist
     p(v-if='noLists') You don't have any lists :(
     Favlist(
@@ -23,6 +24,7 @@
 import Alert from './components/Alert.vue';
 import ExportFavlist from './components/Export.vue';
 import Favlist from './components/Favlist.vue';
+import ImportFavlist from './components/Import.vue';
 import SaveFavlist from './components/Save.vue';
 import favlistLocalStorage from './local-storage-name.js';
 import store from './store';
@@ -37,6 +39,7 @@ export default {
   components: {
     Alert,
     ExportFavlist,
+    ImportFavlist,
     SaveFavlist,
     Favlist,
   },

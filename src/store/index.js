@@ -8,6 +8,9 @@ import {v4 as uuidv4} from 'uuid';
 Vue.use(Vuex);
 
 export const mutations = {
+  loadFromJson(state, favlists) {
+    Vue.set(state, 'favlists', favlists);
+  },
   newFavlist(state) {
     state.favlists.push({
       title: '',
