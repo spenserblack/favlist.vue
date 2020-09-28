@@ -1,8 +1,10 @@
-# favlist.vue
+# [favlist.vue](https://spenserblack.github.io/favlist.vue/)
 
 [![Build Status](https://travis-ci.com/spenserblack/favlist.vue.svg?branch=master)](https://travis-ci.com/spenserblack/favlist.vue)
 
-This is basically a static site version of my [other favlist project][rust favlist].
+This is basically a static site version of my [other favlist project][rust favlist],
+which I made with the goal of having an easy-to-use interface to manage a list of things
+like my favorite movies.
 
 ## Project setup
 ```
