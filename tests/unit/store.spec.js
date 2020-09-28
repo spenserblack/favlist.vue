@@ -140,6 +140,36 @@ describe('Vuex store', () => {
   });
 
   describe('mutations', () => {
+    describe('loadFromJson', () => {
+      const {loadFromJson} = mutations;
+
+      it('should fully replace the old favlists with new ones', () => {
+        const oldState = {
+          favlists: [{
+            title: ':(',
+            columns: [{datum: 'a'}],
+            data: [
+              [{datum: '1'}, {datum: '2'}, {datum: '3'}],
+            ],
+          }],
+        };
+        const newState = {
+          favlists: [{
+            title: ':)',
+            columns: [{datum: 'b'}],
+            data: [
+              [{datum: '4'}, {datum: '5'}],
+            ],
+          }],
+        };
+
+        loadFromJson(oldState, newState.favlists);
+
+        const {favlists} = oldState;
+
+        expect(favlists).to.deep.equal(newState.favlists);
+      });
+    });
     describe('newFavlist', () => {
       const {newFavlist} = mutations;
 
