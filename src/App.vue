@@ -67,4 +67,10 @@ export default {
   text-align: center
   background-color: #222
   color: YellowGreen
+  left: 0
+  top: 0
+  height: 100%
+  width: 100%
+  overflow: auto
+  position: absolute
 </style>
