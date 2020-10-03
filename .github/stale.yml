@@ -13,7 +13,7 @@ exemptAssignees: true
 exemptMilestones: true
 
 # Label to use when marking as stale
-staleLabel: :coffin: stale
+staleLabel: ':coffin: stale'
 
 # Comment to post when marking as stale. Set to `false` to disable
 markComment: >
