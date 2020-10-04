@@ -80,4 +80,5 @@ export default {
     background: none
     border: none
     color: textColor
+    cursor: pointer
 </style>
