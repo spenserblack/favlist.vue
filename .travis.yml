@@ -3,6 +3,6 @@ node_js: 14
 script:
   - npm run lint
   - npm test
-  - npm run build -- --development
+  - npm run build -- --mode development
 notifications:
   email: false
