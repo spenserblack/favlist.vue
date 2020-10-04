@@ -61,16 +61,23 @@ export default {
 
 <style lang='stylus'>
 #app
+  textColor = YellowGreen
+
   font-family: Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   text-align: center
   background-color: #222
-  color: YellowGreen
+  color: textColor
   left: 0
   top: 0
   height: 100%
   width: 100%
   overflow: auto
   position: absolute
+
+  button
+    background: none
+    border: none
+    color: textColor
 </style>
