@@ -13,7 +13,7 @@
     "clipboardy": "^2.3.0",
     "core-js": "^3.6.5",
     "file-saver": "^2.0.2",
-    "uuid": "^8.3.0",
+    "uuid": "^8.3.1",
     "vue": "^2.6.11",
     "vuex": "^3.5.1"
   },
@@ -30,7 +30,7 @@
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
     "stylus": "^0.54.8",
-    "stylus-loader": "^4.0.0",
+    "stylus-loader": "^4.1.0",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [
