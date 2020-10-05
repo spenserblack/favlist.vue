@@ -25,11 +25,9 @@ export default {
     },
   },
   data() {
-    const path = [
-      'M 4 4 H 14 V 16 H 4 Z',
-    ].join(' ');
+    const board = 'M 4 4 H 14 V 16 H 4 Z';
     return {
-      path,
+      board,
     };
   },
 };
