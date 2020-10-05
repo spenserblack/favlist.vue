@@ -1,6 +1,5 @@
 <template lang='pug'>
-  button(@click='copyToClipboard')
-    | Export
+  button(@click='copyToClipboard' title='Save to clipboard')
     ClipboardSvg(:width='clipboardWidth' :height='clipboardHeight')
 </template>
 
