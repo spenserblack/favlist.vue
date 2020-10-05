@@ -77,8 +77,9 @@ export default {
   position: absolute
 
   button
-    background: none
+    background-color: #343
     border: none
+    border-radius: 5px
     color: textColor
     cursor: pointer
 </style>
