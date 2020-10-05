@@ -8,7 +8,8 @@
     role='presentation'
     stroke-linejoin='round'
   )
-    path(:d='path')
+    path(:d='board')
+    path(:d='clip')
 </template>
 
 <script>
@@ -26,8 +27,10 @@ export default {
   },
   data() {
     const board = 'M 4 4 H 14 V 16 H 4 Z';
+    const clip = 'M 7 4 V 2 H 11 V 4';
     return {
       board,
+      clip,
     };
   },
 };
