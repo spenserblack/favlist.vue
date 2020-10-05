@@ -8,7 +8,7 @@
     role='presentation'
     stroke-linejoin='round'
   )
-    path(d='M 4 4 H 14 V 16 H 4 Z')
+    path(:d='path')
 </template>
 
 <script>
@@ -23,6 +23,14 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  data() {
+    const path = [
+      'M 4 4 H 14 V 16 H 4 Z',
+    ].join(' ');
+    return {
+      path,
+    };
   },
 };
 </script>
