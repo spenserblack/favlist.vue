@@ -1,21 +1,18 @@
 <template lang='pug'>
-  svg(
-    xmlns='http://www.w3.org/2000/svg'
-    :width='width'
-    :height='height'
-    viewBox='0 0 18 18'
-    aria-labelledby='clipboard'
-    role='presentation'
-    stroke-linejoin='round'
-  )
+  BaseSvg(:width='width' :height='height' name='clipboard')
     path(:d='board')
     path(:d='clip')
     path(v-for='detail in details' :d='detail')
 </template>
 
 <script>
+import BaseSvg from './Base.vue';
+
 export default {
   name: 'Clipboard',
+  components: {
+    BaseSvg,
+  },
   props: {
     width: {
       type: Number,
@@ -41,14 +38,3 @@ export default {
   },
 };
 </script>
-
-<style lang='stylus' scoped>
-@require '../../styles/variables.styl'
-
-svg
-  fill: textColor
-
-  path
-    fill: none
-    stroke: textColor
-</style>
