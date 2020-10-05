@@ -7,8 +7,8 @@
 import ClipboardSvg from './svg/Clipboard.vue';
 import {write as copy} from 'clipboardy';
 
-const clipboardWidth = 18;
-const clipboardHeight = 18;
+const clipboardWidth = 36;
+const clipboardHeight = 36;
 
 export default {
   name: 'Export',
