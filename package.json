@@ -30,7 +30,7 @@
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
     "stylus": "^0.54.8",
-    "stylus-loader": "^3.0.2",
+    "stylus-loader": "^4.1.1",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [
