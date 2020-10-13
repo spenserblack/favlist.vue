@@ -1,12 +1,5 @@
 <template lang='pug'>
   #app
-    Alert(
-      class='alerts-item'
-      v-for='(alert, index) in alerts'
-      v-bind='alert'
-      v-on:close='alerts.splice(index, 1)'
-      :key='index'
-    )
     h1 FAVLIST
     .meta-buttons
       ExportFavlist
@@ -22,7 +15,6 @@
 </template>
 
 <script>
-import Alert from './components/Alert.vue';
 import ExportFavlist from './components/Export.vue';
 import Favlist from './components/Favlist.vue';
 import ImportFavlist from './components/Import.vue';
@@ -38,16 +30,10 @@ export default {
   name: 'App',
   store,
   components: {
-    Alert,
     ExportFavlist,
     ImportFavlist,
     SaveFavlist,
     Favlist,
-  },
-  data() {
-    return {
-      alerts: [],
-    };
   },
   computed: {
     favlists() {
