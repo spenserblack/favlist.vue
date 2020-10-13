@@ -14,9 +14,9 @@
           :column='columnIndex'
           :key='header.key'
         )
-        input(type='text' placeholder='filter rows' v-model='filter')
+        input.filter(type='text' placeholder='filter rows' v-model='filter')
     tbody
-      tr(v-for='rowIndex in dataHeight')
+      tr(v-for='rowIndex in dataHeight' v-show='isRowShown(rowIndex - 1)')
         DataCell(
           v-for='cellIndex in dataWidth'
           :favlist='index'
@@ -86,6 +86,13 @@ export default {
         row: index,
       });
     },
+    isRowShown(rowNumber) {
+      return !this.filter || this.data.some(column => {
+        const cell = column[rowNumber];
+        const {datum} = cell || {};
+        return datum != null && String(datum).includes(this.filter);
+      });
+    },
   },
 };
 </script>
@@ -104,4 +111,12 @@ table
 
 button.add-row
   width: 100%
+
+input.filter
+  background-color: secondaryColor
+  color: textColor
+
+  &::placeholder
+    color: blend(#050, #fff)
+    // color: blue
 </style>
