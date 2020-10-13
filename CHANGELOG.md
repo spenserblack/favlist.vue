@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Filer to search for rows
+
 ### Changed
 
 - Styled buttons

@@ -14,8 +14,16 @@
           :column='columnIndex'
           :key='header.key'
         )
+        th.filter
+          span
+            input.filter(
+              type='text'
+              :id='filterId'
+              placeholder='filter...'
+              v-model='filter'
+            )
     tbody
-      tr(v-for='rowIndex in dataHeight')
+      tr(v-for='rowIndex in dataHeight' v-show='isRowShown(rowIndex - 1)')
         DataCell(
           v-for='cellIndex in dataWidth'
           :favlist='index'
@@ -37,6 +45,9 @@ import HeaderCell from './Items/HeaderCell.vue';
 
 export default {
   name: 'FavlistItems',
+  data() {
+    return { filter: '' };
+  },
   components: {
     HeaderCell,
     DataCell,
@@ -60,6 +71,9 @@ export default {
     dataWidth() {
       return this.$store.getters.width(this.index);
     },
+    filterId() {
+      return `favlist-filter-${this.index}`;
+    },
   },
   methods: {
     addColumn() {
@@ -82,6 +96,13 @@ export default {
         row: index,
       });
     },
+    isRowShown(rowNumber) {
+      return !this.filter || this.data.some(column => {
+        const cell = column[rowNumber];
+        const {datum} = cell || {};
+        return datum != null && String(datum).includes(this.filter);
+      });
+    },
   },
 };
 </script>
@@ -100,4 +121,16 @@ table
 
 button.add-row
   width: 100%
+
+th.filter
+  background-color: secondaryColor
+
+  input
+    background-color: secondaryColor
+    color: textColor
+    border: none
+    text-align: center
+
+    &::placeholder
+      color: blend(rgba(textColor, 0.5), secondaryColor)
 </style>
