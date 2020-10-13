@@ -82,6 +82,9 @@ export default {
     border: none
     color: textColor
     cursor: pointer
+    padding: .5em
+    min-width: 5em
+    min-height: 2em
 </style>
 
 <style lang='stylus' scoped>
