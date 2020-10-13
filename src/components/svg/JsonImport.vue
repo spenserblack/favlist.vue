@@ -1,5 +1,5 @@
 <template lang='pug'>
-  BaseSvg(:width='width' :height='height' name='import JSON')
+  BaseSvg(:width='width' :height='height' :name='name')
     text(x='0' y='13') {}
     path(d='M 10.5 15 C 12 15, 13 14, 13 12 V 5 M 10 8 L 13 5 L 16 8')
 </template>
@@ -20,6 +20,10 @@ export default {
     height: {
       type: Number,
       required: true,
+    },
+    name: {
+      type: String,
+      default: 'import JSON',
     },
   },
 };

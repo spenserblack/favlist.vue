@@ -1,5 +1,5 @@
 <template lang='pug'>
-  BaseSvg(:width='width' :height='height' name='clipboard')
+  BaseSvg(:width='width' :height='height' :name='name')
     path(:d='board')
     path(:d='clip')
     path(v-for='detail in details' :d='detail')
@@ -21,6 +21,10 @@ export default {
     height: {
       type: Number,
       required: true,
+    },
+    name: {
+      type: String,
+      default: 'clipboard',
     },
   },
   data() {
