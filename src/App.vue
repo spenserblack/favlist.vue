@@ -8,9 +8,10 @@
       :key='index'
     )
     h1 FAVLIST
-    ExportFavlist
-    ImportFavlist
-    SaveFavlist
+    .meta-buttons
+      ExportFavlist
+      ImportFavlist
+      SaveFavlist
     p(v-if='noLists') You don't have any lists :(
     Favlist(
       v-for='(favlist, index) in favlists'
@@ -82,4 +83,12 @@ export default {
     border-radius: 5px
     color: textColor
     cursor: pointer
+</style>
+
+<style lang='stylus' scoped>
+@require './styles/variables.styl'
+
+  .meta-buttons
+    background-color: secondaryColor
+    width: auto
 </style>
