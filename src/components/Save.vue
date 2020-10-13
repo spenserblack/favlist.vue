@@ -1,12 +1,30 @@
 <template lang='pug'>
-  button(@click='saveFavlists') Save as JSON
+  button.flipped(@click='saveFavlists' title='Save as JSON')
+    JsonSaveSvg(
+      :width='saveJsonWidth'
+      :height='saveJsonHeight'
+      name='save JSON'
+    )
 </template>
 
 <script>
+import JsonSaveSvg from './svg/JsonImport.vue';
 import {saveAs} from 'file-saver';
+
+const saveJsonWidth = 36;
+const saveJsonHeight = 36;
 
 export default {
   name: 'Save',
+  components: {
+    JsonSaveSvg,
+  },
+  data() {
+    return {
+      saveJsonWidth,
+      saveJsonHeight,
+    };
+  },
   methods: {
     saveFavlists() {
       const blob = new Blob(
@@ -18,3 +36,8 @@ export default {
   },
 };
 </script>
+
+<style lang='stylus' scoped>
+.flipped
+  transform: scaleY(-1)
+</style>
