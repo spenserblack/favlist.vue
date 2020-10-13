@@ -2,10 +2,10 @@
   table.items
     thead
       tr
-        th(v-for='(header, columnIndex) in columns')
+        th.button-container(v-for='(header, columnIndex) in columns')
           button.remove-column(@click='removeColumn(columnIndex)')
             | - Remove Column
-        th
+        th.button-container
           button.add-column(@click='addColumn') + Add Column
       tr
         HeaderCell(
@@ -23,11 +23,11 @@
           :cell='rowIndex - 1'
           :key='$store.getters.datumKey(index, cellIndex - 1, rowIndex - 1)'
         )
-        td
+        td.button-container
           button.remove-row(@click='removeRow(rowIndex - 1)') - Remove Row
     tfoot
       tr
-        td(:colspan='dataWidth')
+        td.button-container(:colspan='dataWidth')
           button.add-row(@click='addRow') + Add Row
 </template>
 
@@ -87,6 +87,14 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+@require '../../styles/variables.styl'
+
 .items
   margin: auto
+
+table
+  border-collapse: collapse
+
+.button-container
+  background-color: secondaryColor
 </style>
