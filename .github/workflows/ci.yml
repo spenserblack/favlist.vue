@@ -14,10 +14,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14'
-      - run: npm ci
+      - run: yarn install --frozen-lockfile
       - name: lint
-        run: npm run lint -- --max-warnings 0
-  
+        run: yarn lint --max-warnings 0
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -25,10 +25,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14'
-      - run: npm ci
+      - run: yarn install --frozen-lockfile
       - name: test
-        run: npm test
-  
+        run: yarn test
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -36,5 +36,5 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '14'
-    - run: npm ci
-    - run: npm run build
+    - run: yarn install --frozen-lockfile
+    - run: yarn build
