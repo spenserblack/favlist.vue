@@ -1,12 +1,26 @@
 <template lang='pug'>
-  button(@click='copyToClipboard') Export to clipboard as JSON
+  button(@click='copyToClipboard' title='Save to clipboard')
+    ClipboardSvg(:width='clipboardWidth' :height='clipboardHeight')
 </template>
 
 <script>
+import ClipboardSvg from './svg/Clipboard.vue';
 import {write as copy} from 'clipboardy';
+
+const clipboardWidth = 36;
+const clipboardHeight = 36;
 
 export default {
   name: 'Export',
+  components: {
+    ClipboardSvg,
+  },
+  data() {
+    return {
+      clipboardWidth,
+      clipboardHeight,
+    };
+  },
   methods: {
     async copyToClipboard() {
       try {

@@ -1,10 +1,25 @@
 <template lang='pug'>
-  button(@click='importFavlist') Import from JSON
+  button(@click='importFavlist' title='Import from JSON')
+    ImportSvg(:width='importJsonWidth' :height='importJsonHeight')
 </template>
 
 <script>
+import ImportSvg from './svg/JsonImport.vue';
+
+const importJsonWidth = 36;
+const importJsonHeight = 36;
+
 export default {
   name: 'Import',
+  components: {
+    ImportSvg,
+  },
+  data() {
+    return {
+      importJsonWidth,
+      importJsonHeight,
+    };
+  },
   methods: {
     importFavlist() {
       const favlistJson = JSON.parse(prompt('Please enter JSON'));
