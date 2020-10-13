@@ -97,4 +97,7 @@ table
 
 .button-container
   background-color: secondaryColor
+
+button.add-row
+  width: 100%
 </style>
