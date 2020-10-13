@@ -14,7 +14,14 @@
           :column='columnIndex'
           :key='header.key'
         )
-        input.filter(type='text' placeholder='filter rows' v-model='filter')
+        th.filter
+          span
+            input.filter(
+              type='text'
+              :id='filterId'
+              placeholder='filter...'
+              v-model='filter'
+            )
     tbody
       tr(v-for='rowIndex in dataHeight' v-show='isRowShown(rowIndex - 1)')
         DataCell(
@@ -64,6 +71,9 @@ export default {
     dataWidth() {
       return this.$store.getters.width(this.index);
     },
+    filterId() {
+      return `favlist-filter-${this.index}`;
+    },
   },
   methods: {
     addColumn() {
@@ -112,11 +122,15 @@ table
 button.add-row
   width: 100%
 
-input.filter
+th.filter
   background-color: secondaryColor
-  color: textColor
 
-  &::placeholder
-    color: blend(#050, #fff)
-    // color: blue
+  input
+    background-color: secondaryColor
+    color: textColor
+    border: none
+    text-align: center
+
+    &::placeholder
+      color: blend(rgba(textColor, 0.5), secondaryColor)
 </style>
