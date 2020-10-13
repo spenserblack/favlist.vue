@@ -77,7 +77,7 @@ export default {
   position: absolute
 
   button
-    background-color: #343
+    background-color: secondaryColor
     border: none
     border-radius: 5px
     color: textColor
