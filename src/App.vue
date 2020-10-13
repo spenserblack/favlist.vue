@@ -80,7 +80,6 @@ export default {
   button
     background-color: secondaryColor
     border: none
-    border-radius: 5px
     color: textColor
     cursor: pointer
 </style>
