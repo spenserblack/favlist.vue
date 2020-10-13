@@ -14,6 +14,7 @@
           :column='columnIndex'
           :key='header.key'
         )
+        input(type='text' placeholder='filter rows' v-model='filter')
     tbody
       tr(v-for='rowIndex in dataHeight')
         DataCell(
@@ -37,6 +38,9 @@ import HeaderCell from './Items/HeaderCell.vue';
 
 export default {
   name: 'FavlistItems',
+  data() {
+    return { filter: '' };
+  },
   components: {
     HeaderCell,
     DataCell,
