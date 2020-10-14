@@ -12,6 +12,8 @@
       :index='index'
     )
     button(v-on:click='$store.commit("newFavlist")') + Add List
+    .alerts
+      p.alert(v-for='alert in alerts') {{ alert }}
 </template>
 
 <script>
@@ -19,12 +21,9 @@ import ExportFavlist from './components/Export.vue';
 import Favlist from './components/Favlist.vue';
 import ImportFavlist from './components/Import.vue';
 import SaveFavlist from './components/Save.vue';
+import debounce from 'debounce';
 import favlistLocalStorage from './local-storage-name.js';
 import store from './store';
-
-store.subscribe((mutation, state) => {
-  localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
-});
 
 export default {
   name: 'App',
@@ -35,6 +34,9 @@ export default {
     SaveFavlist,
     Favlist,
   },
+  data() {
+    return { alerts: [] };
+  },
   computed: {
     favlists() {
       return store.state.favlists;
@@ -42,6 +44,16 @@ export default {
     noLists() {
       return !(this.favlists || []).length;
     },
+  },
+  methods: {
+    save() {
+      const favlists = JSON.stringify(store.state.favlists);
+      localStorage.setItem(favlistLocalStorage, favlists);
+      this.alerts.push('Saved!');
+    },
+  },
+  mounted() {
+    store.subscribe(debounce(this.save, 1000));
   },
 };
 </script>
@@ -79,4 +91,9 @@ export default {
   .meta-buttons
     background-color: secondaryColor
     width: auto
+
+  .alerts
+    position: absolute
+    right: 1vw
+    bottom: 1vh
 </style>
