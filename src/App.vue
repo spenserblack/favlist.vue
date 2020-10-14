@@ -49,6 +49,7 @@ export default {
     save() {
       const favlists = JSON.stringify(store.state.favlists);
       localStorage.setItem(favlistLocalStorage, favlists);
+      this.alerts.push('Saved!');
     },
   },
   mounted() {
