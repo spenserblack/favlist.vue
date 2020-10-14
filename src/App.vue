@@ -40,10 +40,14 @@ export default {
       return !(this.favlists || []).length;
     },
   },
+  methods: {
+    save() {
+      const favlists = JSON.stringify(store.state.favlists);
+      localStorage.setItem(favlistLocalStorage, favlists);
+    },
+  },
   mounted() {
-    store.subscribe(debounce((mutation, state) => {
-      localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
-    }, 1000));
+    store.subscribe(debounce(this.save, 1000));
   },
 };
 </script>
