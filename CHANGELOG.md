@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Only save when user has *stopped* editing, not while they are editing
+
 ## [0.2.0]
 
 ### Added
