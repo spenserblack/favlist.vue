@@ -12,6 +12,8 @@
       :index='index'
     )
     button(v-on:click='$store.commit("newFavlist")') + Add List
+    .alerts
+      p.alert(v-for='alert in alerts') {{ alert }}
 </template>
 
 <script>
@@ -31,6 +33,9 @@ export default {
     ImportFavlist,
     SaveFavlist,
     Favlist,
+  },
+  data() {
+    return { alerts: [] };
   },
   computed: {
     favlists() {
@@ -85,4 +90,9 @@ export default {
   .meta-buttons
     background-color: secondaryColor
     width: auto
+
+  .alerts
+    position: absolute
+    right: 1vw
+    bottom: 1vh
 </style>
