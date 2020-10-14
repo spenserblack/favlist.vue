@@ -23,10 +23,6 @@ import debounce from 'debounce';
 import favlistLocalStorage from './local-storage-name.js';
 import store from './store';
 
-store.subscribe(debounce((mutation, state) => {
-  localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
-}, 1000));
-
 export default {
   name: 'App',
   store,
@@ -43,6 +39,11 @@ export default {
     noLists() {
       return !(this.favlists || []).length;
     },
+  },
+  mounted() {
+    store.subscribe(debounce((mutation, state) => {
+      localStorage.setItem(favlistLocalStorage, JSON.stringify(state.favlists));
+    }, 1000));
   },
 };
 </script>
