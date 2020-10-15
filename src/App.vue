@@ -25,6 +25,7 @@ import ImportFavlist from './components/Import.vue';
 import SaveFavlist from './components/Save.vue';
 import debounce from 'debounce';
 import favlistLocalStorage from './local-storage-name.js';
+import setTimeout from 'core-js/stable/set-timeout';
 import store from './store';
 
 export default {
