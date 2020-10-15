@@ -41,6 +41,7 @@
         td.invisible-column
         td.button-container(:colspan='dataWidth')
           button.add-row(@click='addRow') + Add Row
+        td
 </template>
 
 <script>
