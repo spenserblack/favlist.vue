@@ -6,6 +6,10 @@
 
 - Only save when user has *stopped* editing, not while they are editing
 
+### Styling
+
+- Centered favlist data, offsetting buttons for adding rows and input for searching to the right
+
 ## [0.2.0]
 
 ### Added
