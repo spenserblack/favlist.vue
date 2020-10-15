@@ -13,10 +13,12 @@
     )
     button(v-on:click='$store.commit("newFavlist")') + Add List
     .alerts
-      p.alert(v-for='alert in alerts') {{ alert }}
+      Alert(v-for='(alert, index) in alerts' :key='`${index}-${alert}`')
+        | {{ alert }}
 </template>
 
 <script>
+import Alert from './components/Alert.vue';
 import ExportFavlist from './components/Export.vue';
 import Favlist from './components/Favlist.vue';
 import ImportFavlist from './components/Import.vue';
@@ -29,6 +31,7 @@ export default {
   name: 'App',
   store,
   components: {
+    Alert,
     ExportFavlist,
     ImportFavlist,
     SaveFavlist,
