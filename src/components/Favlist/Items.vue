@@ -41,7 +41,9 @@
         td.invisible-column
         td.button-container(:colspan='dataWidth')
           button.add-row(@click='addRow') + Add Row
-        td.meta-column
+        td.button-container.meta-column
+          button
+            a(:href='topOfListHref') Top of {{ $store.getters.title(index) }}
 </template>
 
 <script>
@@ -62,6 +64,10 @@ export default {
       type: Number,
       required: true,
     },
+    favlistId: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     columns() {
@@ -78,6 +84,9 @@ export default {
     },
     filterId() {
       return `favlist-filter-${this.index}`;
+    },
+    topOfListHref() {
+      return `#${this.favlistId}`;
     },
   },
   methods: {
@@ -125,6 +134,13 @@ table
 
 .button-container
   background-color: secondaryColor
+
+  button
+    a
+      color: textColor
+
+      &:hover
+        color: lighten(textColor, 25%)
 
 button.add-row
   width: 100%
