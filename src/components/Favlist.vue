@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .favlist
+  .favlist(:id='favlistId')
     .header
       .left-spacer
       Title.title(:index='index')
@@ -12,6 +12,7 @@
 <script>
 import Items from './Favlist/Items.vue';
 import Title from './Favlist/Title.vue';
+import {v4 as uuidv4} from 'uuid';
 
 export default {
   name: 'Favlist',
@@ -20,6 +21,9 @@ export default {
       required: true,
       type: Number,
     },
+  },
+  data() {
+    return { favlistId: `favlist-${uuidv4()}` };
   },
   components: {
     Title,
