@@ -115,6 +115,8 @@ export default {
 <style lang='stylus' scoped>
 @require '../../styles/variables.styl'
 
+metaWidth = 20%
+
 .items
   margin: auto
 
@@ -142,4 +144,9 @@ th.filter
 
 .invisible-column
   opacity: 0
+  background-color: whitesmoke
+  width: metaWidth
+
+.meta-column
+  width: metaWidth
 </style>
