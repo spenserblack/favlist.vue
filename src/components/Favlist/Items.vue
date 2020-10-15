@@ -41,8 +41,9 @@
         td.invisible-column
         td.button-container(:colspan='dataWidth')
           button.add-row(@click='addRow') + Add Row
-        td.meta-column
-          a(:href='topOfListHref') Top of {{ $store.getters.title(index) }}
+        td.button-container.meta-column
+          button
+            a(:href='topOfListHref') Top of {{ $store.getters.title(index) }}
 </template>
 
 <script>
