@@ -2,19 +2,21 @@
   table.items
     thead
       tr
+        th.invisible-column
         th.button-container(v-for='(header, columnIndex) in columns')
           button.remove-column(@click='removeColumn(columnIndex)')
             | - Remove Column
-        th.button-container
+        th.button-container.meta-column
           button.add-column(@click='addColumn') + Add Column
       tr
+        th.invisible-column
         HeaderCell(
           v-for='(header, columnIndex) in columns'
           :favlist='index'
           :column='columnIndex'
           :key='header.key'
         )
-        th.filter
+        th.filter.meta-column
           span
             input.filter(
               type='text'
@@ -24,6 +26,7 @@
             )
     tbody
       tr(v-for='rowIndex in dataHeight' v-show='isRowShown(rowIndex - 1)')
+        td.invisible-column
         DataCell(
           v-for='cellIndex in dataWidth'
           :favlist='index'
@@ -31,12 +34,14 @@
           :cell='rowIndex - 1'
           :key='$store.getters.datumKey(index, cellIndex - 1, rowIndex - 1)'
         )
-        td.button-container
+        td.button-container.meta-column
           button.remove-row(@click='removeRow(rowIndex - 1)') - Remove Row
     tfoot
       tr
+        td.invisible-column
         td.button-container(:colspan='dataWidth')
           button.add-row(@click='addRow') + Add Row
+        td.meta-column
 </template>
 
 <script>
@@ -110,6 +115,8 @@ export default {
 <style lang='stylus' scoped>
 @require '../../styles/variables.styl'
 
+metaWidth = 20%
+
 .items
   margin: auto
 
@@ -133,4 +140,13 @@ th.filter
 
     &::placeholder
       color: blend(rgba(textColor, 0.5), secondaryColor)
+
+
+.invisible-column
+  opacity: 0
+  background-color: whitesmoke
+  width: metaWidth
+
+.meta-column
+  width: metaWidth
 </style>
