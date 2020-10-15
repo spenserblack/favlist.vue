@@ -135,6 +135,13 @@ table
 .button-container
   background-color: secondaryColor
 
+  button
+    a
+      color: textColor
+
+      &:hover
+        color: lighten(textColor, 25%)
+
 button.add-row
   width: 100%
 
