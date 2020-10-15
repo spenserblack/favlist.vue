@@ -10,7 +10,7 @@
 
 ### Added
 
-- Filer to search for rows
+- Filter to search for rows
 
 ### Changed
 
