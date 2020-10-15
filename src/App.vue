@@ -78,7 +78,7 @@ export default {
   height: 100%
   width: 100%
   overflow: auto
-  position: absolute
+  position: fixed
 
   button
     background-color: secondaryColor
