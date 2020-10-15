@@ -3,6 +3,12 @@
     thead
       tr
         th.invisible-column
+        th(:colspan='dataWidth').button-container
+          button(@click='$emit("delete")').delete-button
+            | - Remove {{ $store.getters.title(index) }}
+        th.button-container
+      tr
+        th.invisible-column
         th.button-container(v-for='(header, columnIndex) in columns')
           button.remove-column(@click='removeColumn(columnIndex)')
             | - Remove Column
@@ -143,6 +149,7 @@ table
         color: lighten(textColor, 25%)
 
 button.add-row
+.delete-button
   width: 100%
 
 th.filter
