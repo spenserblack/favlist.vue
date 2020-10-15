@@ -58,7 +58,7 @@ export default {
     },
   },
   mounted() {
-    store.subscribe(debounce(this.save, 1000));
+    store.subscribe(debounce(this.save, 500));
   },
 };
 </script>
