@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Link to top of favlist
+
 ### Fixed
 
 - Only save when user has *stopped* editing, not while they are editing
