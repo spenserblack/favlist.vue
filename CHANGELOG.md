@@ -13,6 +13,7 @@
 ### Styling
 
 - Centered favlist data, offsetting buttons for adding rows and input for searching to the right
+- Moved "delete list" button to be part of list instead of next to title
 
 ## [0.2.0]
 
