@@ -6,7 +6,7 @@
         th.button-container(v-for='(header, columnIndex) in columns')
           button.remove-column(@click='removeColumn(columnIndex)')
             | - Remove Column
-        th.button-container
+        th.button-container.meta-column
           button.add-column(@click='addColumn') + Add Column
       tr
         th.invisible-column
@@ -16,7 +16,7 @@
           :column='columnIndex'
           :key='header.key'
         )
-        th.filter
+        th.filter.meta-column
           span
             input.filter(
               type='text'
@@ -34,14 +34,14 @@
           :cell='rowIndex - 1'
           :key='$store.getters.datumKey(index, cellIndex - 1, rowIndex - 1)'
         )
-        td.button-container
+        td.button-container.meta-column
           button.remove-row(@click='removeRow(rowIndex - 1)') - Remove Row
     tfoot
       tr
         td.invisible-column
         td.button-container(:colspan='dataWidth')
           button.add-row(@click='addRow') + Add Row
-        td
+        td.meta-column
 </template>
 
 <script>
