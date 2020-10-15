@@ -6,7 +6,7 @@
       .right-spacer
         button.remove-button(@click='removeSelf')
           | - Remove List
-    Items(:index='index')
+    Items(:index='index' :favlistId='favlistId')
 </template>
 
 <script>

@@ -42,6 +42,7 @@
         td.button-container(:colspan='dataWidth')
           button.add-row(@click='addRow') + Add Row
         td.meta-column
+          a(:href='topOfListHref') Top of {{ $store.getters.title(index) }}
 </template>
 
 <script>
@@ -62,6 +63,10 @@ export default {
       type: Number,
       required: true,
     },
+    favlistId: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     columns() {
@@ -78,6 +83,9 @@ export default {
     },
     filterId() {
       return `favlist-filter-${this.index}`;
+    },
+    topOfListHref() {
+      return `#${this.favlistId}`;
     },
   },
   methods: {
