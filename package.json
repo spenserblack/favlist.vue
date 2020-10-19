@@ -28,7 +28,7 @@
     "chai": "^4.1.2",
     "eslint": "^6",
     "eslint-plugin-vue": "^7.0.1",
-    "lint-staged": "^10.4.0",
+    "lint-staged": "^10.4.2",
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
     "stylus": "^0.54.8",
