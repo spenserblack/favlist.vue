@@ -10,6 +10,7 @@
 <script>
 import JsonSaveSvg from './svg/JsonImport.vue';
 import {saveAs} from 'file-saver';
+import stringifyJson from 'core-js/stable/json/stringify';
 
 const saveJsonWidth = 36;
 const saveJsonHeight = 36;
@@ -28,7 +29,7 @@ export default {
   methods: {
     saveFavlists() {
       const blob = new Blob(
-        [JSON.stringify(this.$store.state.favlists)],
+        [stringifyJson(this.$store.state.favlists)],
         {type: 'text/json;charset=utf-8'},
       );
       saveAs(blob, 'favlist.json');

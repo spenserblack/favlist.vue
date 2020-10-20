@@ -27,6 +27,7 @@ import debounce from 'debounce';
 import favlistLocalStorage from './local-storage-name.js';
 import setTimeout from 'core-js/stable/set-timeout';
 import store from './store';
+import stringifyJson from 'core-js/stable/json/stringify';
 
 export default {
   name: 'App',
@@ -51,7 +52,7 @@ export default {
   },
   methods: {
     save() {
-      const favlists = JSON.stringify(store.state.favlists);
+      const favlists = stringifyJson(store.state.favlists);
       localStorage.setItem(favlistLocalStorage, favlists);
       this.alerts.push('Saved!');
       setTimeout(() => this.alerts.shift(), 10);

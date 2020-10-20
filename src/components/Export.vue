@@ -6,6 +6,7 @@
 <script>
 import ClipboardSvg from './svg/Clipboard.vue';
 import {write as copy} from 'clipboardy';
+import stringifyJson from 'core-js/stable/json/stringify';
 
 const clipboardWidth = 36;
 const clipboardHeight = 36;
@@ -24,7 +25,7 @@ export default {
   methods: {
     async copyToClipboard() {
       try {
-        await copy(JSON.stringify(this.$store.state.favlists));
+        await copy(stringifyJson(this.$store.state.favlists));
         alert('Favlists exported');
       } catch(e) {
         console.error("Couldn't copy to clipboard", e);
