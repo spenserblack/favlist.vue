@@ -7,8 +7,9 @@
         RouterLink.route(
           v-for='(list, index) in favlists'
           :to='{name: "favlist", params: {index}}'
+          :class='{muted: !list.title}'
           :key='index'
-        ) {{ list.title }}
+        ) {{ list.title || 'New List' }}
       .add-favlist
         span.route.add-favlist(@click='$store.commit("newFavlist")') +
     .meta-buttons
