@@ -2,7 +2,11 @@
   #app
     h1 FAVLIST
     .navbar
-      | Routes go here
+      span.route(
+        v-for='(list, index) in favlists'
+        :class='{muted: !list.title}'
+        @click='route = index'
+      ) {{ list.title || 'New List' }}
     .meta-buttons
       ExportFavlist
       ImportFavlist
@@ -95,6 +99,9 @@ export default {
     padding: .5em
     min-width: 5em
     min-height: 2em
+
+  .muted
+    opacity: .5
 </style>
 
 <style lang='stylus' scoped>
@@ -108,4 +115,12 @@ export default {
     position: fixed
     right: 1vw
     bottom: 1vh
+
+  .route
+    sideMargin = 1em
+
+    font-size: 1.5em
+    cursor: pointer
+    margin-left: sideMargin
+    margin-right: sideMargin
 </style>
