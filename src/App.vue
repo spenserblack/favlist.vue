@@ -2,9 +2,13 @@
   #app
     h1 FAVLIST
     .navbar
+      span.route.show-all(
+        :class='{active: route == null}'
+        @click='route = null'
+      ) Show All
       span.route(
         v-for='(list, index) in favlists'
-        :class='{muted: !list.title, active: shouldShow(index)}'
+        :class='{muted: !list.title, active: route == index}'
         @click='route = index'
       ) {{ list.title || 'New List' }}
     .meta-buttons
@@ -126,4 +130,7 @@ export default {
 
     &.active
       font-style: oblique
+
+    &.show-all
+      float: left
 </style>
