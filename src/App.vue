@@ -10,6 +10,7 @@
     p(v-if='noLists') You don't have any lists :(
     Favlist(
       v-for='(favlist, index) in favlists'
+      v-show='shouldShow(index)'
       :key='favlist.key'
       :index='index'
     )
@@ -42,7 +43,7 @@ export default {
     Favlist,
   },
   data() {
-    return { alerts: [] };
+    return { alerts: [], route: null };
   },
   computed: {
     favlists() {
@@ -58,6 +59,9 @@ export default {
       localStorage.setItem(favlistLocalStorage, favlists);
       this.alerts.push('Saved!');
       setTimeout(() => this.alerts.shift(), 10);
+    },
+    shouldShow(favlistIndex) {
+      return this.route == null || this.route === favlistIndex;
     },
   },
   mounted() {
