@@ -144,5 +144,8 @@ export default {
         width: 15%
 
       &.add-favlist
-        font-size: 2em
+        transition: 0.5s ease
+
+        &:hover
+          color: lighten(textColor, 30%)
 </style>
