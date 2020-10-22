@@ -4,6 +4,11 @@
     .navbar
       .routes
         RouterLink.route(:to='{name: "home"}') Home
+        RouterLink.route(
+          v-for='(list, index) in favlists'
+          :to='{name: "favlist", params: {index}}'
+          :key='index'
+        ) {{ list.title }}
       .add-favlist
         span.route.add-favlist(@click='$store.commit("newFavlist")') +
     .meta-buttons
@@ -19,6 +24,7 @@
 <script>
 import Alert from './components/Alert.vue';
 import ExportFavlist from './components/Export.vue';
+import Favlist from './components/Favlist.vue';
 import Home from './routes/Home.vue';
 import ImportFavlist from './components/Import.vue';
 import SaveFavlist from './components/Save.vue';
@@ -38,6 +44,12 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
+  },
+  {
+    path: '/favlist/:index',
+    name: 'favlist',
+    component: Favlist,
+    props: true,
   },
 ];
 
