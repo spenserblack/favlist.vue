@@ -1,6 +1,8 @@
 <template lang='pug'>
   #app
     h1 FAVLIST
+    .navbar
+      | Routes go here
     .meta-buttons
       ExportFavlist
       ImportFavlist
@@ -94,7 +96,7 @@ export default {
 <style lang='stylus' scoped>
 @require './styles/variables.styl'
 
-  .meta-buttons
+  .meta-buttons, .navbar
     background-color: secondaryColor
     width: auto
 
