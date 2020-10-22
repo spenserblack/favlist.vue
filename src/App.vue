@@ -145,9 +145,11 @@ export default {
       cursor: pointer
       margin-left: sideMargin
       margin-right: sideMargin
+      text-decoration: none
 
-      &.router-link-active
+      &.router-link-exact-active
         font-style: oblique
+        text-decoration: underline
 
       &.show-all
       &.add-favlist
