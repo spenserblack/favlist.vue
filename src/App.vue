@@ -130,7 +130,7 @@ export default {
       margin-left: sideMargin
       margin-right: sideMargin
 
-      &.active
+      &.router-link-active
         font-style: oblique
 
       &.show-all
