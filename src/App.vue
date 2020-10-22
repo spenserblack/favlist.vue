@@ -4,7 +4,7 @@
     .navbar
       span.route(
         v-for='(list, index) in favlists'
-        :class='{muted: !list.title}'
+        :class='{muted: !list.title, active: shouldShow(index)}'
         @click='route = index'
       ) {{ list.title || 'New List' }}
     .meta-buttons
@@ -123,4 +123,7 @@ export default {
     cursor: pointer
     margin-left: sideMargin
     margin-right: sideMargin
+
+    &.active
+      font-style: oblique
 </style>
