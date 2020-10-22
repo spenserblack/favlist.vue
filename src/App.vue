@@ -3,7 +3,7 @@
     h1 FAVLIST
     .navbar
       .routes
-        RouterLink.route(to='/') Home
+        RouterLink.route(:to='{name: "home"}') Home
       .add-favlist
         span.route.add-favlist(@click='$store.commit("newFavlist")') +
     .meta-buttons
@@ -34,7 +34,11 @@ import stringifyJson from 'core-js/stable/json/stringify';
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: Home },
+  {
+    path: '/',
+    name: 'home',
+    component: Home,
+  },
 ];
 
 const router = new VueRouter({routes});
