@@ -11,6 +11,7 @@
         :class='{muted: !list.title, active: route == index}'
         @click='route = index'
       ) {{ list.title || 'New List' }}
+      span.route.add-favlist(@click='$store.commit("newFavlist")') +
     .meta-buttons
       ExportFavlist
       ImportFavlist
@@ -22,7 +23,6 @@
       :key='favlist.key'
       :index='index'
     )
-    button(v-on:click='$store.commit("newFavlist")') + Add List
     .alerts
       Alert(v-for='(alert, index) in alerts' :key='`${index}-${alert}`')
         | {{ alert }}
@@ -133,4 +133,8 @@ export default {
 
     &.show-all
       float: left
+
+    &.add-favlist
+      float: right
+      font-size: 2em
 </style>
