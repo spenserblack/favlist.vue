@@ -2,16 +2,19 @@
   #app
     h1 FAVLIST
     .navbar
-      span.route.show-all(
-        :class='{active: route == null}'
-        @click='route = null'
-      ) Show All
-      span.route(
-        v-for='(list, index) in favlists'
-        :class='{muted: !list.title, active: route == index}'
-        @click='route = index'
-      ) {{ list.title || 'New List' }}
-      span.route.add-favlist(@click='$store.commit("newFavlist")') +
+      .show-all
+        span.route(
+          :class='{active: route == null}'
+          @click='route = null'
+        ) Show All
+      .routes
+        span.route(
+          v-for='(list, index) in favlists'
+          :class='{muted: !list.title, active: route == index}'
+          @click='route = index'
+        ) {{ list.title || 'New List' }}
+      .add-favlist
+        span.route.add-favlist(@click='$store.commit("newFavlist")') +
     .meta-buttons
       ExportFavlist
       ImportFavlist
@@ -120,21 +123,26 @@ export default {
     right: 1vw
     bottom: 1vh
 
-  .route
-    sideMargin = 1em
+  .navbar
+    display: flex
+    justify-content: space-between
 
-    font-size: 1.5em
-    cursor: pointer
-    margin-left: sideMargin
-    margin-right: sideMargin
+    .route
+      sideMargin = 1em
 
-    &.active
-      font-style: oblique
+      display: inline-block
+      font-size: 1.5em
+      cursor: pointer
+      margin-left: sideMargin
+      margin-right: sideMargin
 
-    &.show-all
-      float: left
+      &.active
+        font-style: oblique
 
-    &.add-favlist
-      float: right
-      font-size: 2em
+      &.show-all
+      &.add-favlist
+        width: 15%
+
+      &.add-favlist
+        font-size: 2em
 </style>
