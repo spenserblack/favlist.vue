@@ -2,30 +2,15 @@
   #app
     h1 FAVLIST
     .navbar
-      .show-all
-        span.route(
-          :class='{active: route == null}'
-          @click='route = null'
-        ) Show All
       .routes
-        span.route(
-          v-for='(list, index) in favlists'
-          :class='{muted: !list.title, active: route == index}'
-          @click='route = index'
-        ) {{ list.title || 'New List' }}
+        RouterLink.route(to='/') Home
       .add-favlist
         span.route.add-favlist(@click='$store.commit("newFavlist")') +
     .meta-buttons
       ExportFavlist
       ImportFavlist
       SaveFavlist
-    p(v-if='noLists') You don't have any lists :(
-    Favlist(
-      v-for='(favlist, index) in favlists'
-      v-show='shouldShow(index)'
-      :key='favlist.key'
-      :index='index'
-    )
+    RouterView
     .alerts
       Alert(v-for='(alert, index) in alerts' :key='`${index}-${alert}`')
         | {{ alert }}
@@ -34,27 +19,38 @@
 <script>
 import Alert from './components/Alert.vue';
 import ExportFavlist from './components/Export.vue';
-import Favlist from './components/Favlist.vue';
+import Home from './routes/Home.vue';
 import ImportFavlist from './components/Import.vue';
 import SaveFavlist from './components/Save.vue';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
 import debounce from 'debounce';
 import favlistLocalStorage from './local-storage-name.js';
 import setTimeout from 'core-js/stable/set-timeout';
 import store from './store';
 import stringifyJson from 'core-js/stable/json/stringify';
 
+Vue.use(VueRouter);
+
+const routes = [
+  { path: '/', component: Home },
+];
+
+const router = new VueRouter({routes});
+
 export default {
   name: 'App',
+  router,
   store,
   components: {
     Alert,
     ExportFavlist,
     ImportFavlist,
     SaveFavlist,
-    Favlist,
   },
   data() {
-    return { alerts: [], route: null };
+    return { alerts: [] };
   },
   computed: {
     favlists() {
@@ -70,9 +66,6 @@ export default {
       localStorage.setItem(favlistLocalStorage, favlists);
       this.alerts.push('Saved!');
       setTimeout(() => this.alerts.shift(), 10);
-    },
-    shouldShow(favlistIndex) {
-      return this.route == null || this.route === favlistIndex;
     },
   },
   mounted() {
@@ -132,6 +125,7 @@ export default {
 
       display: inline-block
       font-size: 1.5em
+      color: textColor
       cursor: pointer
       margin-left: sideMargin
       margin-right: sideMargin
