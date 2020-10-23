@@ -42,6 +42,7 @@ export default {
     },
     removeSelf() {
       if (confirm(`Delete ${this.title || 'this list'} and all of its data?`)) {
+        this.$router.replace({name: 'home'});
         this.$store.commit('removeFavlist', this.index);
       }
     },
