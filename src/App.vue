@@ -178,11 +178,13 @@ export default {
 
       &.router-link-exact-active
         font-style: oblique
-        text-decoration: underline
 
       &.show-all
       &.add-favlist
         width: 15%
+
+      &:hover
+        text-decoration: underline
 
       &.add-favlist
         transition: 0.5s ease
