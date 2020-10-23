@@ -16,7 +16,7 @@
       ExportFavlist
       ImportFavlist
       SaveFavlist
-    RouterView
+    RouterView(@invalid-route='onInvalidRoute')
     .alerts
       Alert(v-for='(alert, index) in alerts' :key='`${index}-${alert}`')
         | {{ alert }}
@@ -108,6 +108,9 @@ export default {
       localStorage.setItem(favlistLocalStorage, favlists);
       this.alerts.push('Saved!');
       setTimeout(() => this.alerts.shift(), 10);
+    },
+    onInvalidRoute(message) {
+      console.warn(message || 'Attempted to access an invalid route');
     },
   },
   mounted() {

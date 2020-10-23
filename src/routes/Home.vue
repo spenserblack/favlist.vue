@@ -3,6 +3,7 @@
     p(v-if='noLists') You don't have any lists :(
     Favlist(
       v-for='(favlist, index) in favlists'
+      @invalid-route='onInvalidRoute'
       :key='favlist.key'
       :index='index'
     )
@@ -20,6 +21,11 @@ export default {
     },
     noLists() {
       return !(this.favlists || []).length;
+    },
+  },
+  methods: {
+    onInvalidRoute(message) {
+      this.$emit('invalid-route', message);
     },
   },
 };

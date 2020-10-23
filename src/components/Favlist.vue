@@ -49,7 +49,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     if (to.params.index >= (this.$store.state.favlists || []).length) {
-      console.warn('Tried to access non-existent list');
+      this.$emit('invalid-route', 'Tried to access non-existent list');
       next({name: 'home'});
       return;
     }
