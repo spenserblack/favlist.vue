@@ -1,6 +1,7 @@
 <template lang='pug'>
   #app
     h1 FAVLIST
+    RouterView(name='title')
     .navbar
       .routes
         RouterLink.route(:to='{name: "home"}') Home
@@ -29,6 +30,7 @@ import Favlist from './components/Favlist.vue';
 import Home from './routes/Home.vue';
 import ImportFavlist from './components/Import.vue';
 import SaveFavlist from './components/Save.vue';
+import Title from './components/Favlist/Title.vue';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
@@ -49,8 +51,14 @@ const routes = [
   {
     path: '/favlist/:index',
     name: 'favlist',
-    component: Favlist,
-    props: route => ({index: route.params.index, isRoute: true}),
+    components: {
+      default: Favlist,
+      title: Title,
+    },
+    props: {
+      default: route => ({index: route.params.index, isRoute: true}),
+      title: true,
+    },
   },
 ];
 
