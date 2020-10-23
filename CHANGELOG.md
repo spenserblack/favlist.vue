@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Routes to individual lists
+
 ## [0.2.1]
 
 ### Added
