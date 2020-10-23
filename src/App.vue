@@ -1,7 +1,7 @@
 <template lang='pug'>
   #app
     h1 FAVLIST
-    RouterView(name='title')
+    RouterView(name='title' :key='$route.path')
     .navbar
       .routes
         RouterLink.route(:to='{name: "home"}') Home

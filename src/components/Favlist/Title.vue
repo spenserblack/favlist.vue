@@ -22,9 +22,6 @@ export default {
     empty() {
       return !this.title;
     },
-    key() {
-      return `title-${this.index}`;
-    },
   },
   methods: {
     onInput(e) {
