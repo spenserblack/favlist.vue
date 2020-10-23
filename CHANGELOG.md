@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.3.0]
+
 ### Added
 
 - Routes to individual lists
@@ -49,7 +51,8 @@
 - Export of table data
 - Import of table data
 
-[Unreleased]: https://github.com/spenserblack/favlist.vue/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/spenserblack/favlist.vue/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/spenserblack/favlist.vue/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/spenserblack/favlist.vue/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/spenserblack/favlist.vue/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/spenserblack/favlist.vue/compare/v0.1.0...v0.1.1
