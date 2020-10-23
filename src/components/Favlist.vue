@@ -2,7 +2,7 @@
   .favlist(:id='favlistId')
     .header
       .left-spacer
-      Title.title(:index='index')
+      Title.title(v-if='!isRoute' :index='index')
       .right-spacer
     Items(:index='index' :favlistId='favlistId' @delete='removeSelf')
 </template>
@@ -18,6 +18,10 @@ export default {
     index: {
       required: true,
       type: Number,
+    },
+    isRoute: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -38,9 +42,18 @@ export default {
     },
     removeSelf() {
       if (confirm(`Delete ${this.title || 'this list'} and all of its data?`)) {
+        this.$router.replace({name: 'home'});
         this.$store.commit('removeFavlist', this.index);
       }
     },
+  },
+  beforeRouteUpdate(to, from, next) {
+    if (to.params.index >= (this.$store.state.favlists || []).length) {
+      console.warn('Tried to access non-existent list');
+      next({name: 'home'});
+      return;
+    }
+    next();
   },
 };
 </script>

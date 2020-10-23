@@ -1,17 +1,22 @@
 <template lang='pug'>
   #app
-    h1 FAVLIST
+    RouterView(name='title' :key='$route.path')
+    .navbar
+      .routes
+        RouterLink.route(:to='{name: "home"}') Home
+        RouterLink.route(
+          v-for='(list, index) in favlists'
+          :to='{name: "favlist", params: {index}}'
+          :class='{muted: !list.title}'
+          :key='index'
+        ) {{ list.title || 'New List' }}
+      .add-favlist
+        span.route.add-favlist(@click='$store.commit("newFavlist")') +
     .meta-buttons
       ExportFavlist
       ImportFavlist
       SaveFavlist
-    p(v-if='noLists') You don't have any lists :(
-    Favlist(
-      v-for='(favlist, index) in favlists'
-      :key='favlist.key'
-      :index='index'
-    )
-    button(v-on:click='$store.commit("newFavlist")') + Add List
+    RouterView
     .alerts
       Alert(v-for='(alert, index) in alerts' :key='`${index}-${alert}`')
         | {{ alert }}
@@ -21,23 +26,70 @@
 import Alert from './components/Alert.vue';
 import ExportFavlist from './components/Export.vue';
 import Favlist from './components/Favlist.vue';
+import Home from './routes/Home.vue';
+import HomeTitle from './routes/HomeTitle.vue';
 import ImportFavlist from './components/Import.vue';
 import SaveFavlist from './components/Save.vue';
+import Title from './components/Favlist/Title.vue';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
 import debounce from 'debounce';
 import favlistLocalStorage from './local-storage-name.js';
 import setTimeout from 'core-js/stable/set-timeout';
 import store from './store';
 import stringifyJson from 'core-js/stable/json/stringify';
 
+Vue.use(VueRouter);
+
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    components: {
+      default: Home,
+      title: HomeTitle,
+    },
+  },
+  {
+    path: String.raw`/favlist/:index(\d+)`,
+    name: 'favlist',
+    components: {
+      default: Favlist,
+      title: Title,
+    },
+    props: {
+      default: route => ({
+        index: Number.parseInt(route.params.index),
+        isRoute: true,
+      }),
+      title: route => ({
+        index: Number.parseInt(route.params.index),
+        headerLevel: 1,
+      }),
+    },
+    beforeEnter(to, from, next) {
+      if (to.params.index >= (store.state.favlists || []).length) {
+        console.warn('Tried to access non-existent list');
+        next({name: 'home'});
+        return;
+      }
+      next();
+    },
+  },
+];
+
+const router = new VueRouter({routes});
+
 export default {
   name: 'App',
+  router,
   store,
   components: {
     Alert,
     ExportFavlist,
     ImportFavlist,
     SaveFavlist,
-    Favlist,
   },
   data() {
     return { alerts: [] };
@@ -89,12 +141,15 @@ export default {
     padding: .5em
     min-width: 5em
     min-height: 2em
+
+  .muted
+    opacity: .5
 </style>
 
 <style lang='stylus' scoped>
 @require './styles/variables.styl'
 
-  .meta-buttons
+  .meta-buttons, .navbar
     background-color: secondaryColor
     width: auto
 
@@ -102,4 +157,33 @@ export default {
     position: fixed
     right: 1vw
     bottom: 1vh
+
+  .navbar
+    display: flex
+    justify-content: space-between
+
+    .route
+      sideMargin = 1em
+
+      display: inline-block
+      font-size: 1.5em
+      color: textColor
+      cursor: pointer
+      margin-left: sideMargin
+      margin-right: sideMargin
+      text-decoration: none
+
+      &.router-link-exact-active
+        font-style: oblique
+        text-decoration: underline
+
+      &.show-all
+      &.add-favlist
+        width: 15%
+
+      &.add-favlist
+        transition: 0.5s ease
+
+        &:hover
+          color: lighten(textColor, 30%)
 </style>
