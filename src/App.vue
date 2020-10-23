@@ -49,7 +49,7 @@ const routes = [
     component: Home,
   },
   {
-    path: '/favlist/:index',
+    path: String.raw`/favlist/:index(\d+)`,
     name: 'favlist',
     components: {
       default: Favlist,
