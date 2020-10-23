@@ -6,6 +6,10 @@
 
 - Routes to individual lists
 
+### Changed
+
+- Saving to be done a full second after no activity (previously was a half second)
+
 ## [0.2.1]
 
 ### Added
