@@ -56,8 +56,13 @@ const routes = [
       title: Title,
     },
     props: {
-      default: route => ({index: route.params.index, isRoute: true}),
-      title: true,
+      default: route => ({
+        index: Number.parseInt(route.params.index),
+        isRoute: true,
+      }),
+      title: route => ({
+        index: Number.parseInt(route.params.index),
+      }),
     },
   },
 ];
