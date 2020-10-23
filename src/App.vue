@@ -65,6 +65,7 @@ const routes = [
       }),
       title: route => ({
         index: Number.parseInt(route.params.index),
+        headerLevel: 1,
       }),
     },
   },

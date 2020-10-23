@@ -1,6 +1,11 @@
 <template lang='pug'>
-  h2.title(contenteditable @input='onInput' :class='{empty}' :key='key')
-    | {{ title }}
+  component.title(
+    :is='componentTag'
+    contenteditable
+    @input='onInput'
+    :class='{empty}'
+    :key='key'
+  ) {{ title }}
 </template>
 
 <script>
@@ -10,6 +15,11 @@ export default {
     index: {
       type: Number,
       required: true,
+    },
+    headerLevel: {
+      type: Number,
+      default: 2,
+      validator: value => value >= 1 && value <= 6,
     },
   },
   mounted() {
@@ -21,6 +31,9 @@ export default {
     },
     empty() {
       return !this.title;
+    },
+    componentTag() {
+      return `h${this.headerLevel}`;
     },
   },
   methods: {
