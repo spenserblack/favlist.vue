@@ -50,7 +50,7 @@ const routes = [
     path: '/favlist/:index',
     name: 'favlist',
     component: Favlist,
-    props: true,
+    props: route => ({index: route.params.index, isRoute: true}),
   },
 ];
 

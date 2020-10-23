@@ -19,6 +19,10 @@ export default {
       required: true,
       type: Number,
     },
+    isRoute: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return { favlistId: `favlist-${uuidv4()}` };
