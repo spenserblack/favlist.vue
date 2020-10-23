@@ -1,6 +1,5 @@
 <template lang='pug'>
   #app
-    h1 FAVLIST
     RouterView(name='title' :key='$route.path')
     .navbar
       .routes
@@ -28,6 +27,7 @@ import Alert from './components/Alert.vue';
 import ExportFavlist from './components/Export.vue';
 import Favlist from './components/Favlist.vue';
 import Home from './routes/Home.vue';
+import HomeTitle from './routes/HomeTitle.vue';
 import ImportFavlist from './components/Import.vue';
 import SaveFavlist from './components/Save.vue';
 import Title from './components/Favlist/Title.vue';
@@ -46,7 +46,10 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
+    components: {
+      default: Home,
+      title: HomeTitle,
+    },
   },
   {
     path: String.raw`/favlist/:index(\d+)`,
