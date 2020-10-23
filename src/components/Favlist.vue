@@ -2,7 +2,7 @@
   .favlist(:id='favlistId')
     .header
       .left-spacer
-      Title.title(:index='index')
+      Title.title(v-if='!isRoute' :index='index')
       .right-spacer
     Items(:index='index' :favlistId='favlistId' @delete='removeSelf')
 </template>
