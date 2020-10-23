@@ -1,5 +1,6 @@
 <template lang='pug'>
-  h2.title(contenteditable @input='onInput' :class='{empty}') {{ title }}
+  h2.title(contenteditable @input='onInput' :class='{empty}' :key='key')
+    | {{ title }}
 </template>
 
 <script>
@@ -20,6 +21,9 @@ export default {
     },
     empty() {
       return !this.title;
+    },
+    key() {
+      return `title-${this.index}`;
     },
   },
   methods: {
