@@ -68,6 +68,14 @@ const routes = [
         headerLevel: 1,
       }),
     },
+    beforeEnter(to, from, next) {
+      if (to.params.index >= (store.state.favlists || []).length) {
+        console.warn('Tried to access non-existent list');
+        next({name: 'home'});
+        return;
+      }
+      next();
+    },
   },
 ];
 
