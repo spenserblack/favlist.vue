@@ -4,7 +4,6 @@
     contenteditable
     @input='onInput'
     :class='{empty}'
-    :key='key'
   ) {{ title }}
 </template>
 
