@@ -182,6 +182,7 @@ export default {
     position: fixed
     right: 1vw
     bottom: 1vh
+    max-width: 15em
 
   .navbar
     display: flex
