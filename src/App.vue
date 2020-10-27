@@ -18,8 +18,11 @@
       SaveFavlist
     RouterView(@invalid-route='onInvalidRoute')
     .alerts
-      Alert(v-for='(alert, index) in alerts' :key='`${index}-${alert}`')
-        | {{ alert }}
+      Alert(
+        v-for='alert in alerts'
+        :level='alert.level'
+        :key='alert.alertNumber'
+      ) {{ alert.text }}
 </template>
 
 <script>
@@ -41,6 +44,9 @@ import store from './store';
 import stringifyJson from 'core-js/stable/json/stringify';
 
 Vue.use(VueRouter);
+
+// NOTE Temporary warning function until App is mounted
+let routerWarn = (message) => console.warn(message);
 
 const routes = [
   {
@@ -70,7 +76,7 @@ const routes = [
     },
     beforeEnter(to, from, next) {
       if (to.params.index >= (store.state.favlists || []).length) {
-        console.warn('Tried to access non-existent list');
+        routerWarn('Tried to access non-existent list');
         next({name: 'home'});
         return;
       }
@@ -78,6 +84,8 @@ const routes = [
     },
   },
 ];
+
+let alertCounter = 0;
 
 const router = new VueRouter({routes});
 
@@ -106,15 +114,29 @@ export default {
     save() {
       const favlists = stringifyJson(store.state.favlists);
       localStorage.setItem(favlistLocalStorage, favlists);
-      this.alerts.push('Saved!');
-      setTimeout(() => this.alerts.shift(), 10);
+      this.makeAlert('Saved!', 10);
     },
     onInvalidRoute(message) {
-      console.warn(message || 'Attempted to access an invalid route');
+      this.makeAlert(
+        message || 'Attempted to access an invalid route',
+        1000,
+        'warning',
+      );
+    },
+    makeAlert(text, timeout, level = undefined) {
+      const alertNumber = alertCounter++;
+      this.alerts.push({text, level, alertNumber});
+      const removeAlert = () => {
+        this.alerts = this
+          .alerts
+          .filter(alert => alert.alertNumber != alertNumber);
+      };
+      setTimeout(removeAlert, timeout);
     },
   },
   mounted() {
     store.subscribe(debounce(this.save, 1000));
+    routerWarn = this.onInvalidRoute;
   },
 };
 </script>

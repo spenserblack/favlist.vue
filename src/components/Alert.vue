@@ -1,11 +1,21 @@
 <template lang='pug'>
   transition(name='alert')
-    p.alert #[slot]
+    p.alert(:class='level') #[slot]
 </template>
 
 <script>
+const defaultAlertLevel = 'success';
+const availableLevels = [defaultAlertLevel, 'warning'];
+
 export default {
   name: 'Alert',
+  props: {
+    level: {
+      type: String,
+      default: defaultAlertLevel,
+      validator: (value) => availableLevels.includes(value),
+    },
+  },
 };
 </script>
 
@@ -19,4 +29,7 @@ export default {
 .alert-leave-to
   opacity: 0
   transform: translateY(-5em)
+
+.warning
+  color: goldenrod
 </style>

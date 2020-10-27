@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Visible warnings when navigating to a list that doesn't exist
+
 ## [0.3.0]
 
 ### Added
