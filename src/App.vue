@@ -108,11 +108,14 @@ export default {
     save() {
       const favlists = stringifyJson(store.state.favlists);
       localStorage.setItem(favlistLocalStorage, favlists);
-      this.alerts.push({text: 'Saved!', alertNumber: alertCounter++});
-      setTimeout(() => this.alerts.shift(), 10);
+      this.makeAlert('Saved!', 10);
     },
     onInvalidRoute(message) {
       console.warn(message || 'Attempted to access an invalid route');
+    },
+    makeAlert(text, timeout) {
+      this.alerts.push({text, alertNumber: alertCounter++});
+      setTimeout(() => this.alerts.shift(), timeout);
     },
   },
   mounted() {
