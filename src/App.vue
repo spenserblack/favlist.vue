@@ -18,8 +18,11 @@
       SaveFavlist
     RouterView(@invalid-route='onInvalidRoute')
     .alerts
-      Alert(v-for='alert in alerts' :level='alert.level' :key='alert.alertNumber')
-        | {{ alert.text }}
+      Alert(
+        v-for='alert in alerts'
+        :level='alert.level'
+        :key='alert.alertNumber'
+      ) {{ alert.text }}
 </template>
 
 <script>
