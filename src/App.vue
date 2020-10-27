@@ -18,8 +18,8 @@
       SaveFavlist
     RouterView(@invalid-route='onInvalidRoute')
     .alerts
-      Alert(v-for='(alert, index) in alerts' :key='`${index}-${alert}`')
-        | {{ alert }}
+      Alert(v-for='alert in alerts' :key='alert.alertNumber')
+        | {{ alert.text }}
 </template>
 
 <script>
@@ -79,6 +79,8 @@ const routes = [
   },
 ];
 
+let alertCounter = 0;
+
 const router = new VueRouter({routes});
 
 export default {
@@ -106,7 +108,7 @@ export default {
     save() {
       const favlists = stringifyJson(store.state.favlists);
       localStorage.setItem(favlistLocalStorage, favlists);
-      this.alerts.push('Saved!');
+      this.alerts.push({text: 'Saved!', alertNumber: alertCounter++});
       setTimeout(() => this.alerts.shift(), 10);
     },
     onInvalidRoute(message) {
