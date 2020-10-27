@@ -114,8 +114,14 @@ export default {
       console.warn(message || 'Attempted to access an invalid route');
     },
     makeAlert(text, timeout) {
-      this.alerts.push({text, alertNumber: alertCounter++});
-      setTimeout(() => this.alerts.shift(), timeout);
+      const alertNumber = alertCounter++;
+      this.alerts.push({text, alertNumber});
+      const removeAlert = () => {
+        this.alerts = this
+          .alerts
+          .filter(alert => alert.alertNumber != alertNumber);
+      };
+      setTimeout(removeAlert, timeout);
     },
   },
   mounted() {
