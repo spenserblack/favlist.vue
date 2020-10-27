@@ -18,7 +18,7 @@
       SaveFavlist
     RouterView(@invalid-route='onInvalidRoute')
     .alerts
-      Alert(v-for='alert in alerts' :key='alert.alertNumber')
+      Alert(v-for='alert in alerts' :level='alert.level' :key='alert.alertNumber')
         | {{ alert.text }}
 </template>
 
@@ -111,7 +111,11 @@ export default {
       this.makeAlert('Saved!', 10);
     },
     onInvalidRoute(message) {
-      console.warn(message || 'Attempted to access an invalid route');
+      this.makeAlert(
+        message || 'Attempted to access an invalid route',
+        1000,
+        'warning',
+      );
     },
     makeAlert(text, timeout, level = undefined) {
       const alertNumber = alertCounter++;

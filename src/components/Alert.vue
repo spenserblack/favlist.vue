@@ -29,4 +29,7 @@ export default {
 .alert-leave-to
   opacity: 0
   transform: translateY(-5em)
+
+.warning
+  color: goldenrod
 </style>
