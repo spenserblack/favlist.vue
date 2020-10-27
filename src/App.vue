@@ -42,6 +42,9 @@ import stringifyJson from 'core-js/stable/json/stringify';
 
 Vue.use(VueRouter);
 
+// NOTE Temporary warning function until App is mounted
+let routerWarn = (message) => console.warn(message);
+
 const routes = [
   {
     path: '/',
@@ -70,7 +73,7 @@ const routes = [
     },
     beforeEnter(to, from, next) {
       if (to.params.index >= (store.state.favlists || []).length) {
-        console.warn('Tried to access non-existent list');
+        routerWarn('Tried to access non-existent list');
         next({name: 'home'});
         return;
       }
@@ -130,6 +133,7 @@ export default {
   },
   mounted() {
     store.subscribe(debounce(this.save, 1000));
+    routerWarn = this.onInvalidRoute;
   },
 };
 </script>
