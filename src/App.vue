@@ -113,9 +113,9 @@ export default {
     onInvalidRoute(message) {
       console.warn(message || 'Attempted to access an invalid route');
     },
-    makeAlert(text, timeout) {
+    makeAlert(text, timeout, level = undefined) {
       const alertNumber = alertCounter++;
-      this.alerts.push({text, alertNumber});
+      this.alerts.push({text, level, alertNumber});
       const removeAlert = () => {
         this.alerts = this
           .alerts
