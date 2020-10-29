@@ -565,5 +565,66 @@ describe('Vuex store', () => {
         ]});
       });
     });
+    describe('moveColumnRight', () => {
+      const {moveColumnRight} = mutations;
+
+      it('should do nothing when there is only 1 column', () => {
+        const state = {favlists: [{columns: ['header 1'], data: [
+          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+        ]}]};
+
+        moveColumnRight(state, 0);
+
+        expect(state.favlists[0]).to.deep.equal({columns: ['header 1'], data: [
+          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+        ]});
+      });
+
+      it('should swap column 1 and column 2', () => {
+        const state = {favlists: [{columns: ['header 1', 'header 2'], data: [
+          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+        ]}]};
+
+        moveColumnRight(state, 0);
+
+        expect(state.favlists[0]).to.deep.equal({columns: ['header 2', 'header 1'], data: [
+          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+        ]});
+      });
+
+      it('should swap column 1 and column 2', () => {
+        const state = {favlists: [{columns: ['header 1', 'header 2', 'header 3'], data: [
+          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+          [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
+        ]}]};
+
+        moveColumnRight(state, 0);
+
+        expect(state.favlists[0]).to.deep.equal({columns: ['header 2', 'header 1', 'header 3'], data: [
+          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+          [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
+        ]});
+      });
+
+      it('should wrap column 3 to column 1 and shift 1 and 2 to the right', () => {
+        const state = {favlists: [{columns: ['header 1', 'header 2', 'header 3'], data: [
+          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+          [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
+        ]}]};
+
+        moveColumnRight(state, 2);
+
+        expect(state.favlists[0]).to.deep.equal({columns: ['header 3', 'header 1', 'header 2'], data: [
+          [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
+          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+        ]});
+      });
+    });
   });
 });
