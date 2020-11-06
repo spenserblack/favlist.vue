@@ -66,6 +66,15 @@ export const mutations = {
       .data
       .forEach(column => column.splice(row, 1));
   },
+  moveColumnLeft(state, payload) {
+    const {favlistIndex, column} = payload;
+    const favlist = state.favlists[favlistIndex];
+
+    if (column == 0) {
+      favlist.columns.push(favlist.columns.shift());
+      favlist.data.push(favlist.data.shift());
+    }
+  },
 };
 
 export default new Vuex.Store({
