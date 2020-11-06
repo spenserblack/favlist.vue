@@ -74,7 +74,9 @@ export const mutations = {
       favlist.columns.push(favlist.columns.shift());
       favlist.data.push(favlist.data.shift());
     } else {
-      favlist.columns.splice(column - 1, 0, ...favlist.columns.splice(column, 1));
+      favlist
+        .columns
+        .splice(column - 1, 0, ...favlist.columns.splice(column, 1));
       favlist.data.splice(column - 1, 0, ...favlist.data.splice(column, 1));
     }
   },
@@ -82,11 +84,15 @@ export const mutations = {
     const {favlistIndex, column} = payload;
     const favlist = state.favlists[favlistIndex];
 
-    if (column == favlist.columns.length - 1 || column == favlist.data.length - 1) {
+    const isAtEnd = [favlist.columns, favlist.data]
+      .some(columns => column == columns.length - 1);
+    if (isAtEnd) {
       favlist.columns.unshift(favlist.columns.pop());
       favlist.data.unshift(favlist.data.pop());
     } else {
-      favlist.columns.splice(column + 1, 0, ...favlist.columns.splice(column, 1));
+      favlist
+        .columns
+        .splice(column + 1, 0, ...favlist.columns.splice(column, 1));
       favlist.data.splice(column + 1, 0, ...favlist.data.splice(column, 1));
     }
   },

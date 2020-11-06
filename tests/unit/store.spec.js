@@ -527,43 +527,61 @@ describe('Vuex store', () => {
 
         moveColumnLeft(state, {favlistIndex: 0, column: 1});
 
-        expect(state.favlists[0]).to.deep.equal({columns: ['header 2', 'header 1'], data: [
-          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
-          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
-        ]});
+        expect(state.favlists[0]).to.deep.equal({
+          columns: ['header 2', 'header 1'],
+          data: [
+            [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+            [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+          ],
+        });
       });
 
       it('should swap column 3 and column 2', () => {
-        const state = {favlists: [{columns: ['header 1', 'header 2', 'header 3'], data: [
-          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
-          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
-          [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
-        ]}]};
+        const state = {favlists: [{
+          columns: ['header 1', 'header 2', 'header 3'],
+          data: [
+            [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+            [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+            [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
+          ],
+        }]};
 
         moveColumnLeft(state, {favlistIndex: 0, column: 2});
 
-        expect(state.favlists[0]).to.deep.equal({columns: ['header 1', 'header 3', 'header 2'], data: [
-          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
-          [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
-          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
-        ]});
+        expect(state.favlists[0]).to.deep.equal({
+          columns: ['header 1', 'header 3', 'header 2'],
+          data: [
+            [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+            [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
+            [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+          ],
+        });
       });
 
-      it('should wrap column 1 to column 3 and shift 3 and 2 to the left', () => {
-        const state = {favlists: [{columns: ['header 1', 'header 2', 'header 3'], data: [
-          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
-          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
-          [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
-        ]}]};
+      it(
+        'should wrap column 1 to column 3 and shift 3 and 2 to the left',
+        () => {
+          const state = {favlists: [{
+            columns: ['header 1', 'header 2', 'header 3'],
+            data: [
+              [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+              [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+              [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
+            ],
+          }]};
 
-        moveColumnLeft(state, {favlistIndex: 0, column: 0});
+          moveColumnLeft(state, {favlistIndex: 0, column: 0});
 
-        expect(state.favlists[0]).to.deep.equal({columns: ['header 2', 'header 3', 'header 1'], data: [
-          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
-          [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
-          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
-        ]});
-      });
+          expect(state.favlists[0]).to.deep.equal({
+            columns: ['header 2', 'header 3', 'header 1'],
+            data: [
+              [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+              [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
+              [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+            ],
+          });
+        },
+      );
     });
     describe('moveColumnRight', () => {
       const {moveColumnRight} = mutations;
@@ -588,43 +606,62 @@ describe('Vuex store', () => {
 
         moveColumnRight(state, {favlistIndex: 0, column: 0});
 
-        expect(state.favlists[0]).to.deep.equal({columns: ['header 2', 'header 1'], data: [
-          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
-          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
-        ]});
+        expect(state.favlists[0]).to.deep.equal({
+          columns: ['header 2', 'header 1'],
+          data: [
+            [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+            [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+          ],
+        });
       });
 
       it('should swap column 1 and column 2', () => {
-        const state = {favlists: [{columns: ['header 1', 'header 2', 'header 3'], data: [
-          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
-          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
-          [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
-        ]}]};
+        const state = {favlists: [{
+          columns: ['header 1', 'header 2', 'header 3'],
+          data: [
+            [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+            [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+            [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
+          ],
+        }]};
 
         moveColumnRight(state, {favlistIndex: 0, column: 0});
 
-        expect(state.favlists[0]).to.deep.equal({columns: ['header 2', 'header 1', 'header 3'], data: [
-          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
-          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
-          [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
-        ]});
+        expect(state.favlists[0]).to.deep.equal({
+          columns: ['header 2', 'header 1', 'header 3'],
+          data: [
+            [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+            [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+            [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
+          ],
+        });
       });
 
-      it('should wrap column 3 to column 1 and shift 1 and 2 to the right', () => {
-        const state = {favlists: [{columns: ['header 1', 'header 2', 'header 3'], data: [
-          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
-          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
-          [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
-        ]}]};
+      it(
+        'should wrap column 3 to column 1 and shift 1 and 2 to the right',
+        () => {
+          const state = {
+            favlists: [{
+              columns: ['header 1', 'header 2', 'header 3'],
+              data: [
+                [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+                [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+                [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
+              ],
+            }]};
 
-        moveColumnRight(state, {favlistIndex: 0, column: 2});
+          moveColumnRight(state, {favlistIndex: 0, column: 2});
 
-        expect(state.favlists[0]).to.deep.equal({columns: ['header 3', 'header 1', 'header 2'], data: [
-          [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
-          [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
-          [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
-        ]});
-      });
+          expect(state.favlists[0]).to.deep.equal({
+            columns: ['header 3', 'header 1', 'header 2'],
+            data: [
+              [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
+              [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
+              [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
+            ],
+          });
+        },
+      );
     });
   });
 });
