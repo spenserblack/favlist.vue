@@ -5,6 +5,7 @@
 ### Added
 
 - Visible warnings when navigating to a list that doesn't exist
+- Buttons for moving columns
 
 ## [0.3.0]
 
