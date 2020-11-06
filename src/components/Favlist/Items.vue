@@ -10,8 +10,16 @@
       tr
         th.invisible-column
         th.button-container(v-for='(header, columnIndex) in columns')
+          button.move-left(
+            @click='moveColumnLeft(columnIndex)'
+            title='move column left'
+          ) ◄
           button.remove-column(@click='removeColumn(columnIndex)')
             | - Remove Column
+          button.move-right(
+            @click='moveColumnRight(columnIndex)'
+            title='move column right'
+          ) ►
         th.button-container.meta-column
           button.add-column(@click='addColumn') + Add Column
       tr
@@ -116,6 +124,20 @@ export default {
         row: index,
       });
     },
+    moveColumnLeft(column) {
+      this.$store.commit({
+        type: 'moveColumnLeft',
+        favlistIndex: this.index,
+        column,
+      });
+    },
+    moveColumnRight(column) {
+      this.$store.commit({
+        type: 'moveColumnRight',
+        favlistIndex: this.index,
+        column,
+      });
+    },
     isRowShown(rowNumber) {
       return !this.filter || this.data.some(column => {
         const cell = column[rowNumber];
@@ -172,4 +194,8 @@ th.filter
 
 .meta-column
   width: metaWidth
+
+.move-left
+.move-right
+  // font-size: 2em
 </style>
