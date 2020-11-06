@@ -512,7 +512,7 @@ describe('Vuex store', () => {
           [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
         ]}]};
 
-        moveColumnLeft(state, 0);
+        moveColumnLeft(state, {favlistIndex: 0, column: 0});
 
         expect(state.favlists[0]).to.deep.equal({columns: ['header 1'], data: [
           [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
@@ -525,7 +525,7 @@ describe('Vuex store', () => {
           [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
         ]}]};
 
-        moveColumnLeft(state, 1);
+        moveColumnLeft(state, {favlistIndex: 0, column: 1});
 
         expect(state.favlists[0]).to.deep.equal({columns: ['header 2', 'header 1'], data: [
           [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
@@ -540,7 +540,7 @@ describe('Vuex store', () => {
           [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
         ]}]};
 
-        moveColumnLeft(state, 2);
+        moveColumnLeft(state, {favlistIndex: 0, column: 2});
 
         expect(state.favlists[0]).to.deep.equal({columns: ['header 1', 'header 3', 'header 2'], data: [
           [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
@@ -556,7 +556,7 @@ describe('Vuex store', () => {
           [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
         ]}]};
 
-        moveColumnLeft(state, 0);
+        moveColumnLeft(state, {favlistIndex: 0, column: 0});
 
         expect(state.favlists[0]).to.deep.equal({columns: ['header 2', 'header 3', 'header 1'], data: [
           [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
@@ -573,7 +573,7 @@ describe('Vuex store', () => {
           [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
         ]}]};
 
-        moveColumnRight(state, 0);
+        moveColumnRight(state, {favlistIndex: 0, column: 0});
 
         expect(state.favlists[0]).to.deep.equal({columns: ['header 1'], data: [
           [{datum: 'column 1 row 1'}, {datum: 'column 1 row 2'}],
@@ -586,7 +586,7 @@ describe('Vuex store', () => {
           [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
         ]}]};
 
-        moveColumnRight(state, 0);
+        moveColumnRight(state, {favlistIndex: 0, column: 0});
 
         expect(state.favlists[0]).to.deep.equal({columns: ['header 2', 'header 1'], data: [
           [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
@@ -601,7 +601,7 @@ describe('Vuex store', () => {
           [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
         ]}]};
 
-        moveColumnRight(state, 0);
+        moveColumnRight(state, {favlistIndex: 0, column: 0});
 
         expect(state.favlists[0]).to.deep.equal({columns: ['header 2', 'header 1', 'header 3'], data: [
           [{datum: 'column 2 row 1'}, {datum: 'column 2 row 2'}],
@@ -617,7 +617,7 @@ describe('Vuex store', () => {
           [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
         ]}]};
 
-        moveColumnRight(state, 2);
+        moveColumnRight(state, {favlistIndex: 0, column: 2});
 
         expect(state.favlists[0]).to.deep.equal({columns: ['header 3', 'header 1', 'header 2'], data: [
           [{datum: 'column 3 row 1'}, {datum: 'column 3 row 2'}],
