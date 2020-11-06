@@ -1,5 +1,6 @@
 # [favlist.vue](https://spenserblack.github.io/favlist.vue/)
 
+![CI](https://github.com/spenserblack/favlist.vue/workflows/CI/badge.svg)
 [![Build Status](https://travis-ci.com/spenserblack/favlist.vue.svg?branch=master)](https://travis-ci.com/spenserblack/favlist.vue)
 
 This is basically a static site version of my [other favlist project][rust favlist],
