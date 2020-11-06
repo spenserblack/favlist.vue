@@ -75,6 +75,15 @@ export const mutations = {
       favlist.data.push(favlist.data.shift());
     }
   },
+  moveColumnRight(state, payload) {
+    const {favlistIndex, column} = payload;
+    const favlist = state.favlists[favlistIndex];
+
+    if (column == favlist.columns.length - 1 || column == favlist.data.length - 1) {
+      favlist.columns.unshift(favlist.columns.pop());
+      favlist.data.unshift(favlist.data.pop());
+    }
+  },
 };
 
 export default new Vuex.Store({
