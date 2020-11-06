@@ -10,8 +10,10 @@
       tr
         th.invisible-column
         th.button-container(v-for='(header, columnIndex) in columns')
+          button.move-left(@click='moveColumnLeft(columnIndex)') Move Left
           button.remove-column(@click='removeColumn(columnIndex)')
             | - Remove Column
+          button.move-right(@click='moveColumnRight(columnIndex)') Move Right
         th.button-container.meta-column
           button.add-column(@click='addColumn') + Add Column
       tr
@@ -114,6 +116,20 @@ export default {
         type: 'removeRow',
         favlistIndex: this.index,
         row: index,
+      });
+    },
+    moveColumnLeft(column) {
+      this.$store.commit({
+        type: 'moveColumnLeft',
+        favlistIndex: this.index,
+        column,
+      });
+    },
+    moveColumnRight(column) {
+      this.$store.commit({
+        type: 'moveColumnRight',
+        favlistIndex: this.index,
+        column,
       });
     },
     isRowShown(rowNumber) {
