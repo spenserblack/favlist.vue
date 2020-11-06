@@ -73,6 +73,9 @@ export const mutations = {
     if (column == 0) {
       favlist.columns.push(favlist.columns.shift());
       favlist.data.push(favlist.data.shift());
+    } else {
+      favlist.columns.splice(column - 1, 0, ...favlist.columns.splice(column, 1));
+      favlist.data.splice(column - 1, 0, ...favlist.data.splice(column, 1));
     }
   },
   moveColumnRight(state, payload) {
@@ -82,6 +85,9 @@ export const mutations = {
     if (column == favlist.columns.length - 1 || column == favlist.data.length - 1) {
       favlist.columns.unshift(favlist.columns.pop());
       favlist.data.unshift(favlist.data.pop());
+    } else {
+      favlist.columns.splice(column + 1, 0, ...favlist.columns.splice(column, 1));
+      favlist.data.splice(column + 1, 0, ...favlist.data.splice(column, 1));
     }
   },
 };
