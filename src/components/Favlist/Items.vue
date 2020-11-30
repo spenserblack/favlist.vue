@@ -163,6 +163,11 @@ metaWidth = 20%
 .body
   margin: auto
 
+.body
+  max-height: 75vh
+  overflow-x: hidden
+  overflow-y: overlay
+
 table
   border-collapse: collapse
   margin: auto
