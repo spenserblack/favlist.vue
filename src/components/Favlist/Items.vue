@@ -1,6 +1,6 @@
 <template lang='pug'>
   .items
-    table
+    table.head
       thead
         tr
           th.invisible-column
@@ -39,7 +39,7 @@
                 placeholder='filter...'
                 v-model='filter'
               )
-    table
+    table.body
       tbody
         tr(v-for='rowIndex in dataHeight' v-show='isRowShown(rowIndex - 1)')
           td.invisible-column
@@ -157,10 +157,13 @@ export default {
 metaWidth = 20%
 
 .items
+.head
+.body
   margin: auto
 
 table
   border-collapse: collapse
+  width: 100% - metaWidth
 
 .button-container
   background-color: secondaryColor
