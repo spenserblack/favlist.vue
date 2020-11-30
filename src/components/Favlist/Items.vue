@@ -84,6 +84,10 @@ export default {
       type: String,
       required: true,
     },
+    isRoute: {
+      type: Boolean,
+      required: true,
+    },
   },
   computed: {
     columns() {
