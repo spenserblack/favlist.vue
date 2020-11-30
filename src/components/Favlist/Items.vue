@@ -1,6 +1,6 @@
 <template lang='pug'>
   .items
-    table.head
+    table.head(:class='{sticky: stickies}')
       thead
         tr
           th.invisible-column
@@ -165,7 +165,7 @@ metaWidth = 20%
 .body
   margin: auto
 
-.head
+.head.sticky
   position: sticky
   top: 0
 
