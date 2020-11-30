@@ -84,9 +84,9 @@ export default {
       type: String,
       required: true,
     },
-    isRoute: {
+    stickies: {
       type: Boolean,
-      required: true,
+      default: false,
     },
   },
   computed: {

@@ -7,7 +7,7 @@
     Items(
       :index='index'
       :favlistId='favlistId'
-      :isRoute='isRoute'
+      :stickies='isRoute'
       @delete='removeSelf'
     )
 </template>
