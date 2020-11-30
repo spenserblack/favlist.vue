@@ -1,63 +1,65 @@
 <template lang='pug'>
-  table.items
-    thead
-      tr
-        th.invisible-column
-        th(:colspan='dataWidth').button-container
-          button(@click='$emit("delete")').delete-button
-            | - Remove {{ $store.getters.title(index) }}
-        th.button-container
-      tr
-        th.invisible-column
-        th.button-container(v-for='(header, columnIndex) in columns')
-          button.move-left(
-            @click='moveColumnLeft(columnIndex)'
-            title='move column left'
-          ) ◄
-          button.remove-column(@click='removeColumn(columnIndex)')
-            | - Remove Column
-          button.move-right(
-            @click='moveColumnRight(columnIndex)'
-            title='move column right'
-          ) ►
-        th.button-container.meta-column
-          button.add-column(@click='addColumn') + Add Column
-      tr
-        th.invisible-column
-        HeaderCell(
-          v-for='(header, columnIndex) in columns'
-          :favlist='index'
-          :column='columnIndex'
-          :key='header.key'
-        )
-        th.filter.meta-column
-          span
-            input.filter(
-              type='text'
-              :id='filterId'
-              placeholder='filter...'
-              v-model='filter'
-            )
-    tbody
-      tr(v-for='rowIndex in dataHeight' v-show='isRowShown(rowIndex - 1)')
-        td.invisible-column
-        DataCell(
-          v-for='cellIndex in dataWidth'
-          :favlist='index'
-          :column='cellIndex - 1'
-          :cell='rowIndex - 1'
-          :key='$store.getters.datumKey(index, cellIndex - 1, rowIndex - 1)'
-        )
-        td.button-container.meta-column
-          button.remove-row(@click='removeRow(rowIndex - 1)') - Remove Row
-    tfoot
-      tr
-        td.invisible-column
-        td.button-container(:colspan='dataWidth')
-          button.add-row(@click='addRow') + Add Row
-        td.button-container.meta-column
-          button
-            a(:href='topOfListHref') Top of {{ $store.getters.title(index) }}
+  .items
+    table
+      thead
+        tr
+          th.invisible-column
+          th(:colspan='dataWidth').button-container
+            button(@click='$emit("delete")').delete-button
+              | - Remove {{ $store.getters.title(index) }}
+          th.button-container
+        tr
+          th.invisible-column
+          th.button-container(v-for='(header, columnIndex) in columns')
+            button.move-left(
+              @click='moveColumnLeft(columnIndex)'
+              title='move column left'
+            ) ◄
+            button.remove-column(@click='removeColumn(columnIndex)')
+              | - Remove Column
+            button.move-right(
+              @click='moveColumnRight(columnIndex)'
+              title='move column right'
+            ) ►
+          th.button-container.meta-column
+            button.add-column(@click='addColumn') + Add Column
+        tr
+          th.invisible-column
+          HeaderCell(
+            v-for='(header, columnIndex) in columns'
+            :favlist='index'
+            :column='columnIndex'
+            :key='header.key'
+          )
+          th.filter.meta-column
+            span
+              input.filter(
+                type='text'
+                :id='filterId'
+                placeholder='filter...'
+                v-model='filter'
+              )
+    table
+      tbody
+        tr(v-for='rowIndex in dataHeight' v-show='isRowShown(rowIndex - 1)')
+          td.invisible-column
+          DataCell(
+            v-for='cellIndex in dataWidth'
+            :favlist='index'
+            :column='cellIndex - 1'
+            :cell='rowIndex - 1'
+            :key='$store.getters.datumKey(index, cellIndex - 1, rowIndex - 1)'
+          )
+          td.button-container.meta-column
+            button.remove-row(@click='removeRow(rowIndex - 1)') - Remove Row
+      tfoot
+        tr
+          td.invisible-column
+          td.button-container(:colspan='dataWidth')
+            button.add-row(@click='addRow') + Add Row
+          td.button-container.meta-column
+            button
+              a(:href='topOfListHref') Top of {{ $store.getters.title(index) }}
 </template>
 
 <script>
