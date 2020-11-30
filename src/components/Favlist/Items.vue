@@ -161,6 +161,10 @@ metaWidth = 20%
 .body
   margin: auto
 
+.head
+  position: sticky
+  top: 0
+
 table
   border-collapse: collapse
   width: 100% - metaWidth
