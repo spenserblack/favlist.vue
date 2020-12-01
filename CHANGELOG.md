@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Styling
+
+- Sticky table headers when viewing list in its dedicated route
+
 ## [1.0.0]
 
 ### Added
