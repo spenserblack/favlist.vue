@@ -4,7 +4,12 @@
       .left-spacer
       Title.title(v-if='!isRoute' :index='index')
       .right-spacer
-    Items(:index='index' :favlistId='favlistId' @delete='removeSelf')
+    Items(
+      :index='index'
+      :favlistId='favlistId'
+      :stickies='isRoute'
+      @delete='removeSelf'
+    )
 </template>
 
 <script>
