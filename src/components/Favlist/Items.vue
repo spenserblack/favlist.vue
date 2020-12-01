@@ -52,6 +52,7 @@
           )
           td.button-container.meta-column
             button.remove-row(@click='removeRow(rowIndex - 1)') - Remove Row
+    table.foot(:class='{sticky: stickies}')
       tfoot
         tr
           td.invisible-column
@@ -163,11 +164,16 @@ metaWidth = 20%
 .items
 .head
 .body
+.foot
   margin: auto
 
 .head.sticky
   position: sticky
   top: 0
+
+.foot.sticky
+  position: sticky
+  bottom: 0
 
 table
   border-collapse: collapse
