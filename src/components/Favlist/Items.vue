@@ -167,12 +167,14 @@ metaWidth = 20%
 .foot
   margin: auto
 
-.head.sticky
+.sticky
   position: sticky
+  z-index: 1
+
+.head.sticky
   top: 0
 
 .foot.sticky
-  position: sticky
   bottom: 0
 
 table
