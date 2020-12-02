@@ -173,6 +173,7 @@ metaWidth = 20%
 
 .head.sticky
   top: 0
+  background-color: backgroundColor
 
 .foot.sticky
   bottom: 0
