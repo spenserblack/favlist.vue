@@ -1,4 +1,5 @@
 export default {
+  forUser: (state) => state,
   favlist: (state) => (index) => {
     return state.favlists[index];
   },
