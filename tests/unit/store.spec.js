@@ -138,9 +138,9 @@ describe('Vuex store', () => {
       expect(width).to.be.a('number').and.to.equal(2);
     });
 
-    describe('forUser', () => {
+    describe('forSave', () => {
       it('should get a simplified version of the favlists object', () => {
-        const simplifiedFavlist = getters.forUser(state);
+        const simplifiedFavlist = getters.forSave(state);
 
         expect(simplifiedFavlist).to.deep.equal({
           favlists: [
