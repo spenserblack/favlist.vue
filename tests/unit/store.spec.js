@@ -195,6 +195,54 @@ describe('Vuex store', () => {
 
         expect(favlists).to.deep.equal(newState.favlists);
       });
+
+      it('should load JSON and define keys', () => {
+        const oldState = {
+          favlists: [{
+            title: ':(',
+            columns: [{datum: 'a', key: 'A'}],
+            data: [
+              [
+                {datum: '1', key: 'I'},
+                {datum: '2', key: 'II'},
+                {datum: '3', key: 'III'},
+              ],
+            ],
+          }],
+        };
+        const newState = {
+          favlists: [{
+            title: ':)',
+            columns: ['b'],
+            data: [
+              ['4', '5'],
+            ],
+          }],
+        };
+
+        loadFromJson(oldState, newState.favlists);
+
+        expect(oldState.favlists).to.be.an('array').and.to.have.lengthOf(1);
+
+        const favlist = oldState.favlists[0];
+        expect(favlist.title).to.equal(':)');
+
+        expect(favlist.columns).to.be.an('array').and.to.have.lengthOf(1);
+        expect(favlist.columns[0]).to.have.property('datum')
+          .that.equals('b');
+        expect(favlist.columns[0]).to.have.property('key')
+          .that.is.ok;
+
+        expect(favlist.data).to.be.an('array').and.to.have.lengthOf(2);
+        expect(favlist.data[0]).to.have.property('datum')
+          .that.equals('4');
+        expect(favlist.data[0]).to.have.property('key')
+          .that.is.ok;
+        expect(favlist.data[1]).to.have.property('datum')
+          .that.equals('5');
+        expect(favlist.data[1]).to.have.property('key')
+          .that.is.ok;
+      });
     });
     describe('newFavlist', () => {
       const {newFavlist} = mutations;
