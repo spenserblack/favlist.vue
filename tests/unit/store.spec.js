@@ -152,7 +152,7 @@ describe('Vuex store', () => {
             {
               title: 'types',
               columns: ['name'],
-              data: ['number', 'string', 'array'],
+              data: [['number', 'string', 'array']],
             },
             {
               title: 'empty',
