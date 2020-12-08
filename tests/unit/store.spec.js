@@ -169,7 +169,7 @@ describe('Vuex store', () => {
     describe('loadFromJson', () => {
       const {loadFromJson} = mutations;
 
-      it('should fully replace the old favlists with new ones', () => {
+      it('should load JSON that has keys pre-defined', () => {
         const oldState = {
           favlists: [{
             title: ':(',
@@ -182,9 +182,9 @@ describe('Vuex store', () => {
         const newState = {
           favlists: [{
             title: ':)',
-            columns: [{datum: 'b'}],
+            columns: [{datum: 'b', key: 'B'}],
             data: [
-              [{datum: '4'}, {datum: '5'}],
+              [{datum: '4', key: 'IV'}, {datum: '5', key: 'V'}],
             ],
           }],
         };
