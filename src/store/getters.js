@@ -1,5 +1,15 @@
 export default {
-  forSave: (state) => state,
+  forSave: ({ favlists }) => {
+    return {
+      favlists: favlists.map(({ title, columns, data }) => {
+        return {
+          title,
+          columns: columns.map(({ datum }) => datum),
+          data: data.map((column) => column.map(({ datum }) => datum)),
+        };
+      }),
+    };
+  },
   favlist: (state) => (index) => {
     return state.favlists[index];
   },
