@@ -113,10 +113,25 @@ export const mutations = {
   },
 };
 
+const favlists = (() => {
+  const favlistsItem = JSON.parse(localStorage.getItem(favlistLocalStorage))
+    || [];
+  const favlists = (() => {
+    if (Object.prototype.hasOwnProperty.call(favlistsItem, 'favlists')) {
+      return favlistsItem.favlists;
+    }
+    return favlistsItem;
+  })();
+  if (hasKeys(favlists)) {
+    return favlists;
+  }
+  return addKeys(favlists);
+})();
+
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
-    favlists: JSON.parse(localStorage.getItem(favlistLocalStorage)) || [],
+    favlists,
   },
   getters,
   mutations,
