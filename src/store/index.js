@@ -1,15 +1,31 @@
 import Cell from '../Cell.js';
+import {addKeys, hasKeys} from '@/utils';
 import Vue from 'vue';
 import Vuex from 'vuex';
+import deline from 'deline';
 import favlistLocalStorage from '../local-storage-name.js';
 import getters from './getters.js';
 import {v4 as uuidv4} from 'uuid';
 
 Vue.use(Vuex);
 
+let isWarned = false;
+const keyImportWarning = deline`
+  [DEPRECATED] Importing favlists with pre-defined keys will not be supported
+  in v2
+`;
+
 export const mutations = {
   loadFromJson(state, favlists) {
+    if (!hasKeys(favlists)) {
+      return Vue.set(state, 'favlists', addKeys(favlists));
+    }
     Vue.set(state, 'favlists', favlists);
+    if (!isWarned) {
+      console.warn(keyImportWarning);
+      alert(keyImportWarning);
+      isWarned = true;
+    }
   },
   newFavlist(state) {
     state.favlists.push({
