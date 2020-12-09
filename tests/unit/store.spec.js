@@ -235,13 +235,13 @@ describe('Vuex store', () => {
           .that.is.ok;
 
         expect(favlist.data).to.be.an('array').and.to.have.lengthOf(1);
-        expect(favlist.data[0]).to.have.property('datum')
+        expect(favlist.data[0][0]).to.have.property('datum')
           .that.equals('4');
-        expect(favlist.data[0]).to.have.property('key')
+        expect(favlist.data[0][0]).to.have.property('key')
           .that.is.ok;
-        expect(favlist.data[1]).to.have.property('datum')
+        expect(favlist.data[0][1]).to.have.property('datum')
           .that.equals('5');
-        expect(favlist.data[1]).to.have.property('key')
+        expect(favlist.data[0][1]).to.have.property('key')
           .that.is.ok;
       });
     });
