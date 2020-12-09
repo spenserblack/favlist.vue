@@ -16,10 +16,11 @@ const keyImportWarning = deline`
 
 export const mutations = {
   loadFromJson(state, favlists) {
-    if (!hasKeys(favlists)) {
-      return Vue.set(state, 'favlists', addKeys(favlists));
+    const normalized = favlistNormalize(favlists);
+    if (!hasKeys(normalized)) {
+      return Vue.set(state, 'favlists', addKeys(normalized));
     }
-    Vue.set(state, 'favlists', favlists);
+    Vue.set(state, 'favlists', normalized);
     if (!isWarned) {
       console.warn(keyImportWarning);
       alert(keyImportWarning);
@@ -113,15 +114,22 @@ export const mutations = {
   },
 };
 
+/**
+ * If `favlists` is an object with a `favlists` property return that.
+ * Otherwise, assume it is already the array that *would be* the `favlists`
+ * property.
+ */
+function favlistNormalize(favlists) {
+  if (Object.prototype.hasOwnProperty.call(favlists, 'favlists')) {
+    return favlists.favlists;
+  }
+  return favlists;
+}
+
 const favlists = (() => {
   const favlistsItem = JSON.parse(localStorage.getItem(favlistLocalStorage))
     || [];
-  const favlists = (() => {
-    if (Object.prototype.hasOwnProperty.call(favlistsItem, 'favlists')) {
-      return favlistsItem.favlists;
-    }
-    return favlistsItem;
-  })();
+  const favlists = favlistNormalize(favlistsItem);
   if (hasKeys(favlists)) {
     return favlists;
   }
