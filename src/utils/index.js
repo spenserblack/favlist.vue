@@ -1,11 +1,18 @@
-import {v4 as uuidv4} from 'uuid';
 import Cell from '@/Cell.js';
+import {v4 as uuidv4} from 'uuid';
 
 export const hasKeys = (favlists) => {
   return favlists.every((favlist) => {
     return Object.prototype.hasOwnProperty.call(favlist, 'key')
-      && favlist.columns.every((header) => Object.prototype.hasOwnProperty.call(header, 'key'))
-      && favlist.data.every((column) => column.every((cell) => Object.prototype.hasOwnProperty.call(cell, 'key')));
+      && favlist
+        .columns
+        .every((header) => Object.prototype.hasOwnProperty.call(header, 'key'))
+      && favlist
+        .data
+        .every((column) => column.every((cell) => Object
+          .prototype
+          .hasOwnProperty
+          .call(cell, 'key')));
   });
 };
 

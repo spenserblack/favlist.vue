@@ -225,7 +225,7 @@ describe('Vuex store', () => {
 
         expect(oldState.favlists).to.be.an('array').and.to.have.lengthOf(1);
 
-        const favlist = oldState.favlists[0];
+        const [favlist] = oldState.favlists;
         expect(favlist).to.have.property('key');
         expect(favlist.title).to.equal(':)');
 

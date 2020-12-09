@@ -1,5 +1,5 @@
-import Cell from '../Cell.js';
 import {addKeys, hasKeys} from '@/utils';
+import Cell from '../Cell.js';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import deline from 'deline';
