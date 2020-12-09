@@ -112,7 +112,7 @@ export default {
   },
   methods: {
     save() {
-      const favlists = stringifyJson(store.state.favlists);
+      const favlists = stringifyJson(store.getters.forSave);
       localStorage.setItem(favlistLocalStorage, favlists);
       this.makeAlert('Saved!', 10);
     },

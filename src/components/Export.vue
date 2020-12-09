@@ -25,7 +25,7 @@ export default {
   methods: {
     async copyToClipboard() {
       try {
-        await copy(stringifyJson(this.$store.state.favlists));
+        await copy(stringifyJson(this.$store.getters.forSave));
         alert('Favlists exported');
       } catch(e) {
         console.error("Couldn't copy to clipboard", e);
