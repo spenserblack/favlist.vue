@@ -13,6 +13,7 @@
     "clipboardy": "^2.3.0",
     "core-js": "^3.8.1",
     "debounce": "^1.2.0",
+    "deline": "^1.0.4",
     "file-saver": "^2.0.5",
     "uuid": "^8.3.2",
     "vue": "^2.6.11",
