@@ -1,9 +1,8 @@
-import {addKeys, hasKeys} from '@/utils';
+import {addKeys, favlistLocalStorage, hasKeys} from '@/utils';
 import Cell from '../Cell.js';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import deline from 'deline';
-import favlistLocalStorage from '../local-storage-name.js';
 import getters from './getters.js';
 import {v4 as uuidv4} from 'uuid';
 

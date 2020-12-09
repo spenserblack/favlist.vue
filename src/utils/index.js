@@ -1,6 +1,8 @@
 import Cell from '@/Cell.js';
 import {v4 as uuidv4} from 'uuid';
 
+export const favlistLocalStorage = 'favlists';
+
 export const hasKeys = (favlists) => {
   return favlists.every((favlist) => {
     return Object.prototype.hasOwnProperty.call(favlist, 'key')

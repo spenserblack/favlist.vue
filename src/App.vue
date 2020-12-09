@@ -38,7 +38,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import debounce from 'debounce';
-import favlistLocalStorage from './local-storage-name.js';
+import { favlistLocalStorage } from '@/utils';
 import setTimeout from 'core-js/stable/set-timeout';
 import store from './store';
 import stringifyJson from 'core-js/stable/json/stringify';
