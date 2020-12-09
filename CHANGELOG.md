@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Saved & copied data to be in a smaller, simplified format
+
 ### Styling
 
 - Sticky table headers and footers when viewing list in its dedicated route
