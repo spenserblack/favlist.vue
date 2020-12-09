@@ -234,7 +234,7 @@ describe('Vuex store', () => {
         expect(favlist.columns[0]).to.have.property('key')
           .that.is.ok;
 
-        expect(favlist.data).to.be.an('array').and.to.have.lengthOf(2);
+        expect(favlist.data).to.be.an('array').and.to.have.lengthOf(1);
         expect(favlist.data[0]).to.have.property('datum')
           .that.equals('4');
         expect(favlist.data[0]).to.have.property('key')
