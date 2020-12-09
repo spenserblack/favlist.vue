@@ -29,7 +29,7 @@ export default {
   methods: {
     saveFavlists() {
       const blob = new Blob(
-        [stringifyJson(this.$store.state.favlists)],
+        [stringifyJson(this.$store.getters.forSave)],
         {type: 'text/json;charset=utf-8'},
       );
       saveAs(blob, 'favlist.json');
