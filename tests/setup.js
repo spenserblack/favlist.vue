@@ -3,3 +3,4 @@ global.localStorage = {
   setItem: () => {},
 };
 global.alert = () => {};
+global.console.warn = () => {};
