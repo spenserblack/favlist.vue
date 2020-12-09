@@ -186,6 +186,7 @@ describe('Vuex store', () => {
             data: [
               [{datum: '4', key: 'IV'}, {datum: '5', key: 'V'}],
             ],
+            key: 'new-state',
           }],
         };
 
