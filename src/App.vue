@@ -142,8 +142,6 @@ export default {
 </script>
 
 <style lang='stylus'>
-@require './styles/variables.styl'
-
 #app
   font-family: Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
@@ -172,8 +170,6 @@ export default {
 </style>
 
 <style lang='stylus' scoped>
-@require './styles/variables.styl'
-
   .meta-buttons, .navbar
     background-color: secondaryColor
     width: auto

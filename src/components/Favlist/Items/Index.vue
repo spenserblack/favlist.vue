@@ -157,8 +157,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require '../../../styles/variables.styl'
-
 metaWidth = 20%
 
 .items

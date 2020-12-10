@@ -40,8 +40,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require '../../../styles/variables'
-
 .empty::before
   content: "Add a header"
   opacity: empty-opacity
