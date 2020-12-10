@@ -8,6 +8,7 @@
 
 ### Styling
 
+- Prettier notification when copying data to clipboard
 - Sticky table headers and footers when viewing list in its dedicated route
 
 ## [1.0.0]

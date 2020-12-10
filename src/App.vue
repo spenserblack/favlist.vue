@@ -13,7 +13,7 @@
       .add-favlist
         span.route.add-favlist(@click='$store.commit("newFavlist")') +
     .meta-buttons
-      ExportFavlist
+      ExportFavlist(@copied='makeAlert("Copied to clipboard!", 1500)')
       ImportFavlist
       SaveFavlist
     RouterView(@invalid-route='onInvalidRoute')
