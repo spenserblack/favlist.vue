@@ -43,7 +43,7 @@
       tbody
         tr(v-for='rowIndex in dataHeight' v-show='isRowShown(rowIndex - 1)')
           td.invisible-column
-          DataCell(
+          DataCell.normalized-width(
             v-for='cellIndex in dataWidth'
             :favlist='index'
             :column='cellIndex - 1'
@@ -216,6 +216,9 @@ th.filter
 
 .meta-column
   width: metaWidth
+
+.normalized-width
+  max-width: 0
 
 .move-left
 .move-right

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Table header and body columns sometimes being misaligned
+
 ## [1.1.0]
 
 ### Changed
