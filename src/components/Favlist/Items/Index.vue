@@ -64,8 +64,8 @@
 </template>
 
 <script>
-import DataCell from './Items/DataCell.vue';
-import HeaderCell from './Items/HeaderCell.vue';
+import DataCell from './DataCell.vue';
+import HeaderCell from './HeaderCell.vue';
 
 export default {
   name: 'FavlistItems',
@@ -157,7 +157,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require '../../styles/variables.styl'
+@require '../../../styles/variables.styl'
 
 metaWidth = 20%
 

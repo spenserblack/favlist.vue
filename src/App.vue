@@ -28,7 +28,7 @@
 <script>
 import Alert from './components/Alert.vue';
 import ExportFavlist from './components/Export.vue';
-import Favlist from './components/Favlist.vue';
+import Favlist from '@/components/Favlist/Index.vue';
 import Home from './routes/Home.vue';
 import HomeTitle from './routes/HomeTitle.vue';
 import ImportFavlist from './components/Import.vue';

@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Items from './Favlist/Items.vue';
-import Title from './Favlist/Title.vue';
+import Items from './Items/Index.vue';
+import Title from './Title.vue';
 import {v4 as uuidv4} from 'uuid';
 
 export default {

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Favlist from '@/components/Favlist.vue';
+import Favlist from '@/components/Favlist/Index.vue';
 
 export default {
   name: 'Home',
