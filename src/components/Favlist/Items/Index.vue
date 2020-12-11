@@ -59,8 +59,8 @@
           td.button-container(:colspan='dataWidth')
             button.add-row(@click='addRow') + Add Row
           td.button-container.meta-column
-            button
-              a(:href='topOfListHref') Top of {{ $store.getters.title(index) }}
+            button.top-of(@click='scrollToTop')
+              | Top of {{ $store.getters.title(index) }}
 </template>
 
 <script>
@@ -106,9 +106,6 @@ export default {
     filterId() {
       return `favlist-filter-${this.index}`;
     },
-    topOfListHref() {
-      return `#${this.favlistId}`;
-    },
   },
   methods: {
     addColumn() {
@@ -151,6 +148,9 @@ export default {
         const {datum} = cell || {};
         return datum != null && String(datum).includes(this.filter);
       });
+    },
+    scrollToTop() {
+      document.getElementById(this.favlistId).scrollIntoView();
     },
   },
 };
@@ -217,6 +217,9 @@ th.filter
 
 .normalized-width
   max-width: 0
+
+.top-of
+  text-decoration: underline
 
 .move-left
 .move-right
