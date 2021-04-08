@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "clipboardy": "^2.3.0",
-    "core-js": "^3.10.0",
+    "core-js": "^3.10.1",
     "debounce": "^1.2.1",
     "deline": "^1.0.4",
     "file-saver": "^2.0.5",
