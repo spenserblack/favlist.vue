@@ -28,6 +28,7 @@ jobs:
         run: yarn lint --max-warnings 0
 
   test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -48,6 +49,7 @@ jobs:
         run: yarn test
 
   build:
+    needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
