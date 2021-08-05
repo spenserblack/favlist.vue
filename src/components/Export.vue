@@ -1,27 +1,18 @@
 <template lang='pug'>
   button(@click='copyToClipboard' title='Save to clipboard')
-    ClipboardSvg(:width='clipboardWidth' :height='clipboardHeight')
+    Icon: JsonIcon
+    Icon: CopyIcon
 </template>
 
 <script>
-import ClipboardSvg from './svg/Clipboard.vue';
+import { Copy as CopyIcon, Json as JsonIcon } from '@v2icons/carbon';
+import Icon from './Icon.vue';
 import {write as copy} from 'clipboardy';
 import stringifyJson from 'core-js/stable/json/stringify';
 
-const clipboardWidth = 36;
-const clipboardHeight = 36;
-
 export default {
   name: 'Export',
-  components: {
-    ClipboardSvg,
-  },
-  data() {
-    return {
-      clipboardWidth,
-      clipboardHeight,
-    };
-  },
+  components: { CopyIcon, JsonIcon, Icon },
   methods: {
     async copyToClipboard() {
       try {

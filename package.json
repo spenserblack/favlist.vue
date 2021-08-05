@@ -10,6 +10,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@v2icons/carbon": "^0.11.0",
     "clipboardy": "^2.3.0",
     "core-js": "^3.16.0",
     "debounce": "^1.2.1",
