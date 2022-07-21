@@ -27,7 +27,7 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
-    "@quasar/extras": "^1.14.0",
+    "@quasar/extras": "^1.15.0",
     "quasar": "^2.7.3",
     "sequelize": "^6.21.0",
     "sqlite3": "^5.0.8",
