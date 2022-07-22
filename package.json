@@ -32,6 +32,6 @@
     "sequelize": "^6.21.0",
     "sqlite3": "^5.0.8",
     "vue": "^3.2.36",
-    "vue-router": "^4.0.16"
+    "vue-router": "^4.1.2"
   }
 }
