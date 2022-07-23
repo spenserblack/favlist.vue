@@ -1,17 +1,50 @@
-import { writeFile } from 'fs';
+import { readFile, writeFile } from 'fs/promises';
 import {
   Menu,
   app,
   dialog,
   shell,
 } from 'electron';
-import { dbPath, asJson } from './db';
+import { dbPath, asJson, fromJson } from './db';
 import type { MenuItemConstructorOptions } from 'electron';
 
 const fileItems: MenuItemConstructorOptions[] = [
   {
     label: 'View data file',
     click: () => shell.showItemInFolder(dbPath),
+  },
+  {
+    label: 'Import as...',
+    submenu: [
+      {
+        label: 'JSON (Legacy)',
+        click: async () => {
+          const { canceled, filePaths: [filePath] } = await dialog.showOpenDialog({
+            title: 'Import from JSON (legacy)',
+            buttonLabel: 'Import',
+            properties: ['openFile'],
+            filters: [{ name: 'JSON', extensions: ['json'] }],
+          });
+          if (canceled) return;
+
+          const strFilePath = filePath as string;
+
+          let jsonData: string;
+          try {
+            jsonData = await readFile(strFilePath, 'utf8');
+          } catch (err: any) {
+            dialog.showErrorBox('Error importing', err.message);
+            return;
+          }
+          // TODO Catch JSON.parse error
+          await fromJson(JSON.parse(jsonData));
+          dialog.showMessageBox({
+            title: 'Import complete',
+            message: 'Import complete',
+          });
+        },
+      },
+    ],
   },
   {
     label: 'Export as...',
@@ -25,20 +58,19 @@ const fileItems: MenuItemConstructorOptions[] = [
             defaultPath: 'favlist.json',
             filters: [{ name: 'JSON', extensions: ['json'] }],
           });
-          if (canceled) {
-            return;
-          }
+          if (canceled) return;
+
           const strFilePath = filePath as string;
           const json = await asJson();
-          writeFile(strFilePath, JSON.stringify(json, null, 2), (err) => {
-            if (err) {
-              dialog.showErrorBox('Error exporting', err.message);
-              return;
-            }
-            dialog.showMessageBox({
-              title: 'Export successful',
-              message: `Exported to ${strFilePath}`,
-            });
+          try {
+            await writeFile(strFilePath, JSON.stringify(json, null, 2));
+          } catch (err: any) {
+            dialog.showErrorBox('Error exporting', err.message);
+            return;
+          }
+          dialog.showMessageBox({
+            title: 'Export successful',
+            message: `Exported to ${strFilePath}`,
           });
         },
       },
