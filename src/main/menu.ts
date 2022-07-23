@@ -17,10 +17,10 @@ const fileItems: MenuItemConstructorOptions[] = [
     label: 'Export as...',
     submenu: [
       {
-        label: 'JSON',
+        label: 'JSON (Legacy)',
         click: async () => {
           const { canceled, filePath } = await dialog.showSaveDialog({
-            title: 'Export as JSON',
+            title: 'Export as JSON (Legacy)',
             buttonLabel: 'Export',
             defaultPath: 'favlist.json',
             filters: [{ name: 'JSON', extensions: ['json'] }],
