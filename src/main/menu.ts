@@ -44,6 +44,7 @@ const fileItems: MenuItemConstructorOptions[] = [
       },
     ],
   },
+  { type: 'separator' },
   { role: 'quit' },
 ];
 const fileMenu: MenuItemConstructorOptions = {
