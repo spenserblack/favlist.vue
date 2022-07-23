@@ -1,18 +1,50 @@
+import { writeFile } from 'fs';
 import {
   Menu,
   app,
   dialog,
   shell,
 } from 'electron';
-import { dbPath } from './db';
+import { dbPath, asJson } from './db';
 import type { MenuItemConstructorOptions } from 'electron';
 
 const fileItems: MenuItemConstructorOptions[] = [
-  { role: 'quit' },
   {
     label: 'View data file',
     click: () => shell.showItemInFolder(dbPath),
   },
+  {
+    label: 'Export as...',
+    submenu: [
+      {
+        label: 'JSON',
+        click: async () => {
+          const { canceled, filePath } = await dialog.showSaveDialog({
+            title: 'Export as JSON',
+            buttonLabel: 'Export',
+            defaultPath: 'favlist.json',
+            filters: [{ name: 'JSON', extensions: ['json'] }],
+          });
+          if (canceled) {
+            return;
+          }
+          const strFilePath = filePath as string;
+          const json = await asJson();
+          writeFile(strFilePath, JSON.stringify(json, null, 2), (err) => {
+            if (err) {
+              dialog.showErrorBox('Error exporting', err.message);
+              return;
+            }
+            dialog.showMessageBox({
+              title: 'Export successful',
+              message: `Exported to ${strFilePath}`,
+            });
+          });
+        },
+      },
+    ],
+  },
+  { role: 'quit' },
 ];
 const fileMenu: MenuItemConstructorOptions = {
   label: 'File',

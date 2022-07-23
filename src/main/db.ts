@@ -136,4 +136,29 @@ Row.Cells = Row.hasMany(Cell, {
   onDelete: 'CASCADE',
 });
 
+export type JsonExport = {
+  favlists: FavlistJsonExport[],
+}
+
+export type FavlistJsonExport = {
+  title: string,
+  columns: string[],
+  data: RowJsonExport[],
+};
+
+export type RowJsonExport = string[];
+
+export async function asJson(): Promise<JsonExport> {
+  const favlistData = await Favlist.findAll();
+  // NOTE I sacrificed readability for cleverness for fun :)
+  // If you're reading this, feel free to make a PR to make this more readable.
+  const favlists = await Promise.all(favlistData.map(async (favlist) => ({
+    title: favlist.title,
+    columns: (await favlist.getColumns()).map(({ name }) => name),
+    data: (await Promise.all((await favlist.getRows()).map((row) => row.getCells())))
+      .map((cells) => cells.map(({ value }) => value)),
+  })));
+  return { favlists };
+}
+
 export default db;
