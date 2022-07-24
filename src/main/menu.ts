@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'fs/promises';
+import { resolve } from 'path';
 import {
   Menu,
   app,
@@ -55,7 +56,7 @@ const fileItems: MenuItemConstructorOptions[] = [
           const { canceled, filePath } = await dialog.showSaveDialog({
             title: 'Export as JSON (Legacy)',
             buttonLabel: 'Export',
-            defaultPath: 'favlist.json',
+            defaultPath: resolve(app.getPath('documents'), 'favlist.json'),
             filters: [{ name: 'JSON', extensions: ['json'] }],
           });
           if (canceled) return;
