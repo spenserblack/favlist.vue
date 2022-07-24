@@ -9,6 +9,8 @@ import {
 import { dbPath, asJson, fromJson } from './db';
 import type { MenuItemConstructorOptions } from 'electron';
 
+// TODO Move click events to a separate module to organize this massive
+// config value
 const fileItems: MenuItemConstructorOptions[] = [
   {
     label: 'View data file',
