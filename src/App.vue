@@ -1,5 +1,7 @@
 <template lang='pug'>
   #app
+    em.deprecation-alert
+      | This web instance is being deprecated in favor of an Electron app.
     RouterView(name='title' :key='$route.path')
     .navbar
       .routes
