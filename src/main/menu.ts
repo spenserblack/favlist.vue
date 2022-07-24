@@ -30,15 +30,16 @@ const fileItems: MenuItemConstructorOptions[] = [
 
           const strFilePath = filePath as string;
 
-          let jsonData: string;
           try {
-            jsonData = await readFile(strFilePath, 'utf8');
+            const jsonData = await readFile(strFilePath, 'utf8');
+            const parsed = JSON.parse(jsonData);
+            console.log('parsed:', parsed);
+            await fromJson(parsed);
           } catch (err: any) {
-            dialog.showErrorBox('Error importing', err.message);
+            dialog.showErrorBox('Error parsing JSON', err.message);
             return;
           }
-          // TODO Catch JSON.parse error
-          await fromJson(JSON.parse(jsonData));
+
           dialog.showMessageBox({
             title: 'Import complete',
             message: 'Import complete',
