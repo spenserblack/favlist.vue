@@ -1,6 +1,7 @@
 import { join } from 'path';
 import { app } from 'electron';
 import { Sequelize, DataTypes, Model } from 'sequelize';
+import { validateJson } from './util';
 import type { BelongsToMany, HasMany } from 'sequelize';
 
 export const dbPath = join(app.getAppPath(), 'favlist.sqlite3');
@@ -135,5 +136,45 @@ Row.Cells = Row.hasMany(Cell, {
   foreignKey: 'rowId',
   onDelete: 'CASCADE',
 });
+
+export type JsonExport = {
+  favlists: FavlistJsonExport[],
+}
+
+export type FavlistJsonExport = {
+  title: string,
+  columns: string[],
+  data: RowJsonExport[],
+};
+
+export type RowJsonExport = string[];
+
+export async function asJson(): Promise<JsonExport> {
+  const favlistData = await Favlist.findAll();
+  // NOTE I sacrificed readability for cleverness for fun :)
+  // If you're reading this, feel free to make a PR to make this more readable.
+  const favlists = await Promise.all(favlistData.map(async (favlist) => ({
+    title: favlist.title,
+    columns: (await favlist.getColumns()).map(({ name }) => name),
+    data: (await Promise.all((await favlist.getRows()).map((row) => row.getCells())))
+      .map((cells) => cells.map(({ value }) => value)),
+  })));
+  return { favlists };
+}
+
+export async function fromJson(json: unknown): Promise<void> {
+  if (!validateJson(json)) {
+    throw new Error('Invalid JSON');
+  }
+  const dbPromise = json.favlists.map(async ({ title, columns: columnData, data }) => {
+    const favlist = await Favlist.create({ title });
+    const columns = await Promise.all(columnData.map((name) => Column.create({ name, favlistId: favlist.id })));
+    await Promise.all(data.map(async (rowData) => {
+      const row = await Row.create({ favlistId: favlist.id });
+      await Promise.all(rowData.map((value, index) => Cell.create({ value, rowId: row.id, columnId: columns[index].id })));
+    }));
+  });
+  await Promise.all(dbPromise);
+}
 
 export default db;
