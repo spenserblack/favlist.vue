@@ -19,7 +19,7 @@ const fileItems: MenuItemConstructorOptions[] = [
     submenu: [
       {
         label: 'JSON (Legacy)',
-        click: async () => {
+        click: async (_menuItem, browserWindow) => {
           const { canceled, filePaths: [filePath] } = await dialog.showOpenDialog({
             title: 'Import from JSON (legacy)',
             buttonLabel: 'Import',
@@ -44,6 +44,9 @@ const fileItems: MenuItemConstructorOptions[] = [
             title: 'Import complete',
             message: 'Import complete',
           });
+          // TODO Load only newly imported items instead of reloading whole
+          // window to query all items again.
+          browserWindow?.reload();
         },
       },
     ],
