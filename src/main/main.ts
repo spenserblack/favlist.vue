@@ -14,6 +14,7 @@ Menu.setApplicationMenu(menu);
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
+    title: 'Favlist',
     show: false,
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
