@@ -43,9 +43,11 @@ const main = async () => {
     app.exit(1);
   }
 
-  installExtension(VUEJS3_DEVTOOLS)
-    .then((name) => console.log('Added Extension', name))
-    .catch((err) => console.error("Couldn't Install Extension", err));
+  try {
+    await installDevtools();
+  } catch (err: unknown) {
+    console.error("Couldn't install extension(s)", err);
+  }
 
   ipcMain.on('set-window-title', events.setWindowTitle);
 
@@ -79,4 +81,13 @@ app.on('window-all-closed', function () {
 
 ipcMain.on('message', (event, message) => {
   console.log(message);
-})
+});
+
+async function installDevtools(): Promise<void> {
+  if (app.isPackaged) {
+    return;
+  }
+  const { default: installExtension, VUEJS3_DEVTOOLS } = await import('electron-devtools-installer');
+  const name = await installExtension(VUEJS3_DEVTOOLS);
+  console.log('Added Extension', name);
+}
