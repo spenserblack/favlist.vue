@@ -9,8 +9,7 @@
     "build": "node scripts/build.js && electron-builder -c config/electron-builder.json",
     "build:win": "node scripts/build.js && electron-builder -c config/electron-builder.json --win",
     "build:mac": "node scripts/build.js && electron-builder -c config/electron-builder.json --mac",
-    "build:linux": "node scripts/build.js && electron-builder -c config/electron-builder.json --linux",
-    "build:ci": "node scripts/build.js && electron-builder -c config/electron-builder.json --publish never"
+    "build:linux": "node scripts/build.js && electron-builder -c config/electron-builder.json --linux"
   },
   "repository": "https://github.com/spenserblack/favlist.vue",
   "devDependencies": {
