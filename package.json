@@ -17,7 +17,7 @@
     "@quasar/vite-plugin": "^1.0.10",
     "@vitejs/plugin-vue": "^2.2.4",
     "@vue/cli": "^5.0.8",
-    "chalk": "^4.1.2",
+    "chalk": "^5.0.1",
     "chokidar": "^3.5.3",
     "electron": "^19.0.9",
     "electron-builder": "^23.0.3",
