@@ -1,6 +1,6 @@
 {
   "name": "favlist",
-  "version": "2.0.1",
+  "version": "next",
   "private": true,
   "main": "build/main/main.js",
   "description": "A simple way to create and manage lists, backed by SQLite",
