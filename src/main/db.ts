@@ -5,6 +5,7 @@ import { validateJson } from './util';
 import type { BelongsToMany, HasMany } from 'sequelize';
 
 export const dbPath = join(app.getPath('userData'), 'favlist.sqlite3');
+console.log('Using database:', dbPath);
 
 const db = new Sequelize({
   dialect: 'sqlite',
