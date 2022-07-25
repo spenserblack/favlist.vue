@@ -1,5 +1,15 @@
 <template lang='pug'>
   #app
+    .deprecation-warning
+      p
+        em This static website will no longer be maintained,
+        |  as it has been
+        | converted to be an Electron app. The JSON export from this website
+        | can be imported into the Electron app with
+        | #[code File > Import from... > JSON (legacy)].
+      p
+        | The latest release can be found
+        | #[a(href="https://github.com/spenserblack/favlist.vue/releases/latest" target="_blank") here].
     RouterView(name='title' :key='$route.path')
     .navbar
       .routes
@@ -210,4 +220,8 @@ export default {
 
         &:hover
           color: lighten(textColor, 30%)
+
+  .deprecation-warning
+    color: #FEB
+    background-color: #A80
 </style>
