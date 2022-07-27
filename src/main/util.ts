@@ -60,3 +60,10 @@ function validateFavlistProperties(value: unknown): value is FavlistJsonExportWi
   }
   return ('title' in value) && ('columns' in value) && ('data' in value);
 }
+
+export function pivotArray<T>(arr: T[][]): T[][] {
+  if (arr.length < 1) {
+    return [];
+  }
+  return arr[0].map((_, rowIndex) => arr.map((column) => column[rowIndex]));
+}

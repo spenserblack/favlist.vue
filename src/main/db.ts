@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { app } from 'electron';
 import { Sequelize, DataTypes, Model } from 'sequelize';
-import { validateJson } from './util';
+import { validateJson, pivotArray } from './util';
 import type { BelongsToMany, HasMany } from 'sequelize';
 
 export const dbPath = join(app.getPath('userData'), 'favlist.sqlite3');
@@ -145,10 +145,10 @@ export type JsonExport = {
 export type FavlistJsonExport = {
   title: string,
   columns: string[],
-  data: RowJsonExport[],
+  data: ColumnJsonExport[],
 };
 
-export type RowJsonExport = string[];
+export type ColumnJsonExport = string[];
 
 export async function asJson(): Promise<JsonExport> {
   const favlistData = await Favlist.findAll();
@@ -170,7 +170,8 @@ export async function fromJson(json: unknown): Promise<void> {
   const dbPromise = json.favlists.map(async ({ title, columns: columnData, data }) => {
     const favlist = await Favlist.create({ title });
     const columns = await Promise.all(columnData.map((name) => Column.create({ name, favlistId: favlist.id })));
-    await Promise.all(data.map(async (rowData) => {
+    const rows = pivotArray(data);
+    await Promise.all(rows.map(async (rowData) => {
       const row = await Row.create({ favlistId: favlist.id });
       await Promise.all(rowData.map((value, index) => Cell.create({ value, rowId: row.id, columnId: columns[index].id })));
     }));
