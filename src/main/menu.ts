@@ -17,7 +17,7 @@ const fileItems: MenuItemConstructorOptions[] = [
     click: () => shell.showItemInFolder(dbPath),
   },
   {
-    label: 'Import as...',
+    label: 'Import from...',
     submenu: [
       {
         label: 'JSON (Legacy)',
