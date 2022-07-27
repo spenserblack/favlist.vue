@@ -39,6 +39,8 @@ const router = useRouter();
 
 const id = computed((): number => route.params.id);
 
+const table = ref<QTable>(null);
+
 const favlist = ref<Favlist | null>(null);
 const title = computed((): string => favlist.value?.title ?? '<unknown>');
 
@@ -100,6 +102,7 @@ const addRow = async () => {
   const row = await addDbRow(list.id);
   // TODO Data from cells
   list.rows.push(row);
+  table.value?.lastPage();
 };
 const rowToBeEdited = ref<number | null>(null);
 const rowEditValues = ref<string[]>([]);
@@ -161,6 +164,7 @@ onMounted(async () => {
     dark
     color="primary"
     @rowClick="onRowClick"
+    ref="table"
   >
     <template #top-left>
       <QBtn color="primary" label="Add column" @click="addColumn" />
