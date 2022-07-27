@@ -145,10 +145,10 @@ export type JsonExport = {
 export type FavlistJsonExport = {
   title: string,
   columns: string[],
-  data: RowJsonExport[],
+  data: ColumnJsonExport[],
 };
 
-export type RowJsonExport = string[];
+export type ColumnJsonExport = string[];
 
 export async function asJson(): Promise<JsonExport> {
   const favlistData = await Favlist.findAll();
