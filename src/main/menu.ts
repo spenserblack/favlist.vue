@@ -102,8 +102,7 @@ const helpItems: MenuItemConstructorOptions[] = [
       type: 'info',
       title: 'Version Info',
       message: [
-        // TODO Don't hardcode version number
-        ['Version', '2.0.0'],
+        ['Version', app.getVersion()],
         ['Chrome', process.versions.chrome],
         ['Node', process.versions.node],
         ['Electron', process.versions.electron],
