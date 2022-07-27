@@ -161,6 +161,7 @@ onMounted(async () => {
     :columns="columns"
     :rows="rows"
     row-key="id"
+    :pagination="{ rowsPerPage: 10 }"
     dark
     color="primary"
     @rowClick="onRowClick"
