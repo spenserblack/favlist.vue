@@ -160,6 +160,7 @@ onMounted(async () => {
     :rows="rows"
     row-key="id"
     dark
+    color="primary"
   >
     <template #top-left>
       <QBtn color="primary" label="Add column" @click="addColumn" />
