@@ -104,8 +104,7 @@ const addRow = async () => {
 const rowToBeEdited = ref<number | null>(null);
 const rowEditValues = ref<string[]>([]);
 const showEditRowDialog = ref(false);
-const onRowClick = (index: number) => {
-  const row = rows.value[index];
+const onRowClick = (_evt: unknown, row: Row, index: number) => {
   rowToBeEdited.value = index;
   showEditRowDialog.value = true;
   rowEditValues.value = columns.value.map(({ name }) => row[name]);
@@ -161,6 +160,7 @@ onMounted(async () => {
     row-key="id"
     dark
     color="primary"
+    @rowClick="onRowClick"
   >
     <template #top-left>
       <QBtn color="primary" label="Add column" @click="addColumn" />
@@ -183,13 +183,6 @@ onMounted(async () => {
             @click="onColumnClick(colIndex)"
           />
         </QTh>
-      </QTr>
-    </template>
-    <template #body="props">
-      <QTr :props="props" class="clickable" @click="onRowClick(props.rowIndex)">
-        <QTd v-for="col in props.cols" :key="col.name" :props="props">
-          {{ col.value }}
-        </QTd>
       </QTr>
     </template>
   </QTable>
