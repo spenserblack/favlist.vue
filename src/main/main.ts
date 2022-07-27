@@ -5,6 +5,7 @@ import {
   Menu,
 } from 'electron';
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer';
+import { autoUpdater } from 'electron-updater';
 import {join} from 'path';
 import * as events from './events';
 import db from './db';
@@ -74,6 +75,10 @@ const main = async () => {
 };
 
 main();
+
+app.on('ready', function updater() {
+  autoUpdater.checkForUpdatesAndNotify();
+});
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
