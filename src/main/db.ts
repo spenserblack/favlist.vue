@@ -167,10 +167,11 @@ export async function fromJson(json: unknown): Promise<void> {
   if (!validateJson(json)) {
     throw new Error('Invalid JSON');
   }
-  const dbPromise = pivotArray(json.favlists).map(async ({ title, columns: columnData, data }) => {
+  const dbPromise = json.favlists.map(async ({ title, columns: columnData, data }) => {
     const favlist = await Favlist.create({ title });
     const columns = await Promise.all(columnData.map((name) => Column.create({ name, favlistId: favlist.id })));
-    await Promise.all(data.map(async (rowData) => {
+    const rows = pivotArray(data);
+    await Promise.all(rows.map(async (rowData) => {
       const row = await Row.create({ favlistId: favlist.id });
       await Promise.all(rowData.map((value, index) => Cell.create({ value, rowId: row.id, columnId: columns[index].id })));
     }));
