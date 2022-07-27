@@ -4,7 +4,6 @@ import {
   ipcMain,
   Menu,
 } from 'electron';
-import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer';
 import {join} from 'path';
 import * as events from './events';
 import db from './db';
