@@ -35,7 +35,6 @@ const fileItems: MenuItemConstructorOptions[] = [
           try {
             const jsonData = await readFile(strFilePath, 'utf8');
             const parsed = JSON.parse(jsonData);
-            console.log('parsed:', parsed);
             await fromJson(parsed);
           } catch (err: any) {
             dialog.showErrorBox('Error parsing JSON', err.message);
