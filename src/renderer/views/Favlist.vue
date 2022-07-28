@@ -251,6 +251,7 @@ onMounted(async () => {
             v-model="rowEditValues[index]"
             :label="columns[index].label"
             dense
+            :autofocus="index === 0"
           />
         </QCardSection>
         <QCardActions>
