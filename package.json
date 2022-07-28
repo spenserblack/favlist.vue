@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.15.0",
+    "electron-updater": "^5.0.5",
     "quasar": "^2.7.5",
     "sequelize": "^6.21.3",
     "sqlite3": "^5.0.10",
