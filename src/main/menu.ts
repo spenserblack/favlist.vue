@@ -7,7 +7,7 @@ import {
   shell,
 } from 'electron';
 import { dbPath, asJson, fromJson } from './db';
-import type { MenuItemConstructorOptions } from 'electron';
+import type { MenuItemConstructorOptions, FileFilter } from 'electron';
 
 // TODO Move click events to a separate module to organize this massive
 // config value
@@ -59,26 +59,14 @@ const fileItems: MenuItemConstructorOptions[] = [
       {
         label: 'JSON (Legacy)',
         click: async () => {
-          const { canceled, filePath } = await dialog.showSaveDialog({
-            title: 'Export as JSON (Legacy)',
-            buttonLabel: 'Export',
-            defaultPath: resolve(app.getPath('documents'), 'favlist.json'),
-            filters: [{ name: 'JSON', extensions: ['json'] }],
-          });
-          if (canceled) return;
+          const filePath = await getDataExportPath(
+            'Export as JSON (Legacy)',
+            [{ name: 'JSON', extensions: ['json'] }],
+          );
+          if (filePath === null) return;
 
-          const strFilePath = filePath as string;
           const json = await asJson();
-          try {
-            await writeFile(strFilePath, JSON.stringify(json, null, 2));
-          } catch (err: any) {
-            dialog.showErrorBox('Error exporting', err.message);
-            return;
-          }
-          dialog.showMessageBox({
-            title: 'Export successful',
-            message: `Exported to ${strFilePath}`,
-          });
+          await writeData(filePath, JSON.stringify(json, null, 2));
         },
       },
     ],
@@ -122,5 +110,35 @@ const template = [
   windowMenu,
   helpMenu,
 ];
+
+/**
+ * Is null if the user cancelled the dialog.
+ */
+async function getDataExportPath(title: string, filters: FileFilter[]): Promise<string | null> {
+  const { canceled, filePath } = await dialog.showSaveDialog({
+    title,
+    buttonLabel: 'Export',
+    defaultPath: resolve(app.getPath('documents'), 'favlist.json'),
+    filters,
+  });
+  if (canceled) return null;
+  return filePath as string;
+}
+
+/**
+ * Writes data and shows either a success message or a failure message.
+ */
+async function writeData(path: string, data: string): Promise<void> {
+  try {
+    await writeFile(path, data);
+  } catch (err: any) {
+    dialog.showErrorBox('Error exporting', err.message);
+    return;
+  }
+  dialog.showMessageBox({
+    title: 'Export successful',
+    message: `Exported to ${path}`,
+  });
+}
 
 export default Menu.buildFromTemplate(template);
