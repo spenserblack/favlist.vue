@@ -22,33 +22,16 @@ const fileItems: MenuItemConstructorOptions[] = [
       {
         label: 'JSON (Legacy)',
         click: async (_menuItem, browserWindow) => {
-          const { canceled, filePaths: [filePath] } = await dialog.showOpenDialog({
-            title: 'Import from JSON (legacy)',
-            buttonLabel: 'Import',
-            properties: ['openFile'],
-            filters: [{ name: 'JSON', extensions: ['json'] }],
-          });
-          if (canceled) return;
+          const filePath = await getDataImportPath(
+            'Import from JSON (legacy)',
+            [{ name: 'JSON', extensions: ['json'] }],
+          );
+          if (filePath == null) return;
 
-          const strFilePath = filePath as string;
-
-          try {
-            const jsonData = await readFile(strFilePath, 'utf8');
-            const parsed = JSON.parse(jsonData);
-            console.log('parsed:', parsed);
-            await fromJson(parsed);
-          } catch (err: any) {
-            dialog.showErrorBox('Error parsing JSON', err.message);
-            return;
+          const success = await importData(filePath, JSON.parse, fromJson);
+          if (success) {
+            browserWindow?.reload();
           }
-
-          dialog.showMessageBox({
-            title: 'Import complete',
-            message: 'Import complete',
-          });
-          // TODO Load only newly imported items instead of reloading whole
-          // window to query all items again.
-          browserWindow?.reload();
         },
       },
     ],
@@ -112,6 +95,20 @@ const template = [
 ];
 
 /**
+ * Return value is null if the user cancelled the dialog.
+ */
+async function getDataImportPath(title: string, filters: FileFilter[]): Promise<string | null> {
+  const { canceled, filePaths: [filePath] } = await dialog.showOpenDialog({
+    title,
+    buttonLabel: 'Import',
+    properties: ['openFile'],
+    filters,
+  });
+  if (canceled) return null;
+  return filePath as string;
+}
+
+/**
  * Is null if the user cancelled the dialog.
  */
 async function getDataExportPath(title: string, filters: FileFilter[]): Promise<string | null> {
@@ -123,6 +120,31 @@ async function getDataExportPath(title: string, filters: FileFilter[]): Promise<
   });
   if (canceled) return null;
   return filePath as string;
+}
+
+/**
+ * Imports the data from the given file.
+ *
+ * @returns if the import was successful.
+ */
+async function importData<Parsed>(
+  path: string,
+  parser: (data: string) => Parsed,
+  importer: (data: Parsed) => void | Promise<void>,
+): Promise<boolean> {
+  try {
+    const data = await readFile(path, 'utf8');
+    const parsed = parser(data);
+    await importer(parsed);
+  } catch (err: any) {
+    dialog.showErrorBox('Error during import', err.message);
+    return false;
+  }
+  dialog.showMessageBox({
+    title: 'Import complete',
+    message: 'Import complete',
+  });
+  return true;
 }
 
 /**
