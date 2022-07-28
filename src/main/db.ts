@@ -157,7 +157,7 @@ export async function asJson(): Promise<JsonExport> {
   const favlists = await Promise.all(favlistData.map(async (favlist) => ({
     title: favlist.title,
     columns: (await favlist.getColumns()).map(({ name }) => name),
-    data: (await Promise.all((await favlist.getRows()).map((row) => row.getCells())))
+    data: pivotArray(await Promise.all((await favlist.getRows()).map((row) => row.getCells())))
       .map((cells) => cells.map(({ value }) => value)),
   })));
   return { favlists };
