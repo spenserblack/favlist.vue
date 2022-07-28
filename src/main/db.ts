@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { app } from 'electron';
 import { Sequelize, DataTypes, Model } from 'sequelize';
-import { validateJson, pivotArray } from './util';
+import { validateLegacyJson, pivotArray } from './util';
 import type { BelongsToMany, HasMany } from 'sequelize';
 
 export const dbPath = join(app.getPath('userData'), 'favlist.sqlite3');
@@ -138,19 +138,19 @@ Row.Cells = Row.hasMany(Cell, {
   onDelete: 'CASCADE',
 });
 
-export type JsonExport = {
-  favlists: FavlistJsonExport[],
+export type LegacyJsonExport = {
+  favlists: LegacyFavlistJsonExport[],
 }
 
-export type FavlistJsonExport = {
+export type LegacyFavlistJsonExport = {
   title: string,
   columns: string[],
-  data: ColumnJsonExport[],
+  data: LegacyColumnJsonExport[],
 };
 
-export type ColumnJsonExport = string[];
+export type LegacyColumnJsonExport = string[];
 
-export async function asJson(): Promise<JsonExport> {
+export async function asLegacyJson(): Promise<LegacyJsonExport> {
   const favlistData = await Favlist.findAll();
   // NOTE I sacrificed readability for cleverness for fun :)
   // If you're reading this, feel free to make a PR to make this more readable.
@@ -163,8 +163,8 @@ export async function asJson(): Promise<JsonExport> {
   return { favlists };
 }
 
-export async function fromJson(json: unknown): Promise<void> {
-  if (!validateJson(json)) {
+export async function fromLegacyJson(json: unknown): Promise<void> {
+  if (!validateLegacyJson(json)) {
     throw new Error('Invalid JSON');
   }
   const dbPromise = json.favlists.map(async ({ title, columns: columnData, data }) => {

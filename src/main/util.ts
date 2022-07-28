@@ -1,33 +1,33 @@
-import type { JsonExport, FavlistJsonExport } from './db';
+import type { LegacyJsonExport, LegacyFavlistJsonExport } from './db';
 
-type FavlistJsonExportWithProperties = {
+type LegacyFavlistJsonExportWithProperties = {
   title: unknown,
   columns: unknown,
   data: unknown,
 };
 
-type JsonExportWithProperties = { favlists: unknown };
+type LegacyJsonExportWithProperties = { favlists: unknown };
 
 /**
  * Validates that the given value is a valid JSON import/export.
  */
-export function validateJson(value: unknown): value is JsonExport {
-  if (!validateProperties(value)) {
+export function validateLegacyJson(value: unknown): value is LegacyJsonExport {
+  if (!validateLegacyProperties(value)) {
     return false;
   }
   const { favlists } = value;
   if (!Array.isArray(favlists)) {
     return false;
   }
-  return favlists.every(validateFavlistJson);
+  return favlists.every(validateLegacyFavlistJson);
 }
 
 /**
  * Validates that a value is a valid JSON import/export object representing a
  * single Favlist.
  */
-export function validateFavlistJson(value: unknown): value is FavlistJsonExport {
-  if (!validateFavlistProperties(value)) {
+export function validateLegacyFavlistJson(value: unknown): value is LegacyFavlistJsonExport {
+  if (!validateLegacyFavlistProperties(value)) {
     return false;
   }
   if (typeof value.title !== 'string'
@@ -47,14 +47,14 @@ export function validateFavlistJson(value: unknown): value is FavlistJsonExport 
   return dataIsValid;
 }
 
-function validateProperties(value: unknown): value is JsonExportWithProperties {
+function validateLegacyProperties(value: unknown): value is LegacyJsonExportWithProperties {
   if (value == null || typeof value !== 'object') {
     return false;
   }
   return ('favlists' in value);
 }
 
-function validateFavlistProperties(value: unknown): value is FavlistJsonExportWithProperties {
+function validateLegacyFavlistProperties(value: unknown): value is LegacyFavlistJsonExportWithProperties {
   if (value == null || typeof value !== 'object') {
     return false;
   }

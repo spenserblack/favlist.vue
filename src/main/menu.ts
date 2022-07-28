@@ -6,7 +6,7 @@ import {
   dialog,
   shell,
 } from 'electron';
-import { dbPath, asJson, fromJson } from './db';
+import { dbPath, asLegacyJson, fromLegacyJson } from './db';
 import type { MenuItemConstructorOptions, FileFilter } from 'electron';
 
 // TODO Move click events to a separate module to organize this massive
@@ -28,7 +28,7 @@ const fileItems: MenuItemConstructorOptions[] = [
           );
           if (filePath == null) return;
 
-          const success = await importData(filePath, JSON.parse, fromJson);
+          const success = await importData(filePath, JSON.parse, fromLegacyJson);
           if (success) {
             browserWindow?.reload();
           }
@@ -48,7 +48,7 @@ const fileItems: MenuItemConstructorOptions[] = [
           );
           if (filePath === null) return;
 
-          const json = await asJson();
+          const json = await asLegacyJson();
           await writeData(filePath, JSON.stringify(json, null, 2));
         },
       },
