@@ -138,6 +138,34 @@ Row.Cells = Row.hasMany(Cell, {
   onDelete: 'CASCADE',
 });
 
+export type JsonExport = {
+  favlists: FavlistJsonExport[],
+};
+
+export type FavlistJsonExport = {
+  title: string,
+  data: (Record<string, string>)[],
+};
+
+export async function asJson(): Promise<JsonExport> {
+  const favlistData = await Favlist.findAll();
+  // TODO Enforce unique names for columns so that this doesn't break
+  const favlists = await(Promise.all(favlistData.map(async (favlist) => {
+    const columns = await favlist.getColumns();
+    const rows = await favlist.getRows();
+    const data = await Promise.all(rows.map(async (row) => {
+      const rowData = await row.toJSON();
+      return columns.reduce((obj, column) => ({
+        ...obj,
+        [column.name]: rowData[column.id],
+      }), {});
+    }));
+    return { title: favlist.title, data };
+  })));
+
+  return { favlists };
+}
+
 export type LegacyJsonExport = {
   favlists: LegacyFavlistJsonExport[],
 }

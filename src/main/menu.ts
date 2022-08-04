@@ -6,7 +6,7 @@ import {
   dialog,
   shell,
 } from 'electron';
-import { dbPath, asLegacyJson, fromLegacyJson } from './db';
+import { dbPath, asJson, asLegacyJson, fromLegacyJson } from './db';
 import type { MenuItemConstructorOptions, FileFilter } from 'electron';
 
 // TODO Move click events to a separate module to organize this massive
@@ -39,6 +39,19 @@ const fileItems: MenuItemConstructorOptions[] = [
   {
     label: 'Export as...',
     submenu: [
+      {
+        label: 'JSON',
+        click: async () => {
+          const filePath = await getDataExportPath(
+            'Export as JSON',
+            [{ name: 'JSON', extensions: ['json'] }],
+          );
+          if (filePath == null) return;
+
+          const json = await asJson();
+          await writeData(filePath, JSON.stringify(json, null, 2));
+        },
+      },
       {
         label: 'JSON (Legacy)',
         click: async () => {
