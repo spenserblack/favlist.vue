@@ -53,6 +53,19 @@ const fileItems: MenuItemConstructorOptions[] = [
         },
       },
       {
+        label: 'Minified JSON',
+        click: async () => {
+          const filePath = await getDataExportPath(
+            'Export as JSON',
+            [{ name: 'JSON', extensions: ['json'] }],
+          );
+          if (filePath == null) return;
+
+          const json = await asJson();
+          await writeData(filePath, JSON.stringify(json));
+        },
+      },
+      {
         label: 'JSON (Legacy)',
         click: async () => {
           const filePath = await getDataExportPath(
