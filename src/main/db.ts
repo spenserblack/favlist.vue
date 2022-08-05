@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { app } from 'electron';
 import { Sequelize, DataTypes, Model } from 'sequelize';
-import { validateLegacyJson, pivotArray } from './util';
+import { validateJson, validateLegacyJson, pivotArray } from './util';
 import type { BelongsToMany, HasMany } from 'sequelize';
 
 export const dbPath = join(app.getPath('userData'), 'favlist.sqlite3');
@@ -164,6 +164,32 @@ export async function asJson(): Promise<JsonExport> {
   })));
 
   return { favlists };
+}
+
+export async function fromJson(json: unknown): Promise<void> {
+  if (!validateJson(json)) {
+    throw new Error('Invalid JSON');
+  }
+  const dbPromise = json.favlists.map(async ({ title, data }) => {
+    const favlist = await Favlist.create({ title });
+    const columnNames = Object.keys(data[0]);
+    const columns = await Promise.all(columnNames.map(async (name) => await Column.create({
+      name,
+      favlistId: favlist.id,
+    })));
+    await Promise.all(data.map(async (rowData) => {
+      const row = await Row.create({ favlistId: favlist.id });
+      return await Promise.all(columns.map(async (column) => {
+        const value = rowData[column.name];
+        return await Cell.create({
+          value,
+          columnId: column.id,
+          rowId: row.id,
+        });
+      }));
+    }));
+  });
+  await Promise.all(dbPromise);
 }
 
 export type LegacyJsonExport = {

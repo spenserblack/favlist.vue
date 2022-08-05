@@ -6,7 +6,7 @@ import {
   dialog,
   shell,
 } from 'electron';
-import { dbPath, asJson, asLegacyJson, fromLegacyJson } from './db';
+import { dbPath, asJson, asLegacyJson, fromJson, fromLegacyJson } from './db';
 import type { MenuItemConstructorOptions, FileFilter } from 'electron';
 
 // TODO Move click events to a separate module to organize this massive
@@ -19,6 +19,21 @@ const fileItems: MenuItemConstructorOptions[] = [
   {
     label: 'Import from...',
     submenu: [
+      {
+        label: 'JSON',
+        click: async (_menuItem, browserWindow) => {
+          const filePath = await getDataImportPath(
+            'Import from JSON',
+            [{ name: 'JSON', extensions: ['json'] }],
+          );
+          if (filePath == null) return;
+
+          const success = await importData(filePath, JSON.parse, fromJson);
+          if (success) {
+            browserWindow?.reload();
+          }
+        },
+      },
       {
         label: 'JSON (Legacy)',
         click: async (_menuItem, browserWindow) => {
