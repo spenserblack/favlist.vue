@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { app } from 'electron';
 import { Sequelize, DataTypes, Model } from 'sequelize';
-import { validateJson, pivotArray } from './util';
+import { validateJson, validateLegacyJson, pivotArray } from './util';
 import type { BelongsToMany, HasMany } from 'sequelize';
 
 export const dbPath = join(app.getPath('userData'), 'favlist.sqlite3');
@@ -140,17 +140,71 @@ Row.Cells = Row.hasMany(Cell, {
 
 export type JsonExport = {
   favlists: FavlistJsonExport[],
-}
+};
 
 export type FavlistJsonExport = {
   title: string,
-  columns: string[],
-  data: ColumnJsonExport[],
+  data: (Record<string, string>)[],
 };
 
-export type ColumnJsonExport = string[];
-
 export async function asJson(): Promise<JsonExport> {
+  const favlistData = await Favlist.findAll();
+  // TODO Enforce unique names for columns so that this doesn't break
+  const favlists = await(Promise.all(favlistData.map(async (favlist) => {
+    const columns = await favlist.getColumns();
+    const rows = await favlist.getRows();
+    const data = await Promise.all(rows.map(async (row) => {
+      const rowData = await row.toJSON();
+      return columns.reduce((obj, column) => ({
+        ...obj,
+        [column.name]: rowData[column.id],
+      }), {});
+    }));
+    return { title: favlist.title, data };
+  })));
+
+  return { favlists };
+}
+
+export async function fromJson(json: unknown): Promise<void> {
+  if (!validateJson(json)) {
+    throw new Error('Invalid JSON');
+  }
+  const dbPromise = json.favlists.map(async ({ title, data }) => {
+    const favlist = await Favlist.create({ title });
+    const columnNames = Object.keys(data[0]);
+    const columns = await Promise.all(columnNames.map(async (name) => await Column.create({
+      name,
+      favlistId: favlist.id,
+    })));
+    await Promise.all(data.map(async (rowData) => {
+      const row = await Row.create({ favlistId: favlist.id });
+      return await Promise.all(columns.map(async (column) => {
+        const value = rowData[column.name];
+        return await Cell.create({
+          value,
+          columnId: column.id,
+          rowId: row.id,
+        });
+      }));
+    }));
+  });
+  await Promise.all(dbPromise);
+}
+
+export type LegacyJsonExport = {
+  favlists: LegacyFavlistJsonExport[],
+}
+
+export type LegacyFavlistJsonExport = {
+  title: string,
+  columns: string[],
+  data: LegacyColumnJsonExport[],
+};
+
+export type LegacyColumnJsonExport = string[];
+
+export async function asLegacyJson(): Promise<LegacyJsonExport> {
   const favlistData = await Favlist.findAll();
   // NOTE I sacrificed readability for cleverness for fun :)
   // If you're reading this, feel free to make a PR to make this more readable.
@@ -163,8 +217,8 @@ export async function asJson(): Promise<JsonExport> {
   return { favlists };
 }
 
-export async function fromJson(json: unknown): Promise<void> {
-  if (!validateJson(json)) {
+export async function fromLegacyJson(json: unknown): Promise<void> {
+  if (!validateLegacyJson(json)) {
     throw new Error('Invalid JSON');
   }
   const dbPromise = json.favlists.map(async ({ title, columns: columnData, data }) => {

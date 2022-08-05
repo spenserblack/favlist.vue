@@ -6,8 +6,8 @@ import {
   dialog,
   shell,
 } from 'electron';
-import { dbPath, asJson, fromJson } from './db';
-import type { MenuItemConstructorOptions } from 'electron';
+import { dbPath, asJson, asLegacyJson, fromJson, fromLegacyJson } from './db';
+import type { MenuItemConstructorOptions, FileFilter } from 'electron';
 
 // TODO Move click events to a separate module to organize this massive
 // config value
@@ -20,34 +20,33 @@ const fileItems: MenuItemConstructorOptions[] = [
     label: 'Import from...',
     submenu: [
       {
+        label: 'JSON',
+        click: async (_menuItem, browserWindow) => {
+          const filePath = await getDataImportPath(
+            'Import from JSON',
+            [{ name: 'JSON', extensions: ['json'] }],
+          );
+          if (filePath == null) return;
+
+          const success = await importData(filePath, JSON.parse, fromJson);
+          if (success) {
+            browserWindow?.reload();
+          }
+        },
+      },
+      {
         label: 'JSON (Legacy)',
         click: async (_menuItem, browserWindow) => {
-          const { canceled, filePaths: [filePath] } = await dialog.showOpenDialog({
-            title: 'Import from JSON (legacy)',
-            buttonLabel: 'Import',
-            properties: ['openFile'],
-            filters: [{ name: 'JSON', extensions: ['json'] }],
-          });
-          if (canceled) return;
+          const filePath = await getDataImportPath(
+            'Import from JSON (legacy)',
+            [{ name: 'JSON', extensions: ['json'] }],
+          );
+          if (filePath == null) return;
 
-          const strFilePath = filePath as string;
-
-          try {
-            const jsonData = await readFile(strFilePath, 'utf8');
-            const parsed = JSON.parse(jsonData);
-            await fromJson(parsed);
-          } catch (err: any) {
-            dialog.showErrorBox('Error parsing JSON', err.message);
-            return;
+          const success = await importData(filePath, JSON.parse, fromLegacyJson);
+          if (success) {
+            browserWindow?.reload();
           }
-
-          dialog.showMessageBox({
-            title: 'Import complete',
-            message: 'Import complete',
-          });
-          // TODO Load only newly imported items instead of reloading whole
-          // window to query all items again.
-          browserWindow?.reload();
         },
       },
     ],
@@ -56,28 +55,42 @@ const fileItems: MenuItemConstructorOptions[] = [
     label: 'Export as...',
     submenu: [
       {
+        label: 'JSON',
+        click: async () => {
+          const filePath = await getDataExportPath(
+            'Export as JSON',
+            [{ name: 'JSON', extensions: ['json'] }],
+          );
+          if (filePath == null) return;
+
+          const json = await asJson();
+          await writeData(filePath, JSON.stringify(json, null, 2));
+        },
+      },
+      {
+        label: 'Minified JSON',
+        click: async () => {
+          const filePath = await getDataExportPath(
+            'Export as JSON',
+            [{ name: 'JSON', extensions: ['json'] }],
+          );
+          if (filePath == null) return;
+
+          const json = await asJson();
+          await writeData(filePath, JSON.stringify(json));
+        },
+      },
+      {
         label: 'JSON (Legacy)',
         click: async () => {
-          const { canceled, filePath } = await dialog.showSaveDialog({
-            title: 'Export as JSON (Legacy)',
-            buttonLabel: 'Export',
-            defaultPath: resolve(app.getPath('documents'), 'favlist.json'),
-            filters: [{ name: 'JSON', extensions: ['json'] }],
-          });
-          if (canceled) return;
+          const filePath = await getDataExportPath(
+            'Export as JSON (Legacy)',
+            [{ name: 'JSON', extensions: ['json'] }],
+          );
+          if (filePath === null) return;
 
-          const strFilePath = filePath as string;
-          const json = await asJson();
-          try {
-            await writeFile(strFilePath, JSON.stringify(json, null, 2));
-          } catch (err: any) {
-            dialog.showErrorBox('Error exporting', err.message);
-            return;
-          }
-          dialog.showMessageBox({
-            title: 'Export successful',
-            message: `Exported to ${strFilePath}`,
-          });
+          const json = await asLegacyJson();
+          await writeData(filePath, JSON.stringify(json, null, 2));
         },
       },
     ],
@@ -121,5 +134,74 @@ const template = [
   windowMenu,
   helpMenu,
 ];
+
+/**
+ * Return value is null if the user cancelled the dialog.
+ */
+async function getDataImportPath(title: string, filters: FileFilter[]): Promise<string | null> {
+  const { canceled, filePaths: [filePath] } = await dialog.showOpenDialog({
+    title,
+    buttonLabel: 'Import',
+    properties: ['openFile'],
+    filters,
+  });
+  if (canceled) return null;
+  return filePath as string;
+}
+
+/**
+ * Is null if the user cancelled the dialog.
+ */
+async function getDataExportPath(title: string, filters: FileFilter[]): Promise<string | null> {
+  const { canceled, filePath } = await dialog.showSaveDialog({
+    title,
+    buttonLabel: 'Export',
+    defaultPath: resolve(app.getPath('documents'), 'favlist.json'),
+    filters,
+  });
+  if (canceled) return null;
+  return filePath as string;
+}
+
+/**
+ * Imports the data from the given file.
+ *
+ * @returns if the import was successful.
+ */
+async function importData<Parsed>(
+  path: string,
+  parser: (data: string) => Parsed,
+  importer: (data: Parsed) => void | Promise<void>,
+): Promise<boolean> {
+  try {
+    const data = await readFile(path, 'utf8');
+    const parsed = parser(data);
+    await importer(parsed);
+  } catch (err: any) {
+    dialog.showErrorBox('Error during import', err.message);
+    return false;
+  }
+  dialog.showMessageBox({
+    title: 'Import complete',
+    message: 'Import complete',
+  });
+  return true;
+}
+
+/**
+ * Writes data and shows either a success message or a failure message.
+ */
+async function writeData(path: string, data: string): Promise<void> {
+  try {
+    await writeFile(path, data);
+  } catch (err: any) {
+    dialog.showErrorBox('Error exporting', err.message);
+    return;
+  }
+  dialog.showMessageBox({
+    title: 'Export successful',
+    message: `Exported to ${path}`,
+  });
+}
 
 export default Menu.buildFromTemplate(template);
