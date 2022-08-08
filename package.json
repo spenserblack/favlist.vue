@@ -21,7 +21,7 @@
     "electron": "^19.0.10",
     "electron-builder": "^23.3.3",
     "electron-devtools-installer": "^3.2.0",
-    "sass": "^1.54.0",
+    "sass": "^1.54.3",
     "typescript": "^4.6.2",
     "vite": "^2.9.9"
   },
