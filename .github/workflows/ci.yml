@@ -30,6 +30,10 @@ jobs:
 
       - run: yarn install --frozen-lockfile
 
+      - name: Pretest
+        run: yarn build:test
+      - run: yarn test
+
       - name: Build
         run: yarn build
         env:
