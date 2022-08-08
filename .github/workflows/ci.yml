@@ -10,16 +10,8 @@ env:
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os:
-          - windows-latest
-          - ubuntu-latest
-    permissions:
-      contents: write
-
+  test:
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
 
@@ -34,7 +26,24 @@ jobs:
         run: yarn build:test
       - run: yarn test
 
-      - name: Build
-        run: yarn build
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  build:
+    name: Build and deploy
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-latest
+    permissions:
+      contents: write
+    needs: test
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - run: yarn install --frozen-lockfile
