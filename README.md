@@ -15,3 +15,11 @@ The source code for the original version is in the `master` branch.
 [rust favlist]: https://github.com/spenserblack/favlist
 [static site]: https://spenserblack.github.io/favlist.vue/
 [template]: https://github.com/Deluze/electron-vue-template
+
+## Development
+
+### Install Dependencies
+
+```bash
+PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 yarn
+```
