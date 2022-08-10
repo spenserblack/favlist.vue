@@ -25,5 +25,6 @@ test('Creating a new list', async () => {
   expect(submitButton).toBeEnabled();
   await window.click('#new-list-btn');
   const listLink = window.locator('.favlist-link');
+  await listLink.waitFor();
   expect(listLink).toHaveText('My list');
 });
