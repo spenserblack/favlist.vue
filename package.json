@@ -11,7 +11,8 @@
     "build:win": "node scripts/build.js && electron-builder -c config/electron-builder.json --win",
     "build:mac": "node scripts/build.js && electron-builder -c config/electron-builder.json --mac",
     "build:linux": "node scripts/build.js && electron-builder -c config/electron-builder.json --linux",
-    "build:test": "node scripts/build.js && cp -r build/main/* build/renderer build-test/"
+    "build:dev": "node scripts/build.js",
+    "serve:renderer": "vite -c config/vite.js preview"
   },
   "repository": "https://github.com/spenserblack/favlist.vue",
   "devDependencies": {

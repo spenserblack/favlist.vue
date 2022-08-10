@@ -7,7 +7,7 @@ let app = null as ElectronApplication;
 let window = null as Page;
 
 test.beforeEach(async () => {
-  app = await electron.launch({ args: [resolve(__dirname, '../build-test/main.js')] });
+  app = await electron.launch({ args: [resolve(__dirname, '../build/main/main.js')] });
   window = await app.firstWindow();
 });
 test.afterEach(async () => {

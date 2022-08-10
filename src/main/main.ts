@@ -23,8 +23,8 @@ function createWindow () {
     }
   });
 
-  if (process.env.NODE_ENV === 'development') {
-    const rendererPort = process.argv[2];
+  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+    const rendererPort = process.env.PORT || process.argv[2];
     mainWindow.loadURL(`http://localhost:${rendererPort}`);
   }
   else {
