@@ -86,6 +86,7 @@ onMounted(async () => {
       <QItemSection side>
       <QBtn
         color="negative"
+        class="delete-list-btn"
         icon="sym_o_delete_forever"
         :aria-label="`Remove ${favlist.title}`"
         @click="deleteOption = index"
