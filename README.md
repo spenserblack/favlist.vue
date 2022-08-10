@@ -23,3 +23,9 @@ The source code for the original version is in the `master` branch.
 ```bash
 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 yarn
 ```
+
+### Running Tests
+
+```bash
+NODE_ENV=test yarn test
+```

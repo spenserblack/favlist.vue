@@ -25,6 +25,8 @@ jobs:
       - name: Pretest
         run: yarn build:test
       - run: yarn test
+        env:
+          NODE_ENV: test
 
   build:
     name: Build and deploy

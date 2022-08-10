@@ -4,7 +4,7 @@ import { Sequelize, DataTypes, Model } from 'sequelize';
 import { validateJson, validateLegacyJson, pivotArray } from './util';
 import type { BelongsToMany, HasMany } from 'sequelize';
 
-export const dbPath = join(app.getPath('userData'), 'favlist.sqlite3');
+export const dbPath = getDbPath();
 console.log('Using database:', dbPath);
 
 const db = new Sequelize({
@@ -231,6 +231,15 @@ export async function fromLegacyJson(json: unknown): Promise<void> {
     }));
   });
   await Promise.all(dbPromise);
+}
+
+function getDbPath(): string {
+  switch (process.env.NODE_ENV) {
+    case 'test':
+      return ':memory:';
+    default:
+      return join(app.getPath('userData'), 'favlist.sqlite3');
+  }
 }
 
 export default db;
