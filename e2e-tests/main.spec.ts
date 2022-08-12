@@ -1,14 +1,12 @@
-import { resolve } from 'path';
-import { _electron as electron } from 'playwright';
 import { expect, test } from '@playwright/test';
+import setup from './setup';
 import type { ElectronApplication, Page } from 'playwright';
 
 let app = null as ElectronApplication;
 let window = null as Page;
 
 test.beforeEach(async () => {
-  app = await electron.launch({ args: [resolve(__dirname, '../build/main/main.js')] });
-  window = await app.firstWindow();
+  [app, window] = await setup();
 });
 test.afterEach(async () => {
   await app.close();
