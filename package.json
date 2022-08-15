@@ -18,7 +18,7 @@
     "@vue/cli": "^5.0.8",
     "chalk": "^4.1.2",
     "chokidar": "^3.5.3",
-    "electron": "^20.0.1",
+    "electron": "^20.0.2",
     "electron-builder": "^23.3.3",
     "electron-devtools-installer": "^3.2.0",
     "sass": "^1.54.4",
