@@ -12,9 +12,12 @@ test.afterEach(async () => {
   await app.close();
 });
 
-test('App title is viewed favlist title', async () => {
+test('managing individual list', async () => {
   await window.fill('#new-list-title', 'My list');
   await window.click('#new-list-btn');
   await window.click('a:text("My list")');
-  await expect(window).toHaveTitle('My list - Favlist');
+  await expect(window, 'App title is viewed favlist title').toHaveTitle('My list - Favlist');
+  await window.click('button :text("Add column")');
+  const newColumnLocator = window.locator('text=New Column');
+  await expect(newColumnLocator, 'New column header does not exist').toBeVisible();
 });
