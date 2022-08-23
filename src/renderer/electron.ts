@@ -10,4 +10,7 @@ export const deleteColumn = electron.deleteColumn;
 export const addRow = electron.addRow;
 export const editRow = electron.editRow;
 export const deleteRow = electron.deleteRow;
-export const setWindowTitle = electron.setWindowTitle;
+export const setWindowTitle = (title: string): void => {
+  electron.setWindowTitle(title);
+  window.document.title = title;
+};
