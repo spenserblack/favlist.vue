@@ -10,7 +10,7 @@ Manage lists with dynamic columns backed by a SQLite database.
 
 This is the new, Electron version of [favlist.vue][static site], which is a static site that I made
 with the goal of having an easy-to-use interface to manage a list of things like my favorite movies.
-The source code for the original version is in the `master` branch.
+The source code for the original version is in the `v1` branch.
 
 [rust favlist]: https://github.com/spenserblack/favlist
 [static site]: https://spenserblack.github.io/favlist.vue/
