@@ -18,9 +18,9 @@ test('Initial title is app page', async () => {
 
 test('Submit button disabled until form filled', async () => {
     const submitButton = window.locator('#new-list-btn');
-    expect(submitButton).toBeDisabled();
+    await expect(submitButton).toBeDisabled();
     await window.fill('#new-list-title', 'My list');
-    expect(submitButton).toBeEnabled();
+    await expect(submitButton).toBeEnabled();
 });
 
 test.describe('New lists', () => {
