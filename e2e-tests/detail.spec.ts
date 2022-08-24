@@ -32,4 +32,47 @@ test.describe('columns', () => {
     await expect(newColumnLocator, 'New column header does not exist').toBeVisible();
     await expect(newColumnLocator, 'New column header is not "New Column"').toHaveText('New Column');
   });
+
+  test.describe('Edit column', () => {
+    let dialog: Locator;
+    let modalCard: Locator;
+
+    test.beforeEach(async () => {
+      await newColumnLocator.click();
+      dialog = window.locator('.q-dialog');
+      modalCard = dialog.locator('.q-card');
+    });
+
+    test('A dialog is shown', async () => {
+      await expect(dialog, 'Dialog does not exist').toBeVisible();
+      await expect(modalCard, 'Edit card does not exist').toBeVisible();
+    });
+
+    test.describe('new name form', () => {
+      test.beforeEach(async () => {
+        await modalCard.locator('input[type=text]').fill('foo');
+      });
+
+      test('Cancel hides modal and changes nothing', async () => {
+        await modalCard.locator('button :text("Cancel")').click();
+        await expect(dialog).toBeHidden();
+        await expect(newColumnLocator).toHaveText('New Column');
+      });
+
+      test('Save hides modal and changes name', async () => {
+        await modalCard.locator('button :text("Save")').click();
+        await expect(dialog).toBeHidden();
+        await expect(newColumnLocator).toHaveText('foo');
+      });
+    });
+
+    test('Delete column', async () => {
+      const deleteButton = modalCard.locator('button.text-negative');
+      await deleteButton.click();
+      await expect(deleteButton, 'Text has not changed to "Are you sure?"').toHaveText('Are you sure?');
+      await deleteButton.click();
+      await expect(dialog).toBeHidden();
+      await expect(newColumnLocator).toBeHidden();
+    });
+  });
 });
