@@ -1,9 +1,9 @@
 import { expect, test } from '@playwright/test';
 import setup from './setup';
-import type { ElectronApplication, Page } from 'playwright';
+import type { ElectronApplication, Page, Locator } from 'playwright';
 
-let app = null as ElectronApplication;
-let window = null as Page;
+let app: ElectronApplication;
+let window: Page;
 
 test.beforeEach(async () => {
   [app, window] = await setup();
@@ -16,25 +16,50 @@ test('Initial title is app page', async () => {
   await expect(window).toHaveTitle('Favlist');
 });
 
-test('Creating and delete a list', async () => {
-  const submitButton = window.locator('#new-list-btn');
-  expect(submitButton).toBeDisabled();
-  await window.fill('#new-list-title', 'My list');
-  expect(submitButton).toBeEnabled();
-  await window.click('#new-list-btn');
-  const listLink = window.locator('.favlist-link');
-  await expect(listLink, 'The list should have been created').toHaveText('My list');
+test('Submit button disabled until form filled', async () => {
+    const submitButton = window.locator('#new-list-btn');
+    expect(submitButton).toBeDisabled();
+    await window.fill('#new-list-title', 'My list');
+    expect(submitButton).toBeEnabled();
+});
 
-  await window.click('.delete-list-btn');
-  const dialog = window.locator('.q-dialog');
-  const modalCard = dialog.locator('.q-card');
-  await expect(modalCard, 'Clicking the delete button should show the confirmation').toBeVisible();
-  await modalCard.locator('text=Cancel').click();
-  await expect(dialog, 'Cancel should hide the confirmation').toBeHidden();
-  await expect(listLink, 'The list should still be there').toBeVisible();
+test.describe('New lists', () => {
+  let listLink: Locator;
 
-  await window.click('.delete-list-btn');
-  await modalCard.locator('button :text("Delete")').click();
-  await expect(dialog, 'Delete should hide the modal').toBeHidden();
-  await expect(listLink, 'The list should be gone').toBeHidden();
+  test.beforeEach(async () => {
+    await window.fill('#new-list-title', 'My list');
+    await window.click('#new-list-btn');
+    listLink = window.locator('.favlist-link');
+  });
+
+  test('A list is created with the correct text', async () => {
+    await expect(listLink, 'The list should have been created').toHaveText('My list');
+  });
+
+
+  test.describe('Deleting a list', () => {
+    let dialog: Locator;
+    let modalCard: Locator;
+    test.beforeEach(async () => {
+      await window.click('.delete-list-btn');
+      dialog = window.locator('.q-dialog');
+      modalCard = dialog.locator('.q-card');
+    });
+
+    test('Warning dialog pops up when deleting a list', async () => {
+      await expect(modalCard, 'Clicking the delete button should show the confirmation').toBeVisible();
+    });
+
+    test('Canceling a delete keeps the list', async () => {
+      await modalCard.locator('text=Cancel').click();
+      await expect(dialog, 'Cancel should hide the confirmation').toBeHidden();
+      await expect(listLink, 'The list should still be there').toBeVisible();
+    });
+
+    test('Deleting a list removes it', async () => {
+      await modalCard.locator('button :text("Delete")').click();
+      await expect(dialog, 'Delete should hide the modal').toBeHidden();
+      await expect(listLink, 'The list should be gone').toBeHidden();
+    });
+  });
 });
