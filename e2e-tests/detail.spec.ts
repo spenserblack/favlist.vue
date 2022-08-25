@@ -76,3 +76,74 @@ test.describe('columns', () => {
     });
   });
 });
+
+test.describe('rows', () => {
+  let dataRowLocator: Locator;
+  let dataCellLocator: Locator;
+  test.beforeEach(async () => {
+    dataRowLocator = window.locator('tbody tr');
+    dataCellLocator = dataRowLocator.locator('td');
+    const newColumn = window.locator('button :text("Add column")');
+    await newColumn.click();
+    await newColumn.click();
+    await window.click('button :text("Add row")');
+  });
+
+  test('A row is added', async () => {
+    await expect(dataRowLocator, 'Row does not exist').toBeVisible();
+    expect(await dataCellLocator.count()).toBe(2);
+  });
+
+  test.describe('Edit row form', () => {
+    let dialog: Locator;
+    let modalCard: Locator;
+
+    test.beforeEach(async () => {
+      await dataRowLocator.click();
+      dialog = window.locator('.q-dialog');
+      modalCard = dialog.locator('.q-card');
+    });
+
+    test('A dialog is shown', async () => {
+      await expect(dialog, 'Dialog does not exist').toBeVisible();
+      await expect(modalCard, 'Edit card does not exist').toBeVisible();
+    });
+
+    test.describe('new data form', () => {
+      let inputLocator: Locator;
+
+      test.beforeEach(async () => {
+        inputLocator = modalCard.locator('input[type=text]');
+        await inputLocator.first().fill('foo')
+        await inputLocator.last().fill('bar');
+      });
+
+      test('There is an input for each column', async () => {
+        expect(await inputLocator.count()).toBe(2);
+      });
+
+      test('Cancel hides modal and changes nothing', async () => {
+        await modalCard.locator('button :text("Cancel")').click();
+        await expect(dialog).toBeHidden();
+        await expect(dataCellLocator.first()).toHaveText('---');
+        await expect(dataCellLocator.last()).toHaveText('---');
+      });
+
+      test('Save hides modal and changes data', async () => {
+        await modalCard.locator('button :text("Save")').click();
+        await expect(dialog).toBeHidden();
+        await expect(dataCellLocator.first()).toHaveText('foo');
+        await expect(dataCellLocator.last()).toHaveText('bar');
+      });
+    });
+
+    test('Delete row', async () => {
+      const deleteButton = modalCard.locator('button.text-negative');
+      await deleteButton.click();
+      await expect(deleteButton, 'Text has not changed to "Are you sure?"').toHaveText('Are you sure?');
+      await deleteButton.click();
+      await expect(dialog).toBeHidden();
+      await expect(dataRowLocator).toBeHidden();
+    });
+  });
+});
