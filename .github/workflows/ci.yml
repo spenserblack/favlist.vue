@@ -48,3 +48,8 @@ jobs:
           cache: yarn
 
       - run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
