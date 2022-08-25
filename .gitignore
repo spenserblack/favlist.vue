@@ -4,6 +4,3 @@ build
 
 .vscode
 .idea
-
-build-test/*
-!build-test/.gitkeep
