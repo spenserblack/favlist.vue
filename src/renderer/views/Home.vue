@@ -55,6 +55,7 @@ onMounted(async () => {
     <QItem dark>
       <QItemSection side>
         <QBtn
+          id="new-list-btn"
           color="positive"
           icon="sym_o_add"
           :disabled="!title"
@@ -65,6 +66,7 @@ onMounted(async () => {
       <QItemSection>
         <QForm @submit="newList">
           <QInput
+            for="new-list-title"
             type="text"
             dark
             filled
@@ -84,6 +86,7 @@ onMounted(async () => {
       <QItemSection side>
       <QBtn
         color="negative"
+        class="delete-list-btn"
         icon="sym_o_delete_forever"
         :aria-label="`Remove ${favlist.title}`"
         @click="deleteOption = index"
@@ -91,7 +94,7 @@ onMounted(async () => {
       </QItemSection>
       <QItemSection>
         <router-link
-          class="text-h5 text-primary"
+          class="text-h5 text-primary favlist-link"
           :to="{ name: 'favlist', params: { id: favlist.id } }"
         >{{ favlist.title }}</router-link>
       </QItemSection>
