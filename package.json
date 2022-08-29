@@ -16,7 +16,7 @@
   },
   "repository": "https://github.com/spenserblack/favlist.vue",
   "devDependencies": {
-    "@playwright/test": "^1.24.2",
+    "@playwright/test": "^1.25.1",
     "@quasar/vite-plugin": "^1.1.1",
     "@vitejs/plugin-vue": "^2.3.4",
     "@vue/cli": "^5.0.8",
