@@ -1,3 +1,6 @@
 scripts/private/tsc.js linguist-vendored
 scripts/build.js linguist-vendored
 scripts/dev-server.js linguist-vendored
+# Prevents massive diffs caused by these vendored, minified files
+/.yarn/releases/** binary
+/.yarn/plugins/** binary
