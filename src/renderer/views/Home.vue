@@ -52,7 +52,7 @@ onMounted(async () => {
 
 <template>
   <QList v-bind="$attrs">
-    <QItem dark>
+    <QItem>
       <QItemSection side>
         <QBtn
           id="new-list-btn"
@@ -68,7 +68,6 @@ onMounted(async () => {
           <QInput
             for="new-list-title"
             type="text"
-            dark
             filled
             label="Add a list"
             v-model="title"
@@ -80,7 +79,6 @@ onMounted(async () => {
       v-for="(favlist, index) in favlists"
       clickable
       v-ripple
-      dark
       :key="favlist.id"
     >
       <QItemSection side>
