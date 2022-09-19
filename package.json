@@ -33,7 +33,7 @@
   "dependencies": {
     "@quasar/extras": "^1.15.3",
     "electron-updater": "^5.2.1",
-    "quasar": "^2.7.7",
+    "quasar": "^2.8.3",
     "sequelize": "^6.21.6",
     "sqlite3": "^5.0.11",
     "vue": "^3.2.39",
