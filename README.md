@@ -27,5 +27,5 @@ PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 yarn
 ### Running Tests
 
 ```bash
-NODE_ENV=test PORT=1234 yarn test
+PORT=1234 yarn test
 ```
