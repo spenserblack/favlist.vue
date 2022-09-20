@@ -40,6 +40,11 @@ const router = useRouter();
 const id = computed((): number => route.params.id);
 
 const table = ref<QTable>(null);
+const pagination = ref({
+  page: 1,
+  rowsPerPage: 10,
+});
+const rowIndexOffset = computed(() => (pagination.value.page - 1) * pagination.value.rowsPerPage);
 
 const favlist = ref<Favlist | null>(null);
 const title = computed((): string => favlist.value?.title ?? '<unknown>');
@@ -108,7 +113,7 @@ const rowToBeEdited = ref<number | null>(null);
 const rowEditValues = ref<string[]>([]);
 const showEditRowDialog = ref(false);
 const onRowClick = (_evt: unknown, row: Row, index: number) => {
-  rowToBeEdited.value = index;
+  rowToBeEdited.value = index + rowIndexOffset.value;
   showEditRowDialog.value = true;
   rowEditValues.value = columns.value.map(({ name }) => row[name]);
 };
@@ -161,7 +166,7 @@ onMounted(async () => {
     :columns="columns"
     :rows="rows"
     row-key="id"
-    :pagination="{ rowsPerPage: 10 }"
+    v-model:pagination="pagination"
     color="primary"
     @rowClick="onRowClick"
     ref="table"
