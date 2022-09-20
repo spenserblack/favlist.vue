@@ -1,8 +1,8 @@
 module.exports = function configQuasar(ctx) {
   return {
-    extras: ['material-symbols-outline'],
+    extras: ["material-symbols-outline"],
     framework: {
-      iconSet: 'material-symbols-outline',
+      iconSet: "material-symbols-outline",
     },
   };
 };

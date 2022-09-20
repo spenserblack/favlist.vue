@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ v2 ]
+    branches: [v2]
   pull_request:
-    branches: [ v2 ]
+    branches: [v2]
 
 env:
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1

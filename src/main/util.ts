@@ -3,21 +3,21 @@ import type {
   JsonExport,
   LegacyJsonExport,
   LegacyFavlistJsonExport,
-} from './db';
+} from "./db";
 
 type FavlistJsonExportWithProperties = {
-  title: unknown,
-  data: unknown,
+  title: unknown;
+  data: unknown;
 };
 
 type JsonExportWithProperties = {
-  favlists: unknown,
+  favlists: unknown;
 };
 
 type LegacyFavlistJsonExportWithProperties = {
-  title: unknown,
-  columns: unknown,
-  data: unknown,
+  title: unknown;
+  columns: unknown;
+  data: unknown;
 };
 
 type LegacyJsonExportWithProperties = { favlists: unknown };
@@ -44,9 +44,7 @@ export function validateFavlistJson(value: unknown): value is FavlistJsonExport 
   if (!validateFavlistProperties(value)) {
     return false;
   }
-  if (typeof value.title !== 'string'
-      || !Array.isArray(value.data)
-     ) {
+  if (typeof value.title !== "string" || !Array.isArray(value.data)) {
     return false;
   }
   const { data } = value;
@@ -54,26 +52,31 @@ export function validateFavlistJson(value: unknown): value is FavlistJsonExport 
     return true;
   }
   // TODO Reduce duplicate iterations
-  const validValues = data
-    .every((row) => Object.values(row)
-      .every((value) => typeof value === 'string'));
+  const validValues = data.every((row) =>
+    Object.values(row).every((value) => typeof value === "string"),
+  );
   const [firstRow, ...rest] = data;
   const firstRowKeys = new Set(Object.keys(firstRow));
-  return validValues && rest.every((row) => setEquality(new Set(Object.keys(row)), firstRowKeys));
+  return (
+    validValues &&
+    rest.every((row) => setEquality(new Set(Object.keys(row)), firstRowKeys))
+  );
 }
 
 function validateProperties(value: unknown): value is JsonExportWithProperties {
-  if (value == null || typeof value !== 'object') {
+  if (value == null || typeof value !== "object") {
     return false;
   }
-  return ('favlists' in value);
+  return "favlists" in value;
 }
 
-function validateFavlistProperties(value: unknown): value is FavlistJsonExportWithProperties {
-  if (value == null || typeof value !== 'object') {
+function validateFavlistProperties(
+  value: unknown,
+): value is FavlistJsonExportWithProperties {
+  if (value == null || typeof value !== "object") {
     return false;
   }
-  return ('title' in value) && ('data' in value);
+  return "title" in value && "data" in value;
 }
 
 /**
@@ -94,39 +97,47 @@ export function validateLegacyJson(value: unknown): value is LegacyJsonExport {
  * Validates that a value is a valid legacy JSON import/export object representing a
  * single Favlist.
  */
-export function validateLegacyFavlistJson(value: unknown): value is LegacyFavlistJsonExport {
+export function validateLegacyFavlistJson(
+  value: unknown,
+): value is LegacyFavlistJsonExport {
   if (!validateLegacyFavlistProperties(value)) {
     return false;
   }
-  if (typeof value.title !== 'string'
-      || !Array.isArray(value.columns)
-      || !Array.isArray(value.data)) {
+  if (
+    typeof value.title !== "string" ||
+    !Array.isArray(value.columns) ||
+    !Array.isArray(value.data)
+  ) {
     return false;
   }
-  if (value.columns.some((column) => typeof column !== 'string')) {
+  if (value.columns.some((column) => typeof column !== "string")) {
     return false;
   }
   const dataIsValid = value.data.every((row) => {
     if (!Array.isArray(row)) {
       return false;
     }
-    return row.every((cell) => typeof cell === 'string');
+    return row.every((cell) => typeof cell === "string");
   });
   return dataIsValid;
 }
 
-function validateLegacyProperties(value: unknown): value is LegacyJsonExportWithProperties {
-  if (value == null || typeof value !== 'object') {
+function validateLegacyProperties(
+  value: unknown,
+): value is LegacyJsonExportWithProperties {
+  if (value == null || typeof value !== "object") {
     return false;
   }
-  return ('favlists' in value);
+  return "favlists" in value;
 }
 
-function validateLegacyFavlistProperties(value: unknown): value is LegacyFavlistJsonExportWithProperties {
-  if (value == null || typeof value !== 'object') {
+function validateLegacyFavlistProperties(
+  value: unknown,
+): value is LegacyFavlistJsonExportWithProperties {
+  if (value == null || typeof value !== "object") {
     return false;
   }
-  return ('title' in value) && ('columns' in value) && ('data' in value);
+  return "title" in value && "columns" in value && "data" in value;
 }
 
 export function pivotArray<T>(arr: T[][]): T[][] {

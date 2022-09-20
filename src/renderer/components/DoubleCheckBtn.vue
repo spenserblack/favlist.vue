@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { QBtn } from 'quasar'
+import { ref, computed } from "vue";
+import { QBtn } from "quasar";
 
 interface Props {
   label?: string | number;
@@ -8,20 +8,20 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  confirmText: 'Are you sure?',
+  confirmText: "Are you sure?",
 });
 
 const emit = defineEmits<{
-  (e: 'click'): void;
-  (e: 'confirm'): void;
+  (e: "click"): void;
+  (e: "confirm"): void;
 }>();
 
 const clicked = ref(false);
 
 const onClick = () => {
-  emit('click');
+  emit("click");
   if (clicked.value) {
-    emit('confirm');
+    emit("confirm");
   } else {
     clicked.value = true;
   }

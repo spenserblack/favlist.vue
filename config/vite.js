@@ -1,36 +1,42 @@
-const Path = require('path');
-const vuePlugin = require('@vitejs/plugin-vue')
-const { quasar, transformAssetUrls } = require('@quasar/vite-plugin');
+const Path = require("path");
+const vuePlugin = require("@vitejs/plugin-vue");
+const { quasar, transformAssetUrls } = require("@quasar/vite-plugin");
 
-const { defineConfig } = require('vite');
+const { defineConfig } = require("vite");
 
 /**
  * https://vitejs.dev/config
  */
 const config = defineConfig({
-    root: Path.join(__dirname, '..', 'src', 'renderer'),
-    publicDir: 'public',
-    server: {
-        port: 8080,
+  root: Path.join(__dirname, "..", "src", "renderer"),
+  publicDir: "public",
+  server: {
+    port: 8080,
+  },
+  open: false,
+  build: {
+    outDir: Path.join(__dirname, "..", "build", "renderer"),
+    emptyOutDir: true,
+  },
+  plugins: [
+    vuePlugin({
+      template: { transformAssetUrls },
+    }),
+    quasar({
+      sassVariables: Path.join(
+        __dirname,
+        "..",
+        "src",
+        "renderer",
+        "quasar-variables.sass",
+      ),
+    }),
+  ],
+  resolve: {
+    alias: {
+      "@": Path.join(__dirname, "..", "src", "renderer"),
     },
-    open: false,
-    build: {
-        outDir: Path.join(__dirname, '..', 'build', 'renderer'),
-        emptyOutDir: true,
-    },
-    plugins: [
-      vuePlugin({
-        template: { transformAssetUrls },
-      }),
-      quasar({
-        sassVariables: Path.join(__dirname, '..', 'src', 'renderer', 'quasar-variables.sass'),
-      }),
-    ],
-    resolve: {
-        alias: {
-            '@': Path.join(__dirname, '..', 'src', 'renderer')
-        }
-    }
+  },
 });
 
 module.exports = config;

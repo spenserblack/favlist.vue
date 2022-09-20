@@ -1,32 +1,18 @@
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue';
-import {
-  allFavlists,
-  addFavlist,
-  deleteFavlist,
-  electronMessage,
-} from '../electron'
-import {
-  QList,
-  QItem,
-  QItemSection,
-  QItemLabel,
-
-  QBtn,
-  QForm,
-  QInput,
-} from 'quasar';
-import DeleteConfirmation from '../components/DeleteConfirmation.vue';
+import { computed, ref, onMounted } from "vue";
+import { allFavlists, addFavlist, deleteFavlist, electronMessage } from "../electron";
+import { QList, QItem, QItemSection, QItemLabel, QBtn, QForm, QInput } from "quasar";
+import DeleteConfirmation from "../components/DeleteConfirmation.vue";
 
 const favlists = ref([]);
-const title = ref('');
+const title = ref("");
 const newList = async () => {
   if (!title.value) {
     return;
   }
   const favlist = await addFavlist(title.value);
   electronMessage(`Created list "${title.value}"`);
-  title.value = '';
+  title.value = "";
   favlists.value.push(favlist);
 };
 const deleteOption = ref(null);
@@ -41,11 +27,11 @@ const deleteList = async () => {
 };
 
 const emit = defineEmits<{
-  (e: 'update:title', title: string): void
+  (e: "update:title", title: string): void;
 }>();
 
 onMounted(async () => {
-  emit('update:title', null);
+  emit("update:title", null);
   favlists.value = await allFavlists();
 });
 </script>
@@ -75,26 +61,22 @@ onMounted(async () => {
         </QForm>
       </QItemSection>
     </QItem>
-    <QItem
-      v-for="(favlist, index) in favlists"
-      clickable
-      v-ripple
-      :key="favlist.id"
-    >
+    <QItem v-for="(favlist, index) in favlists" clickable v-ripple :key="favlist.id">
       <QItemSection side>
-      <QBtn
-        color="negative"
-        class="delete-list-btn"
-        icon="sym_o_delete_forever"
-        :aria-label="`Remove ${favlist.title}`"
-        @click="deleteOption = index"
-      />
+        <QBtn
+          color="negative"
+          class="delete-list-btn"
+          icon="sym_o_delete_forever"
+          :aria-label="`Remove ${favlist.title}`"
+          @click="deleteOption = index"
+        />
       </QItemSection>
       <QItemSection>
         <router-link
           class="text-h5 text-primary favlist-link"
           :to="{ name: 'favlist', params: { id: favlist.id } }"
-        >{{ favlist.title }}</router-link>
+          >{{ favlist.title }}</router-link
+        >
       </QItemSection>
     </QItem>
   </QList>
