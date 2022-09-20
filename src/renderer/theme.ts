@@ -1,17 +1,17 @@
-const themeKey = 'favlist--dark-theme';
+const themeKey = "favlist--dark-theme";
 
 /**
  * @return True for dark mode, false for light mode, 'auto' to pick automatically
  */
-export function load(): boolean | 'auto' {
+export function load(): boolean | "auto" {
   const value = window?.localStorage?.getItem(themeKey);
   switch (value) {
-    case 'true':
+    case "true":
       return true;
-    case 'false':
+    case "false":
       return false;
     default:
-      return 'auto';
+      return "auto";
   }
 }
 

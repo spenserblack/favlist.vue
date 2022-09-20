@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import {
   getFavlist,
   deleteFavlist,
@@ -11,28 +11,23 @@ import {
   editRow as editDbRow,
   deleteRow as deleteDbRow,
   setWindowTitle,
-} from '../electron';
+} from "../electron";
 import {
   QTable,
   QTr,
   QTh,
   QTd,
-
   QBtn,
-
   QDialog,
-
   QCard,
   QCardSection,
   QCardActions,
-
   QForm,
   QInput,
-
   QIcon,
-} from 'quasar';
-import DeleteConfirmation from '../components/DeleteConfirmation.vue';
-import DoubleCheckBtn from '../components/DoubleCheckBtn.vue';
+} from "quasar";
+import DeleteConfirmation from "../components/DeleteConfirmation.vue";
+import DoubleCheckBtn from "../components/DoubleCheckBtn.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -44,35 +39,37 @@ const pagination = ref({
   page: 1,
   rowsPerPage: 10,
 });
-const rowIndexOffset = computed(() => (pagination.value.page - 1) * pagination.value.rowsPerPage);
+const rowIndexOffset = computed(
+  () => (pagination.value.page - 1) * pagination.value.rowsPerPage,
+);
 
 const favlist = ref<Favlist | null>(null);
-const title = computed((): string => favlist.value?.title ?? '<unknown>');
+const title = computed((): string => favlist.value?.title ?? "<unknown>");
 
-const columns = computed((): Column[] => favlist
-  .value?.columns
-  .map(({ id, name }) => ({
-    name: id, // That's confusing 😅
-    label: name,
-    field: (row) => row[id],
-    align: 'center',
-  }))
-  ?? []);
+const columns = computed(
+  (): Column[] =>
+    favlist.value?.columns.map(({ id, name }) => ({
+      name: id, // That's confusing 😅
+      label: name,
+      field: (row) => row[id],
+      align: "center",
+    })) ?? [],
+);
 const addColumn = async () => {
   const list = favlist.value;
   if (list == null) {
-    console.error('favlist is null');
+    console.error("favlist is null");
     return;
   }
   const column = await addDbColumn(list.id);
   list.columns.push(column);
   // TODO Get value from DB instead of hardcoding?
-  list.rows.forEach((row) => row[column.id] = '---');
+  list.rows.forEach((row) => (row[column.id] = "---"));
 };
 
 // NOTE Index of the column to be edited
 const columnToBeEdited = ref<number | null>(null);
-const columnNameInput = ref('');
+const columnNameInput = ref("");
 const showEditColumnDialog = ref(false);
 const onColumnClick = (index: number) => {
   const column = columns.value[index];
@@ -101,7 +98,7 @@ const rows = computed((): Row[] => favlist.value?.rows ?? []);
 const addRow = async () => {
   const list = favlist.value;
   if (list == null) {
-    console.error('favlist is null');
+    console.error("favlist is null");
     return;
   }
   const row = await addDbRow(list.id);
@@ -119,14 +116,17 @@ const onRowClick = (_evt: unknown, row: Row, index: number) => {
 };
 const editRow = async () => {
   const row = rows.value[rowToBeEdited.value];
-  const values = rowEditValues.value.reduce((values: Record<string | number, string>, value, index) => {
-    const column = columns.value[index];
-    values[column.name] = value;
-    return values;
-  }, {});
+  const values = rowEditValues.value.reduce(
+    (values: Record<string | number, string>, value, index) => {
+      const column = columns.value[index];
+      values[column.name] = value;
+      return values;
+    },
+    {},
+  );
   const list = favlist.value;
   if (list == null) {
-    console.error('favlist is null');
+    console.error("favlist is null");
     return;
   }
   const newRow = await editDbRow(row.id, values);
@@ -146,16 +146,16 @@ const showDeleteConfirmation = ref(false);
 const deleteList = async () => {
   // NOTE Favlist must exist if button is visible
   await deleteFavlist(favlist.value.id);
-  router.push({ name: 'home' });
+  router.push({ name: "home" });
 };
 
 const emit = defineEmits<{
-  (e: 'update:title', title: string): void
+  (e: "update:title", title: string): void;
 }>();
 
 onMounted(async () => {
   favlist.value = await getFavlist(id.value);
-  emit('update:title', title.value);
+  emit("update:title", title.value);
 });
 </script>
 
@@ -185,12 +185,7 @@ onMounted(async () => {
     <template #header="props">
       <QTr :props="props">
         <QTh v-for="(col, colIndex) in props.cols" :key="col.name">
-          <QBtn
-            :label="col.label"
-            flat
-            no-caps
-            @click="onColumnClick(colIndex)"
-          />
+          <QBtn :label="col.label" flat no-caps @click="onColumnClick(colIndex)" />
         </QTh>
       </QTr>
     </template>
@@ -209,10 +204,7 @@ onMounted(async () => {
     :favlistTitle="title"
   />
 
-  <QDialog
-    id="edit-column-dialog"
-    v-model="showEditColumnDialog"
-  >
+  <QDialog id="edit-column-dialog" v-model="showEditColumnDialog">
     <QCard>
       <QForm @submit="editColumn">
         <QCardSection>
@@ -221,32 +213,32 @@ onMounted(async () => {
           </div>
         </QCardSection>
         <QCardSection>
-          <QInput
-            v-model="columnNameInput"
-            label="Name"
-            autofocus
-            dense
-          />
+          <QInput v-model="columnNameInput" label="Name" autofocus dense />
         </QCardSection>
         <QCardActions>
-          <QBtn flat color="grey" label="Cancel" @click="showEditColumnDialog = false" />
+          <QBtn
+            flat
+            color="grey"
+            label="Cancel"
+            @click="showEditColumnDialog = false"
+          />
           <QBtn flat color="primary" label="Save" type="submit" />
-          <DoubleCheckBtn flat color="negative" label="Delete" @confirm="deleteColumn" />
+          <DoubleCheckBtn
+            flat
+            color="negative"
+            label="Delete"
+            @confirm="deleteColumn"
+          />
         </QCardActions>
       </QForm>
     </QCard>
   </QDialog>
 
-  <QDialog
-    id="edit-row-dialog"
-    v-model="showEditRowDialog"
-  >
+  <QDialog id="edit-row-dialog" v-model="showEditRowDialog">
     <QCard>
       <QForm @submit="editRow">
         <QCardSection>
-          <div class="text-h6">
-            <QIcon left name="sym_o_edit" /> Edit row
-          </div>
+          <div class="text-h6"><QIcon left name="sym_o_edit" /> Edit row</div>
         </QCardSection>
         <QCardSection>
           <QInput

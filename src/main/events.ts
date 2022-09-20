@@ -1,17 +1,9 @@
-import {
-  BrowserWindow,
-  ipcMain,
-} from 'electron';
+import { BrowserWindow, ipcMain } from "electron";
 import type {
   IpcMainEvent as Event,
   IpcMainInvokeEvent as InvokeEvent,
-} from 'electron';
-import {
-  Favlist,
-  Column,
-  Row,
-  Cell,
-} from './db';
+} from "electron";
+import { Favlist, Column, Row, Cell } from "./db";
 
 export function setWindowTitle(event: Event, title: string) {
   const webContents = event.sender;
@@ -21,7 +13,7 @@ export function setWindowTitle(event: Event, title: string) {
 
 export async function allFavlists() {
   const favlists = await Favlist.findAll({
-    attributes: ['id', 'title'],
+    attributes: ["id", "title"],
   });
   return Promise.all(favlists.map((favlist: Favlist) => favlist.toJSON()));
 }
@@ -60,15 +52,19 @@ export async function deleteFavlist(_event: Event | InvokeEvent, id: number) {
 export async function addColumn(_event: InvokeEvent, favlistId: number) {
   const column = await Column.create({
     favlistId,
-    name: 'New Column',
+    name: "New Column",
   });
   const favlist = await column.getFavlist();
   const rows = await favlist.getRows();
 
-  await Promise.all(rows.map((row: Row) => Cell.create({
-    rowId: row.id,
-    columnId: column.id,
-  })));
+  await Promise.all(
+    rows.map((row: Row) =>
+      Cell.create({
+        rowId: row.id,
+        columnId: column.id,
+      }),
+    ),
+  );
 
   return column.toJSON();
 }
@@ -103,10 +99,14 @@ export async function addRow(_event: InvokeEvent, favlistId: number) {
   const favlist = await row.getFavlist();
   const columns = await favlist.getColumns();
 
-  await Promise.all(columns.map((column: Column) => Cell.create({
-    rowId: row.id,
-    columnId: column.id,
-  })));
+  await Promise.all(
+    columns.map((column: Column) =>
+      Cell.create({
+        rowId: row.id,
+        columnId: column.id,
+      }),
+    ),
+  );
 
   return row.toJSON();
 }

@@ -36,6 +36,6 @@ export default interface ElectronApi {
 
 declare global {
   interface Window {
-    electron: ElectronApi,
+    electron: ElectronApi;
   }
 }
