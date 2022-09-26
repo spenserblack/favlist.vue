@@ -29,7 +29,7 @@
     "electron-devtools-installer": "^3.2.0",
     "playwright": "^1.25.2",
     "prettier": "2.7.1",
-    "sass": "^1.54.9",
+    "sass": "^1.55.0",
     "typescript": "^4.8.3",
     "vite": "^2.9.9"
   },
@@ -37,7 +37,7 @@
     "@quasar/extras": "^1.15.3",
     "electron-updater": "^5.2.1",
     "quasar": "^2.8.3",
-    "sequelize": "^6.23.0",
+    "sequelize": "^6.23.1",
     "sqlite3": "^5.1.1",
     "vue": "^3.2.39",
     "vue-router": "^4.1.5"
