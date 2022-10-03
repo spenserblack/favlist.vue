@@ -34,7 +34,7 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
-    "@quasar/extras": "^1.15.3",
+    "@quasar/extras": "^1.15.4",
     "electron-updater": "^5.2.1",
     "quasar": "^2.8.4",
     "sequelize": "^6.23.1",
