@@ -37,7 +37,7 @@
     "@quasar/extras": "^1.15.6",
     "electron-updater": "^5.3.0",
     "quasar": "^2.10.2",
-    "sequelize": "^6.25.5",
+    "sequelize": "^6.25.8",
     "sqlite3": "^5.1.2",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
