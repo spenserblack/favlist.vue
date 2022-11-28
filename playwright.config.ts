@@ -8,6 +8,7 @@ const webServerCommands = [
 
 const config: PlaywrightTestConfig = {
   testDir: "./e2e-tests",
+  timeout: 60000,
   maxFailures: 2,
   webServer: {
     command: webServerCommands,
