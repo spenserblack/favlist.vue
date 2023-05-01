@@ -1337,10 +1337,10 @@
   resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.15.9.tgz#78b6a0f3dce982dd6da160e86f7f5c681bd81e1e"
   integrity sha512-2y0KKTRol5FsqxhJH19pG5qU9ve+AUdPzQDSh/d7XxBZGJASOAcglKH/W1dCdChLJzyJDOJ4DmM2sxWQkosVWw==
 
-"@quasar/vite-plugin@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@quasar/vite-plugin/-/vite-plugin-1.3.0.tgz#c399b00d40c4a40aadb0e90a8e9116d72379d339"
-  integrity sha512-wd7b/QrKu/WB53l+vxo6GLbkoEwh5FFKLtLl3fM8TXrDDRB1qsKKkRa/vwTU4dpuyBaOZDjycmYuAsOlTdNp8w==
+"@quasar/vite-plugin@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@quasar/vite-plugin/-/vite-plugin-1.3.1.tgz#49d4cadc5c04d8263b4ba55311dc12bdbf337137"
+  integrity sha512-TOkCgsoxDxdRwzO05SMJgb1ICK1F3FeYE0MFoKukJ0KwKi17WSjIZGfxltShJ9x4ZtNezhVLjFN9MXbQgXFZwQ==
 
 "@sideway/address@^4.1.3":
   version "4.1.4"
