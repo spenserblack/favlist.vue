@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
+import type { ElectronApplication, Page, Locator } from "@playwright/test";
 import setup from "./setup";
-import type { ElectronApplication, Page, Locator } from "playwright";
 let app: ElectronApplication;
 let window: Page;
 

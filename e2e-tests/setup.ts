@@ -1,6 +1,6 @@
 import { resolve } from "path";
-import { _electron as electron } from "playwright";
-import type { ElectronApplication, Page } from "playwright";
+import { _electron as electron } from "@playwright/test";
+import type { ElectronApplication, Page } from "@playwright/test";
 
 process.env.NODE_ENV = "test";
 
