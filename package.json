@@ -18,7 +18,7 @@
   },
   "repository": "https://github.com/spenserblack/favlist.vue",
   "devDependencies": {
-    "@playwright/test": "^1.32.1",
+    "@playwright/test": "^1.35.1",
     "@quasar/vite-plugin": "^1.3.1",
     "@vitejs/plugin-vue": "^2.3.4",
     "@vue/cli": "^5.0.8",
@@ -27,7 +27,7 @@
     "electron": "^24.1.3",
     "electron-builder": "^23.6.0",
     "electron-devtools-installer": "^3.2.0",
-    "playwright": "^1.32.1",
+    "playwright": "^1.35.1",
     "prettier": "2.8.8",
     "sass": "^1.57.1",
     "typescript": "^5.1.6",
