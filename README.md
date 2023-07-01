@@ -6,6 +6,8 @@ An :electron: electron app generated from [Deluze/electron-vue-template][templat
 
 Manage lists with dynamic columns backed by a SQLite database.
 
+Honestly not sure why I wrote this instead of using an Excel/Libreoffice workbook :shrug:
+
 ## Previous Version
 
 This is the new, Electron version of [favlist.vue][static site], which is a static site that I made
