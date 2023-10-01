@@ -27,7 +27,7 @@
     "electron": "^25.3.2",
     "electron-builder": "^24.6.3",
     "electron-devtools-installer": "^3.2.0",
-    "prettier": "2.8.8",
+    "prettier": "3.0.3",
     "sass": "^1.57.1",
     "typescript": "^5.1.6",
     "vite": "^2.9.9"
