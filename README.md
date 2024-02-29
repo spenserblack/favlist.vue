@@ -2,6 +2,11 @@
 
 [![CI](https://github.com/spenserblack/favlist.vue/actions/workflows/ci.yml/badge.svg?branch=v2)](https://github.com/spenserblack/favlist.vue/actions/workflows/ci.yml)
 
+> [!WARNING]
+> Because I'm personally not using this anymore, I am archiving this project. If you stumble on this
+> project and would like to see further development, you can raise an issue or discussion on my GH
+> profile.
+
 An :electron: electron app generated from [Deluze/electron-vue-template][template].
 
 Manage lists with dynamic columns backed by a SQLite database.
